@@ -1,2 +1,2 @@
 let test = 'test';
-let master = 'master'
+let master = 'master';
