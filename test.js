@@ -1,3 +1,2 @@
 let test = 'test';
-
-let develop = 'develop';
+let master = 'master';
