@@ -28,3 +28,8 @@
 + ***Features/qjy-001***
     - 添加文件 qjyTest.js
     - 修改文件 common.js (增加 systemOut function)
+    
++ ***Features/fyf-001***
+    - 添加文件 fyf.js
+    - 修改文件 common.js (增加 updateTest function)
+    
