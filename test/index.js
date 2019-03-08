@@ -7,5 +7,9 @@ function commit() {
 }
 
 function origin() {
+
+}
+
+function newBranch() {
     
 }
