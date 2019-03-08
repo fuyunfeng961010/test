@@ -1,3 +1,7 @@
 function test() {
-    console.log('hello test')
+    console.log('hello test');
+}
+
+function commit() {
+    console.log('hello commit');
 }
