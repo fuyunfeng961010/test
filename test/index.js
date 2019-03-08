@@ -5,3 +5,7 @@ function test() {
 function commit() {
     console.log('hello commit');
 }
+
+function origin() {
+    
+}
