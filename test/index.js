@@ -6,6 +6,3 @@ function commit1() {
     console.log('hello commit');
 }
 
-function origin() {
-
-}
