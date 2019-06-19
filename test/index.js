@@ -2,7 +2,7 @@ function test() {
     console.log('hello test');
 }
 
-function commit() {
+function commit1() {
     console.log('hello commit');
 }
 
