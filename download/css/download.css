@@ -1,0 +1,223 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+}
+ul, li, p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.download-header {
+  background-color: #333333;
+  width: 100%;
+  height: 76px;
+  line-height: 76px;
+  border-bottom: 3px solid #AC2128;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.download-main {
+  width: 100%;
+  height: 100%;
+  height: calc(100% - 79px);
+  min-height: 680px;
+  display: flex;
+  padding-top: 79px;
+  /* margin-top: 79px; */
+  justify-content: flex-start;
+}
+.download-main-left {
+  width: calc(100% - 540px);
+  min-width: 790px;
+  height: 100%;
+  border-right: 1px solid #cccccc;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.qr-code {
+  width: 270px;
+  height: 270px;
+  margin: 0 auto;
+  padding: 10px 20px 20px 20px;
+  border: 1px solid #000;
+  text-align: center;
+}
+.qr-code img {
+  width: 270px;
+  height: 270px;
+}
+.edition {
+  width: 786px;
+  height: 280px;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+}
+.edition > div {
+  width: 270px;
+  padding: 20px 20px 0 20px;
+  background-color: #ebe7e7;
+}
+.ios-title, .android-title {
+  font-size: 18px;
+  font-weight: bolder;
+  line-height: 30px;
+  padding-left: 35px;
+  background: url('../images/ios.png') no-repeat;
+}
+.android-title {
+  background: url('../images/android.png') no-repeat;
+}
+.new-edition {
+  border-bottom: 1px solid #000;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.add-title {
+  margin-top: 20px;
+}
+.add-characteristic {
+  height: 140px;
+  overflow: auto;
+}
+.add-characteristic::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+}
+.add-characteristic::-webkit-scrollbar-track {
+  background-color: #ebe7e7;
+}
+.add-characteristic::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border-radius: 6px;
+  margin: 5px;
+  background-color: #fff;
+}
+.edition-record {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 30px;
+  color: rgb(63, 47, 206);
+}
+.edition-record span {
+  cursor: pointer;
+}
+.download-main-right {
+  width: 540px;
+  height: 100%;
+  overflow: auto;
+  padding: 20px 0 20px 30px;
+  box-sizing: border-box;
+}
+.download-main-right-title {
+  font-size: 14px;
+  font-weight: bolder;
+}
+.install-state {
+  margin: 20px 0;
+  line-height: 18px;
+  font-size: 14px;
+}
+.state-main > div {
+  width: 420px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #ebe7e7;
+  padding: 10px 0;
+}
+.state-main img{
+  width: 400px;
+}
+.record-modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.record-modal-content {
+  width: 750px;
+  height: 600px;
+  border: 1px solid #000;
+  background-color: #fff;
+  position: relative;
+}
+.record-modal-content .header {
+  background-color: #333333;
+  width: 100%;
+  height: 47px;
+  line-height: 47px;
+  border-bottom: 3px solid #AC2128;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+}
+.header-close {
+  font-size: 30px;
+  color: #909399;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  cursor: pointer;
+}
+.record-modal .list > li{
+  margin-top: 15px;
+  font-size: 14px;
+}
+.record-modal .list .item-title {
+  font-size: 20px;
+  font-weight: bolder;
+  line-height: 30px;
+}
+.record-modal .list .item-edition {
+  width: 200px;
+  border-bottom: 1px solid #000;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.record-modal .list .add-title {
+  margin-top: 20px;
+}
+.record-modal-content .body {
+  height: 500px;
+  overflow: auto;
+  padding-left: 50px;
+}
+.record-modal-content .footer {
+  height: 47px;
+  background-color: #ebe7e7;
+  border-top: 3px solid #ccc;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.record-modal-content .footer .close {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 16px;
+  font-size: 13px;
+  background: #98741c;
+  color: #fff;
+  border-radius: 16px;
+  margin-right: 20px;
+  cursor: pointer;
+}
