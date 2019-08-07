@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta http-equiv="Cache-control" content="no-cache">  
+	<meta http-equiv="Cache" content="no-cache">  
+
+    <style>
+        body {
+            background-color: #F2F2F2;
+        }
+
+        #content-weix, #content-browser {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-60%);
+            width: 70%
+        }
+
+        .download-btn {
+            display: flex;
+            text-align: center;
+            border-radius: 5px;
+            height: 50px;
+            font-size: 20px;
+            text-decoration: none;
+            color: #f0f0f0;
+            font-weight: 100;
+            line-height: 60px;
+            justify-content: center;
+            align-items: center;
+            background: #c41212;
+        }
+
+        .download-btn-top {
+            background: #c41212 !important;
+        }
+
+
+        #help-btn {
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            text-decoration: none;
+            color: #434343;
+            font-weight: 200;
+            padding-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+  <!-- 微信 -->
+    <div id="content-weix" style="opacity: 0.15;">
+        <div style="display: flex;align-items: center;margin-bottom: 60px">
+            <img src="./assets/icon.png" style="width:80px;margin-right: 20px;border: 1px solid #cec8c8;">
+            <span style="font-size: 24px">GDS运营中心(测试版)</span>
+        </div>
+        <span id="ios-dw" class="download-btn download-btn-top" href="#">
+            <img class="icon" src="./assets/iphone.svg">
+            <div style="width: 140px;text-align: left;">iPhone 下载</div>
+        </span>
+        <span id="help-btn" href="#">如何解决【未受信任的企业开发者】</span>
+        <span class="download-btn" href="#">
+            <img class="icon" src="./assets/android.svg">
+            <div style="width: 140px;text-align: left;">Android 下载</div>
+        </span>
+    </div>
+    <!-- 浏览器 -->
+    <div id="content-browser">
+        <div style="display: flex;align-items: center;margin-bottom: 60px">
+            <img src="./assets/icon.png" style="width:80px;margin-right: 20px;border: 1px solid #cec8c8;">
+            <span style="font-size: 24px">GDS运营中心(测试版)</span>
+        </div>
+        <a id="ios-dw" class="download-btn download-btn-top" href="itms-services://?action=download-manifest&amp;url=https://online.gds-services.com/ocapp/devtest/manifest.plist">
+            <img class="icon" src="./assets/iphone.svg">
+            <div style="width: 140px;text-align: left;">iPhone 下载</div>
+        </a>
+        <a id="help-btn" href="https://online.gds-services.com/ocapp/devtest/help/ios.html">如何解决【未受信任的企业开发者】</a>
+        <a class="download-btn" href="https://online.gds-services.com/ocapp/devtest/gds-oc.apk">
+            <img class="icon" src="./assets/android.svg">
+            <div style="width: 140px;text-align: left;">Android 下载</div>
+        </a>
+    </div>
+    <div style="text-align: right; margin-right: 15px; color: white;" id="share">
+      <img src="./assets/shareArrow1.png" alt="" style="width: 60px">
+      <p>请通过浏览器进行下载</p>
+    </div>
+</body>
+
+</html>
+<script>
+  // 当前是否在微信内置页面打开
+  function is_weixin() {
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+      document.body.style.background = 'rgba(0,0,0,0.8)'
+      document.getElementById('content-browser').style.display = 'none'
+    } else {
+      document.getElementById('content-weix').style.display = 'none'
+      document.getElementById('share').style.display = 'none'
+    }
+  }
+  is_weixin()
+</script>
