@@ -1,5 +1,14 @@
 let editionData = [
     {
+        versions: 'V2.2.7',
+        date: '2019.8.8',
+        character: [
+            '1、新增首页主入口',
+            '2、支持审计系统',
+            '3、细节优化等'
+        ]
+    },
+    {
         versions: 'V2.2.0',
         date: '2019.4.18',
         character: [
