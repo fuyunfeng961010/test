@@ -1,0 +1,20 @@
+{
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Monokai",
+  "git.path": "C:\/Users\/77108\/AppData\/Local\/Atlassian\/SourceTree\/git_local\/mingw32\/bin\/git.exe",
+  "files.autoSave": "onFocusChange",
+  "vetur.format.defaultFormatterOptions": { // vue文件格式化 默认添加分号 && 单引号边双引号 (禁止)
+    "prettier": {
+      "semi": false,
+      "singleQuote": true
+    }
+  },
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "emmet.includeLanguages": {
+    "vue": "html",
+    "vue-html": "html"
+  },
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": false
+}
