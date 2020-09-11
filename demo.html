@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="colorChg">click colorChg</button>
+  <script>
+    (() => {
+      // 常规绑定
+      const Button = function (id) {
+        this.element = document.getElementById(`${id}`)
+        this.bindEvent()
+      }
+      Button.prototype.bindEvent = function () {
+        this.element.addEventListener('click', this.colorChg, false)
+      }
+      // 这是因为当使用 addEventListener() 为一个元素注册事件的时候，事件函数里的 this 值是该元素的引用。 this.element 报错
+      Button.prototype.colorChg = function () {
+        this.style.backgroundColor = '#1abc9c'
+        this.style.color = 'white'
+      }
+      new Button('colorChg')
+    })
+  </script>
+  <script>
+      (() => {
+        // 箭头函数绑定
+        const Button = function (id) {
+          this.element = document.getElementById(`${id}`)
+          this.bindEvent()
+        }
+        Button.prototype.bindEvent = function () {
+          this.element.addEventListener('click', () => this.colorChg(), false)
+        }
+        Button.prototype.colorChg = function () {
+          this.element.style.backgroundColor = '#1abc9c'
+          this.element.style.color = 'white'
+        }
+        new Button('colorChg')
+      })()
+  </script>
+  <script>
+      (() => {
+        // Symbol
+        const mySymbol = Symbol('attr');
+        const obj = {};
+        obj[mySymbol] = 'Hello!';
+        console.log(obj)
+      })
+  </script>
+  <script>
+      (() => {
+        // 使用ES5 的语法创建一个迭代器
+        const iteration = items => {
+          let i = 0
+          const next = () => {
+            let done = i >= items.length
+            let value = done ? undefined : items[i++]
+            return {
+              value,
+              done
+            }
+          }
+          return {
+            next,
+            // return 方法的使用场合是，如果 for...of 循环提前退出（通常是因为出错，或者有 break 语句或 continue 语句），就会调用 return 方法
+            return: () => {
+              console.log('return 执行了')
+              return {}
+            }
+          }
+        }
+        const iterationIns = iteration([1, 2, 3])
+        // console.log('iterationIns', iterationIns.next())
+        // console.log('iterationIns', iterationIns.next())
+        // console.log('iterationIns', iterationIns.next())
+        // console.log('iterationIns', iterationIns.next())
+        // console.log('iterationIns', iterationIns.next())
+
+        // 拥有Symbol.iterator 属性 才可被遍历 TypeError: iterator is not iterable
+        const obj = {
+        };
+
+        obj[Symbol.iterator] = () => iteration([1, 2, 3])
+
+        for (value of obj) {
+          // break 会调用迭代器的 return 方法
+          if (value == 2) break
+          console.log(value);
+        }
+
+        // 自定义 for of 遍历方法
+        const forOf = (obj, callBack) => {
+          // console.log('iterator', obj[Symbol.iterator]().next())
+          let iterator = obj[Symbol.iterator]()
+          let result = iterator.next()
+          while (!result.done) {
+            callBack(result.value)
+            result = iterator.next()
+          }
+        }
+        forOf(obj, value => console.log('value', value))
+      })
+  </script>
+  <script>
+      (() => {
+        // 内置迭代器 keys() values() entries()
+        const user = {
+          name: 'xm',
+          age: 22
+        }
+
+        const frs = ['xh', 'xw']
+        // console.log(Object.keys(user))
+        // console.log(Object.values(user))
+        // console.log(Object.entries(user))
+
+        for(let [key, val] of Object.entries(user)) {
+          // console.log(`${key}: ${val}`)
+        }
+
+        for(let [key, val] of frs.entries()) {
+          // console.log(`${key}: ${val}`)
+        }
+
+        // 数组和 Set 集合的默认迭代器是 values() 方法，Map 集合的默认迭代器是 entries() 方法。
+        let setArr = new Set([1, 2, 3])
+        for(let v of setArr) {
+          console.log('setValue', v)
+        }
+
+        let mapArr = new Map()
+        mapArr.set(Array, '[]')
+        mapArr.set(function() {}, 'function')
+        for (let [key, value] of mapArr) {
+          console.log('mapItem', `${key}: ${value}`)
+        }
+      })
+  </script>
+  <script>
+    (() => {
+      // 模拟实现一个简单的 Set 数据结构，实现 add delete has clear forEach 方法
+      function Set(list) {
+        this.values = []
+        
+        for(let v of list) {
+          this.add(v)
+        }
+      }
+
+      Set.prototype.size = function() {
+        return this.values.length
+      }
+
+      Set.prototype.add = function(v) {
+        if (!this.values.includes(v)) {
+          this.values.push(v)
+        }
+      }
+
+      Set.prototype.delete = function(v) {
+        if (this.values.includes(v)) {
+          this.values.splice(this.values.findIndex(item => item == v), 1)
+        }
+      }
+
+      Set.prototype.has = function(v) {
+        return this.values.includes(v)
+      }
+
+      Set.prototype.clear = function() {
+        this.values.length = 0
+      }
+
+      Set.prototype.forEach = function(callBack) {
+        for(let [k, v] of this.values.entries()) {
+          callBack(k, v)
+        }
+      }
+
+      // 迭代器相关......
+
+      let setIns = new Set([1, 2, 2, 3, 4])
+      // setIns.delete(2)
+      // console.log('has', setIns.has(2))
+      // setIns.clear()
+      // setIns.add(NaN)
+      // setIns.add(NaN)
+      // setIns.forEach((k, v) => {
+      //   console.log(`${k}: ${v}`)
+      // })
+      console.log('setIns', setIns)
+    })()
+  </script>
+</body>
+
+</html>
