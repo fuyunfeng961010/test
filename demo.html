@@ -9,6 +9,7 @@
 
 <body>
   <button id="colorChg">click colorChg</button>
+  <span class="element">WeakMap</span>
   <script>
     (() => {
       // 常规绑定
@@ -195,6 +196,31 @@
       //   console.log(`${k}: ${v}`)
       // })
       console.log('setIns', setIns)
+    })
+  </script>
+  <script>
+    (() => {
+      // WeakMap
+      const map = new WeakMap();
+      const attr1 = {
+        flag: 'attr1'
+      }
+      const attr2 = ['attr2']
+      map.set(attr1, 1)
+      map.set(attr2, 2)
+      // console.log('map', map)
+
+      let wm = new WeakMap(), element = document.querySelector(".element");
+      wm.set(element, "data");
+
+      let value = wm.get(element);
+      // console.log('value', value); // data
+
+      element.parentNode.removeChild(element);
+      element = null;
+
+      console.log('element', element)
+      console.log('wm', wm)
     })()
   </script>
 </body>
