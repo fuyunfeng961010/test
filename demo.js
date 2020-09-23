@@ -1,3 +1,4 @@
+// Promise all
 (() => {
   // 查找当前目录最大的文件
   var fs = require('fs');
@@ -97,4 +98,29 @@
     .then(res => {
       console.log('res', res)
     })
-})();
+});
+
+// Promist race
+(() => {
+  function foo(delay) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        resolve("foo!");
+      }, delay);
+    });
+  }
+
+  function timeoutPromise(delay) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject("Timeout!");
+      }, delay);
+    });
+  }
+
+  Promise.race([
+    foo(4000),
+    timeoutPromise(3000)
+  ])
+    .then(function (data) { console.log(data) }, function (err) { console.log(err) });
+})()
