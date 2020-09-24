@@ -123,4 +123,4 @@
     timeoutPromise(3000)
   ])
     .then(function (data) { console.log(data) }, function (err) { console.log(err) });
-})()
+})();

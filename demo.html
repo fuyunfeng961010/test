@@ -217,7 +217,44 @@
       console.log('wm', wm)
     });
 
+    // async
     (() => {
-      
-    })
+      (async () => {
+        function getList() {
+          console.log('action getList')
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              console.log('getList')
+              resolve('getList')
+            }, 2000)
+          })
+        }
+        function getAnotherList() {
+          console.log('action getAnotherList')
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              console.log('getAnotherList')
+              resolve('getAnotherList')
+            }, 3000)
+          })
+        }
+        // 无关联的同步请求也会等待上一个方法执行结束
+        // const list = await getList();
+        // const anotherList = await getAnotherList();
+
+        // 同时执行 顺序返回
+        // const listPromise = getList();
+        // const anotherListPromise = getAnotherList();
+        // await listPromise;
+        // await anotherListPromise;
+
+        // Promise.all
+        Promise.all([getList(), getAnotherList()])
+        .then((data) => {
+          console.log('data', data)
+        });
+      })();
+    });
+
+    
   </script>
