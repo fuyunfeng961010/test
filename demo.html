@@ -8,8 +8,19 @@
 </head>
 
 <body>
-  <button id="colorChg">click colorChg</button>
-  <span class="element">WeakMap</span>
+  <!-- <button id="colorChg">click colorChg</button> -->
+
+  <!-- <span class="element">WeakMap</span> -->
+
+  <!-- <p>
+    <span id="num"></span>
+    <button id="addNum">addNum</button>
+  </p>
+  <p>
+    <span id="age"></span>
+    <button id="addAge">addAge</button>
+  </p> -->
+
   <script>
     (() => {
       // 常规绑定
@@ -42,7 +53,7 @@
         this.element.style.color = 'white'
       }
       new Button('colorChg')
-    })();
+    });
 
     (() => {
       // Symbol
@@ -250,11 +261,181 @@
 
         // Promise.all
         Promise.all([getList(), getAnotherList()])
-        .then((data) => {
-          console.log('data', data)
-        });
+          .then((data) => {
+            console.log('data', data)
+          });
       })();
     });
 
-    
+    // defineProperty
+    (() => {
+      let obj = {}
+      Object.defineProperty(obj, 'num', {
+        value: 96,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+      // console.log(obj)
+
+      // 读写 记录监听
+      function Archiver() {
+        let value = null
+        let archivers = []
+        archivers.push({ value: value })
+        Object.defineProperty(this, 'num', {
+          get: function () {
+            console.log('getter')
+            return value
+          },
+          set: function (curValue) {
+            console.log('setter')
+            value = curValue
+            archivers.push({ value: value })
+          }
+        })
+        this.getArchiver = function () {
+          if (archivers.length > 2) {
+            return archivers.slice(archivers.length - 2)
+          }
+          return archivers
+        }
+      }
+      let insArchiver = new Archiver()
+      // insArchiver.num = 96
+      // insArchiver.num = 97
+      // insArchiver.num = 98
+      // console.log(insArchiver.num)
+      // console.log(insArchiver.getArchiver())
+
+      // 数据更改视图
+      // let numObj = {
+      //   num: 0
+      // }
+      // let value = 0
+      // document.getElementById('num').innerHTML = value
+      // Object.defineProperty(numObj, 'num', {
+      //   get: function() {
+      //     return value
+      //   },
+      //   set: function(curValue) {
+      //     value = curValue
+      //     document.getElementById('num').innerHTML = value
+      //   }
+      // })
+
+      // console.log(document.getElementById('addNum'))
+      // document.getElementById('addNum').addEventListener('click', function() {
+      //   numObj.num++
+      // })
+
+      // watch api
+      function watch(obj, attr, eleId, fnc) {
+        let value = obj[attr]
+        Object.defineProperty(obj, attr, {
+          get() {
+            return value
+          },
+
+          set(curValue) {
+            value = curValue
+            document.getElementById(eleId).innerHTML = value
+            fnc()
+          }
+        })
+        obj[attr] = value
+      }
+      let valueObj = {
+        num: 0,
+        age: 16
+      }
+
+      watch(valueObj, 'num', 'num', function () {
+        console.log('callBack num')
+      })
+
+      document.getElementById('addNum').addEventListener('click', function () {
+        valueObj.num += 1
+      })
+
+
+      watch(valueObj, 'age', 'age', function () {
+        console.log('callBack age')
+      })
+
+      document.getElementById('addAge').addEventListener('click', function () {
+        valueObj.age += 1
+      })
+
+    });
+
+    // proxy
+    (() => {
+      // var proxy = new Proxy({}, {
+      //   get: function (obj, prop) {
+      //     console.log('设置 get 操作')
+      //     return obj[prop];
+      //   },
+      //   set: function (obj, prop, value) {
+      //     console.log('设置 set 操作', obj, prop, value)
+      //     obj[prop] = value;
+      //   }
+      // });
+
+      // proxy.time = 35; // 设置 set 操作
+      // console.log(proxy.time); // 设置 get 操作 // 35
+
+      // function createArray(...elements) {
+      //   let handler = {
+      //     get(target, propKey, receiver) {
+      //       let index = Number(propKey);
+      //       if (index < 0) {
+      //         propKey = String(target.length + index);
+      //       }
+      //       return Reflect.get(target, propKey, receiver);
+      //     }
+      //   };
+
+      //   let target = [];
+      //   target.push(...elements);
+      //   return new Proxy(target, handler);
+      // }
+
+      // let arr = createArray('a', 'b', 'c');
+      // arr[-1] // c
+
+      // watch api
+      function watch(obj, attr, eleId, fnc) {
+        let proxy = new Proxy(obj, {
+          get(target, prop, receiver) {
+            return target[prop]
+          },
+          set(target, prop, value) {
+            target[prop] = value
+            document.getElementById(eleId).innerHTML = value
+            fnc()
+          }
+        })
+        proxy[attr] = obj[attr]
+        return proxy
+      }
+      
+      let obj = {
+        num: 0,
+        age: 16
+      }
+      let proxyNum = watch(obj, 'num', 'num', function() {
+        console.log('callback num')
+      })
+      document.getElementById('addNum').addEventListener('click', function () {
+        proxyNum.num += 1
+      })
+
+      let proxyAge = watch(obj, 'age', 'age', function() {
+        console.log('callback num')
+      })
+      document.getElementById('addAge').addEventListener('click', function () {
+        proxyAge.age += 1
+      })
+    });
   </script>
