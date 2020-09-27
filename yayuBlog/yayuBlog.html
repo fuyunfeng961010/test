@@ -21,6 +21,7 @@
     <button id="addAge">addAge</button>
   </p> -->
 
+  <!-- ES6 -->
   <script>
     (() => {
       // 常规绑定
@@ -419,23 +420,328 @@
         proxy[attr] = obj[attr]
         return proxy
       }
-      
+
       let obj = {
         num: 0,
         age: 16
       }
-      let proxyNum = watch(obj, 'num', 'num', function() {
+      let proxyNum = watch(obj, 'num', 'num', function () {
         console.log('callback num')
       })
       document.getElementById('addNum').addEventListener('click', function () {
         proxyNum.num += 1
       })
 
-      let proxyAge = watch(obj, 'age', 'age', function() {
+      let proxyAge = watch(obj, 'age', 'age', function () {
         console.log('callback num')
       })
       document.getElementById('addAge').addEventListener('click', function () {
         proxyAge.age += 1
       })
     });
+  </script>
+
+  <script>
+    // 原型
+    (() => {
+      let Person = function () {
+        this.name = 'Person'
+        this.getName = function () {
+          return this.name
+        }
+      }
+      let person1 = new Person()
+      // console.log(person1.getName())
+
+      // 实例 原型对象
+      // console.log(Person.prototype)
+      // console.log(Reflect.getPrototypeOf(person1) === Person.prototype)
+      // console.log(Object.getPrototypeOf(person1) === Person.prototype)
+
+      // 原型对象constructor 指向构造函数
+      // console.log(Person)
+      // console.log(Person.prototype.constructor === Person)
+
+      // 最上层为null
+      // console.log(Object.getPrototypeOf(Object.prototype) === null)
+
+      // 向上查找 原型中获取constructor属性
+      console.log(person1.constructor === Person.prototype.constructor)
+    });
+
+    // 词法作用域
+    (() => {
+      // 静态作用域 函数的作用域在函数定义的时候就决定了
+      // var scope = "global scope";
+      // function checkscope() {
+      //   var scope = "local scope";
+      //   function f() {
+      //     return scope;
+      //   }
+      //   return f();
+      // }
+      // console.log(checkscope())
+
+      var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f;
+      }
+      console.log(checkscope()())
+    });
+
+    // 执行上下文
+    (() => {
+      // 1. 进入执行上下文
+      // 1. 函数的所有形参
+      // 2. 函数声明
+      // 3. 变量声明  如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
+      // 2. 代码执行
+
+      // 未用关键字声明  进入执行上下文 函数的所有形参提前声明 (报错)
+      // console.log(a)
+      // a = 1
+
+      // 进入执行上下文 函数的所有形参提前声明 为undefined (undefined 变量声明提升但初始化赋值不会 代码执行时才赋值)
+      // console.log(a)
+      // var a = 1
+
+      // 如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
+      console.log(foo); // 函数
+
+      function foo() {
+        console.log("foo");
+      }
+
+      var foo = 1;
+    });
+
+    // 闭包
+    (() => {
+      let data = []
+      // for(var i = 0; i < 3; i++) {
+      // for(let i = 0; i < 3; i++) {
+      //   data.push(() => {
+      //     console.log(i)
+      //   })
+      // }
+
+      for (let i = 0; i < 3; i++) {
+        data.push(
+          () => {
+            ((i) => {
+              console.log(i)
+            })(i)
+          }
+        )
+      }
+
+      data[0]()
+      data[1]()
+      data[2]()
+    });
+
+    (() => {
+      // 可以理解为：同一个函数形成的多个闭包的值都是相互独立的。
+      // var t = function () {
+      //   var n = 99;
+      //   var t2 = function () {
+      //     n++
+      //     console.log(n)
+      //   }
+      //   return t2;
+      // };
+
+      // var a1 = t();
+      // var a2 = t();
+
+      // a1(); // 100
+      // a1(); // 101
+
+      // a2(); // 100
+      // a2(); // 101
+
+      let nAdd;
+      let t = () => {
+        let n = 99;
+        nAdd = () => {
+          n++;
+        };
+        let t2 = () => {
+          console.log(n);
+        };
+        return t2;
+      };
+
+      let a1 = t();
+      let a2 = t(); // nAdd被重新赋值 关联到a2函数作用域
+
+      nAdd();
+      a1()
+      a2()
+    });
+
+    // call 模拟
+    (() => {
+      // 基础调用 this指向
+      // Function.prototype.call2 = function (context) {
+      //   console.log(this)
+      //   // 首先要获取调用call的函数，用this可以获取
+      //   context.fn = this;
+      //   context.fn();
+      //   delete context.fn;
+      // }
+
+      // // 测试一下
+      // var foo = {
+      //   value: 1
+      // };
+
+      // function bar() {
+      //   console.log(this.value);
+      // }
+
+      // bar.call2(foo); // 1
+
+      // 不定长入参 
+      // Function.prototype.call2 = function (context) {
+      //   context.fn = this;
+      //   var args = [];
+      //   for (var i = 1, len = arguments.length; i < len; i++) {
+      //     args.push('arguments[' + i + ']');
+      //     // args.push(arguments[i]);
+      //   }
+      //   eval('context.fn(' + args + ')');
+      //   // context.fn(...args)
+      //   delete context.fn;
+      // }
+
+      // // 测试一下
+      // var foo = {
+      //   value: 1
+      // };
+
+      // function bar(name, age) {
+      //   console.log(name)
+      //   console.log(age)
+      //   console.log(this.value);
+      // }
+
+      // bar.call2(foo, 'kevin', 18);
+
+      // 入参为null情况 函数返回值
+      Function.prototype.call2 = function (context) {
+        var context = context || window;
+        context.fn = this;
+
+        var args = [];
+        for (var i = 1, len = arguments.length; i < len; i++) {
+          args.push('arguments[' + i + ']');
+        }
+
+        var result = eval('context.fn(' + args + ')');
+
+        delete context.fn
+        return result;
+      }
+
+      // 测试一下
+      value = 2;
+
+      var obj = {
+        value: 1
+      }
+
+      function bar(name, age) {
+        console.log(this.value);
+        return {
+          value: this.value,
+          name: name,
+          age: age
+        }
+      }
+
+      // console.log(bar.call2(null))
+
+      console.log(bar.call2(obj, 'kevin', 18));
+    });
+
+    // apply 
+    (() => {
+      Function.prototype.apply2 = function (context, arr) {
+        var context = context || window;
+        context.fn = this;
+
+        var result;
+        if (!arr) {
+          result = context.fn();
+        }
+        else {
+          var args = [];
+          for (var i = 0, len = arr.length; i < len; i++) {
+            args.push('arr[' + i + ']');
+          }
+          result = eval('context.fn(' + args + ')')
+        }
+
+        delete context.fn
+        return result;
+      }
+
+      value = 2;
+
+      var obj = {
+        value: 1
+      }
+
+      function bar(name, age) {
+        console.log(this.value);
+        return {
+          value: this.value,
+          name: name,
+          age: age
+        }
+      }
+
+      // console.log(bar.apply2(null))
+
+      console.log(bar.apply2(obj, ['kevin', 18]));
+    });
+  </script>
+
+  <script>
+    // 函数声明提升 执行覆盖
+    // function Foo() {
+    //   getName = function () {
+    //     console.log(1);
+    //   };
+    //   return this
+    // }
+
+    // function getName() {
+    //   console.log(5);
+    // }
+
+    // Foo().getName();
+
+    // 运算符优先级 实例原型中查找
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+    // function Foo() {
+    //   getName = function () {
+    //     console.log(1);
+    //   };
+    //   return this;
+    // }
+
+    // Foo.prototype.getName = function () {
+    //   console.log(3);
+    // };
+
+    // function getName() {
+    //   console.log(5);
+    // };
+    // new Foo().getName()//3
   </script>
