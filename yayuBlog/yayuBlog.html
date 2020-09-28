@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #mouseContainer {
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+      border: 1px solid #444;
+      font-size: 30px;
+    }
+  </style>
 </head>
 
 <body>
@@ -20,6 +30,9 @@
     <span id="age"></span>
     <button id="addAge">addAge</button>
   </p> -->
+
+  <div id="mouseContainer"></div>
+  <button id="mouseCancel">cancel</button>
 
   <!-- ES6 -->
   <script>
@@ -441,6 +454,7 @@
     });
   </script>
 
+  <!-- 深入系列 -->
   <script>
     // 原型
     (() => {
@@ -501,7 +515,7 @@
       // 3. 变量声明  如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
       // 2. 代码执行
 
-      // 未用关键字声明  进入执行上下文 函数的所有形参提前声明 (报错)
+      // 未用关键字声明  进入执行上下文 函数的所有形参提前声明不包含 (报错)
       // console.log(a)
       // a = 1
 
@@ -710,38 +724,246 @@
 
       console.log(bar.apply2(obj, ['kevin', 18]));
     });
+
+    // 类数组 arguments
+    (() => {
+      // callee 属性 闭包
+      var data = [];
+
+      for (var i = 0; i < 3; i++) {
+        (data[i] = function () {
+          console.log(arguments.callee.i)
+        }).i = i;
+      }
+
+      data[0]();
+      data[1]();
+      data[2]();
+    });
+
+    (() => {
+      function Person(name) {
+        this.name = name;
+        if (typeof this.getName != "function") {
+          Person.prototype = {
+            constructor: Person,
+            getName: function () {
+              console.log(this.name);
+            }
+          }
+          // return new Person(name); // 字面量赋值后重新初始化
+        }
+      }
+
+      var person1 = new Person('kevin');
+      var person2 = new Person('daisy');
+
+      // 报错 并没有该方法
+      person1.getName(); // 此时实际原型对象中并没有该方法
+
+      // 注释掉上面的代码，这句是可以执行的。
+      person2.getName();
+    });
+
+    // 继承
+    (() => {
+      // 原型链继承 引用类型的属性会被所有实例共享
+      // function Parent() {
+      //   this.name = 'parent'
+      //   this.nums = [1, 2]
+      //   Parent.prototype.getName = function() {
+      //     console.log(this.name)
+      //   }
+      // }
+
+      // function Child() {}
+
+      // Child.prototype = new Parent()
+      // let child1 = new Child()
+      // child1.nums.push(3)
+
+      // let child2 = new Child()
+      // console.log(child2.nums)
+
+      // 借用构造函数 经典继承
+      // 1.可以在 Child 中向 Parent 传参
+      // 2.避免了引用类型的属性被所有实例共享
+      // function Parent(nums) {
+      //   this.nums = nums
+      //   this.names = ['li', 'wang']
+      // }
+      // function Child(nums) {
+      //   Parent.call(this, nums)
+      // }
+      // let child1 = new Child([1, 2])
+      // child1.names.push('sha')
+      // console.log(child1.names)
+
+      // let child2 = new Child()
+      // console.log(child2.names)
+
+      // 组合继承 融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式
+      // function Parent(name) {
+      //   this.name = name
+      //   this.colors = ['black', 'white']
+      // }
+
+      // Parent.prototype.getName = function () {
+      //     console.log(this.name)
+      // }
+
+      // function Child(name, age) {
+      //   Parent.call(this, name)
+      //   this.age = age
+      // }
+
+      // Child.prototype = new Parent()
+
+      // let child1 = new Child('kevin', 18);
+      // child1.colors.push('pink');
+      // console.log(child1.name);
+      // console.log(child1.age);
+      // console.log(child1.colors);
+      // child1.getName()
+
+      // let child2 = new Child('Tom', 22);
+      // child2.colors.push('blue');
+      // console.log(child2.name);
+      // console.log(child2.age);
+      // console.log(child2.colors);
+      // child2.getName()
+
+      // 原型式继承 包含引用类型的属性值始终都会共享相应的值 这点跟原型链继承一样
+      // function Parent(obj) {
+      //   let fn = function() {}
+      //   fn.prototype = obj
+      //   return new fn()
+      // }
+      // let obj = {
+      //   name: 'obj',
+      //   nums: [1, 2]
+      // }
+      // let parent1 = new Parent(obj)
+      // let parent2 = new Parent(obj)
+
+      // parent1.name = 'p1'
+      // parent1.nums.push(3)
+      // console.log(parent1.name)
+      // console.log(parent2.name)
+      // console.log(parent1.nums)
+      // console.log(parent2.nums)
+
+      // 寄生式继承 创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象。
+      // function Parent(obj) {
+      //   let cloneObj = Object.create(obj)
+      //   cloneObj.name = 'cloneObj'
+      //   cloneObj.getName = function() {
+      //     console.log(this.name)
+      //   }
+      //   return cloneObj
+      // }
+      // let parent1 = new Parent({attr1: 'attr'})
+      // parent1.getName()
+
+      // 寄生组合式继承
+      function Parent(name) {
+        this.name = name;
+        this.colors = ['red', 'blue', 'green'];
+      }
+
+      Parent.prototype.getName = function () {
+        console.log(this.name)
+      }
+
+      function Child(name, age) {
+        Parent.call(this, name);
+        this.age = age;
+      }
+
+      // 关键的三步
+      // let F = function () { };
+
+      // F.prototype = Parent.prototype;
+
+      // Child.prototype = new F();
+
+      function object(o) {
+        function F() { }
+        F.prototype = o;
+        return new F();
+      }
+
+      function prototype(child, parent) {
+        var prototype = object(parent.prototype);
+        prototype.constructor = child;
+        child.prototype = prototype;
+      }
+
+      prototype(Child, Parent);
+
+      var child1 = new Child('kevin', '18');
+
+      console.log(child1);
+
+    });
   </script>
 
   <script>
-    // 函数声明提升 执行覆盖
-    // function Foo() {
-    //   getName = function () {
-    //     console.log(1);
-    //   };
-    //   return this
-    // }
+    (() => {
+      // 数据更新监听
+      function watch(obj, attr, fnc) {
+        let proxy = new Proxy(obj, {
+          get() {
+            return obj[attr]
+          },
+          set(target, prop, value) {
+            target[prop] = value
+            fnc(value)
+          }
+        })
+        proxy[attr] = obj[attr]
+        return proxy
+      }
+      let data = { count: 0 }
+      let countEle = document.getElementById('mouseContainer')
+      let countProxy = watch(data, 'count', function (value) {
+        countEle.innerHTML = value
+      })
 
-    // function getName() {
-    //   console.log(5);
-    // }
+      const debounce = function (fn, delay, immediate = false) {
+        let timer = null
+        let result = 'result'
+        let interFn = function () {
+          let context = this
+          if (immediate) {
+            if (!timer) {
+              fn.apply(context, [arguments, result])
+            }
+          }
+          clearTimeout(timer)
+          timer = setTimeout(() => {
+            fn.apply(context, [arguments, result])
+            timer = null
+          }, delay)
+        }
+        interFn.cancel = function() {
+          clearTimeout(timer)
+          timer = null
+        }
+        return interFn
+      }
+      let mouseFn = debounce(function(arguments, result) {
+        console.log('this', this)
+        // console.log('event', event)
+        console.log('arguments', arguments)
+        console.log('result', result)
+        countProxy.count++
+      }, 10000, true)
+      countEle.onmousemove = mouseFn
 
-    // Foo().getName();
-
-    // 运算符优先级 实例原型中查找
-    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
-    // function Foo() {
-    //   getName = function () {
-    //     console.log(1);
-    //   };
-    //   return this;
-    // }
-
-    // Foo.prototype.getName = function () {
-    //   console.log(3);
-    // };
-
-    // function getName() {
-    //   console.log(5);
-    // };
-    // new Foo().getName()//3
+      let cancelEle = document.getElementById('mouseCancel')
+      cancelEle.onclick = function() {
+        mouseFn.cancel()
+      }
+    })();
   </script>
