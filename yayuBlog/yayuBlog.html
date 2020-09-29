@@ -31,8 +31,8 @@
     <button id="addAge">addAge</button>
   </p> -->
 
-  <div id="mouseContainer"></div>
-  <button id="mouseCancel">cancel</button>
+  <!-- <div id="mouseContainer"></div> -->
+  <!-- <button id="mouseCancel">cancel</button> -->
 
   <!-- ES6 -->
   <script>
@@ -909,6 +909,7 @@
   </script>
 
   <script>
+    // 防抖 节流
     (() => {
       // 数据更新监听
       function watch(obj, attr, fnc) {
@@ -930,40 +931,108 @@
         countEle.innerHTML = value
       })
 
-      const debounce = function (fn, delay, immediate = false) {
+      // 防抖
+      // const debounce = function (fn, delay, immediate = false) {
+      //   let timer = null
+      //   let result = 'result'
+      //   let interFn = function () {
+      //     let context = this
+      //     if (immediate) {
+      //       if (!timer) {
+      //         fn.apply(context, [arguments, result])
+      //       }
+      //     }
+      //     clearTimeout(timer)
+      //     timer = setTimeout(() => {
+      //       fn.apply(context, [arguments, result])
+      //       timer = null
+      //     }, delay)
+      //   }
+      //   interFn.cancel = function() {
+      //     clearTimeout(timer)
+      //     timer = null
+      //   }
+      //   return interFn
+      // }
+      // let mouseFn = debounce(function(arguments, result) {
+      //   console.log('this', this)
+      //   // console.log('event', event)
+      //   console.log('arguments', arguments)
+      //   console.log('result', result)
+      //   countProxy.count++
+      // }, 10000, true)
+      // countEle.onmousemove = mouseFn
+
+      // let cancelEle = document.getElementById('mouseCancel')
+      // cancelEle.onclick = function() {
+      //   mouseFn.cancel()
+      // }
+
+      // 节流
+      // 时间戳
+      // const throttle = function (fn, delay) {
+      //   let time = 0
+      //   return function () {
+      //     let curTime = new Date().getTime()
+      //     if ((curTime - time) > delay) {
+      //       fn.apply(this, arguments)
+      //       time = curTime
+      //     }
+      //   }
+      // }
+
+      // 定时器
+      // const throttle = function (fn, delay) {
+      //   let timer = null
+      //   return function () {
+      //     if (timer) return
+      //     timer = setTimeout(() => {
+      //       fn.apply(this, arguments)
+      //       clearTimeout(timer)
+      //       timer = null
+      //     }, delay)
+      //   }
+      // }
+
+      // 二合一
+      const throttle = function (fn, delay) {
+        let time = 0
         let timer = null
-        let result = 'result'
-        let interFn = function () {
-          let context = this
-          if (immediate) {
-            if (!timer) {
-              fn.apply(context, [arguments, result])
-            }
-          }
-          clearTimeout(timer)
-          timer = setTimeout(() => {
-            fn.apply(context, [arguments, result])
+        const interFn = function () {
+          let curTime = new Date().getTime()
+          if ((curTime - time) > delay) {
+            fn.apply(this, arguments)
+            time = curTime
+            clearInterval(timer)
             timer = null
-          }, delay)
+          } else {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+              fn.apply(this, arguments)
+              clearTimeout(timer)
+              timer = null
+            }, delay)
+          }
         }
         interFn.cancel = function() {
+          time = 0
           clearTimeout(timer)
           timer = null
         }
         return interFn
       }
-      let mouseFn = debounce(function(arguments, result) {
-        console.log('this', this)
-        // console.log('event', event)
+      const mouseFn = throttle(function (arguments) {
         console.log('arguments', arguments)
-        console.log('result', result)
         countProxy.count++
-      }, 10000, true)
+      }, 5000)
       countEle.onmousemove = mouseFn
-
       let cancelEle = document.getElementById('mouseCancel')
       cancelEle.onclick = function() {
         mouseFn.cancel()
       }
+    });
+
+    (() => {
+
     })();
   </script>
