@@ -219,21 +219,20 @@ function searchInsert(nums: any, target: number): number {
  * 5.     111221
  */
 function countAndSay(n: number) {
-  if (n == 1) return '1'
-  let preStr = countAndSay(n - 1)
-  console.log('preStr', preStr)
-  let initStr = preStr[0]
+  if(n === 1) return '1'
+  const preValue = countAndSay(n - 1)
+  let initValue = preValue[0]
   let str = '', count = 0
-  for (let i = 0; i < preStr.length; i++) {
-    if (initStr === preStr[i]) {
+  for (let i = 0; i < preValue.length; i++) {
+    if (preValue[i] == initValue) {
       count++
     } else {
-      str = str + String(count) + initStr
+      str = str + String(count) + initValue
       count = 1
-      initStr = preStr[i]
+      initValue = preValue[i]
     }
-    if (i === preStr.length - 1) {
-      str = str + String(count) + initStr
+    if (i === preValue.length - 1) {
+      str = str + String(count) + initValue
     }
   }
   return str
