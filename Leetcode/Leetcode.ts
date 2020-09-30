@@ -238,3 +238,36 @@ function countAndSay(n: number) {
   return str
 };
 // console.log(countAndSay(5))
+
+/**
+ * 
+ * @param s 
+ * 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+ * 左括号必须用相同类型的右括号闭合。
+ * 左括号必须以正确的顺序闭合。
+ */
+function isValid (s: string) {
+  let l = [], len = s.length;
+  // if(len % 2 || /\s/.test(s)){ return false; }
+  if(len % 2){ return false; }
+  for(let i = 0; i < len; i++){
+      switch (s[i]) {
+          case '(':
+          case '[':
+          case '{':
+              l.push(s[i]);
+              break;
+          case ')':
+              if(l.pop() !== '('){ return false; }
+              break;
+          case ']':
+              if(l.pop() !== '['){ return false; }
+              break;
+          case '}':
+              if(l.pop() !== '{'){ return false; }
+              break;
+      }
+  }
+  return !l.length;
+};
+console.log(isValid('{[()[ ] {}]}'))
