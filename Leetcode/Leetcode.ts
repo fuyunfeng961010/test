@@ -41,7 +41,7 @@ function reverse(x: number): number {
     return arr
   }
   const newNum = Number(reset(numArr.reverse()).join(''))
-  if (newNum > Math.pow(2,31)) return 0
+  if (newNum > Math.pow(2, 31)) return 0
   return sign.length ? Number(sign[0] + newNum) : Number(newNum)
 };
 // console.log(reverse(15342369))
@@ -75,7 +75,7 @@ function longestCommonPrefix(strs: string[]): string {
   const short = arrStr.reduce((pre, next) => {
     return next.length < pre.length ? next : pre
   })
-  for(let i = short.length; i >= 0; i--) {
+  for (let i = short.length; i >= 0; i--) {
     const prefix = short.slice(0, i).join('')
     if (strs.every(item => item.substr(0, i) === prefix)) {
       return prefix
@@ -135,3 +135,107 @@ function romanToInt(s: string): number {
 };
 // romanToInt('MCMXCIV') // 1994
 // romanToInt('LVIII')
+
+/**
+ * 
+ * @param nums
+ * 删除排序数组中的重复项
+ * 给定一个排序数组，你需要在 原地 删除重复出现的元素
+ * 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成
+ */
+function removeDuplicates(nums: number[]): number {
+  let cnt = 0
+  for (let index = nums.length - 1; index >= 0; index--) {
+    const item = nums[index]
+    if (!index || item != nums[index - 1]) {
+      nums.push(item)
+      cnt += 1
+    }
+  }
+  nums.reverse()
+  return cnt
+};
+// console.log(removeDuplicates([1, 1, 2, 2, 3, 3]))
+
+/**
+ * 
+ * @param nums
+ * @param val
+ * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+ * 要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+ * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+ */
+function removeElement(nums: number[], val: number): number {
+  let cnt = 0
+  for (let index = nums.length - 1; index >= 0; index--) {
+    const item = nums[index]
+    if (item !== val) {
+      nums.push(item)
+      cnt += 1
+    }
+  }
+  nums.reverse()
+  return cnt
+};
+// console.log(removeElement([3, 2, 2, 3], 3))
+
+/**
+ * 
+ * @param haystack 
+ * @param needle 
+ * 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+ * 
+ */
+function strStr(haystack: string, needle: string): number {
+  if (!needle) return 0
+  return haystack.indexOf(needle)
+};
+// console.log(strStr('hello', 'll'))
+
+/**
+ * 
+ * @param nums 
+ * @param target 
+ * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+ * 你可以假设数组中无重复元素。
+ */
+function searchInsert(nums: any, target: number): number {
+  const index = nums.findIndex((item: number) => item == target)
+  if (index != -1) return index
+  const list: any = [...nums, target].sort((a, b) => a - b)
+  return list.findIndex((item: any) => item == target)
+};
+// console.log(searchInsert([3, 5, 7, 9, 10], 8))
+
+/**
+ * 
+ * @param n 
+ * 给定一个正整数 n（1 ≤ n ≤ 30），输出外观数列的第 n 项。
+ * 从数字 1 开始，序列中的每一项都是对前一项的描述
+ * 1.     1
+ * 2.     11
+ * 3.     21
+ * 4.     1211
+ * 5.     111221
+ */
+function countAndSay(n: number) {
+  if (n == 1) return '1'
+  let preStr = countAndSay(n - 1)
+  console.log('preStr', preStr)
+  let initStr = preStr[0]
+  let str = '', count = 0
+  for (let i = 0; i < preStr.length; i++) {
+    if (initStr === preStr[i]) {
+      count++
+    } else {
+      str = str + String(count) + initStr
+      count = 1
+      initStr = preStr[i]
+    }
+    if (i === preStr.length - 1) {
+      str = str + String(count) + initStr
+    }
+  }
+  return str
+};
+// console.log(countAndSay(5))
