@@ -70,13 +70,68 @@ function isPalindrome(x: number): boolean {
  * 如果不存在公共前缀，返回空字符串 ""。
  */
 function longestCommonPrefix(strs: string[]): string {
+  if (!strs.length) return ''
   const arrStr = strs.map(item => item.split(''))
   const short = arrStr.reduce((pre, next) => {
     return next.length < pre.length ? next : pre
   })
-  for(let i = short.length - 1; i >= 0; i--) {
-    console.log(i)
+  for(let i = short.length; i >= 0; i--) {
+    const prefix = short.slice(0, i).join('')
+    if (strs.every(item => item.substr(0, i) === prefix)) {
+      return prefix
+    }
   }
   return ''
 };
-longestCommonPrefix(["flower","flow","flight"])
+// console.log(longestCommonPrefix(["flower","flow","flowight"]))
+
+/**
+ * 
+ * @param s 
+ * 给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。
+ * I             1
+ * V             5
+ * X             10
+ * L             50
+ * C             100
+ * D             500
+ * M             1000
+ * 通常情况下，罗马数字中小的数字在大的数字的右边
+ * I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+ * X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
+ * C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+ * 
+ */
+function romanToInt(s: string): number {
+  const baseSort: any = ['I', 'V', 'X', 'L', 'C', 'D', 'M']
+  const baseMatch: any = {
+    'I': '1',
+    'V': '5',
+    'X': '10',
+    'L': '50',
+    'C': '100',
+    'D': '500',
+    'M': '1000'
+  }
+  const strArr = s.split('')
+  const result: any = []
+  const jump: any = []
+  strArr.forEach((item, index: number) => {
+    // 特殊需相减的数处理后 跳过
+    if (jump.includes(index)) return
+    const curIndex: any = baseSort.findIndex((b: any) => b === item)
+    const nextIndex: any = baseSort.findIndex((b: any) => b === strArr[index + 1])
+    // 特殊需相减的数
+    if (nextIndex != -1 && nextIndex > curIndex) {
+      result.push(baseMatch[baseSort[nextIndex]] - baseMatch[item])
+      jump.push(index + 1)
+      return
+    }
+    result.push(baseMatch[item])
+  })
+  return result.map((item: any) => Number(item)).reduce((pre: any, next: any) => {
+    return pre += next
+  }, 0)
+};
+// romanToInt('MCMXCIV') // 1994
+// romanToInt('LVIII')
