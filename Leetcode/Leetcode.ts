@@ -219,7 +219,7 @@ function searchInsert(nums: any, target: number): number {
  * 5.     111221
  */
 function countAndSay(n: number) {
-  if(n === 1) return '1'
+  if (n === 1) return '1'
   const preValue = countAndSay(n - 1)
   let initValue = preValue[0]
   let str = '', count = 0
@@ -246,28 +246,28 @@ function countAndSay(n: number) {
  * 左括号必须用相同类型的右括号闭合。
  * 左括号必须以正确的顺序闭合。
  */
-function isValid (s: string) {
-  let l = [], len = s.length;
-  // if(len % 2 || /\s/.test(s)){ return false; }
-  if(len % 2){ return false; }
-  for(let i = 0; i < len; i++){
-      switch (s[i]) {
-          case '(':
-          case '[':
-          case '{':
-              l.push(s[i]);
-              break;
-          case ')':
-              if(l.pop() !== '('){ return false; }
-              break;
-          case ']':
-              if(l.pop() !== '['){ return false; }
-              break;
-          case '}':
-              if(l.pop() !== '{'){ return false; }
-              break;
-      }
+function isValid(s: string) {
+  if (s.length % 2) return false
+  let list = []
+  const matchList: any = {
+    ')': '(',
+    '}': '{',
+    ']': '['
   }
-  return !l.length;
+  const leftList = (<any>Object).values(matchList)
+  const rightList = (<any>Object).keys(matchList)
+  for(let i = 0; i < s.length; i++) {
+    const item = s[i]
+    if (leftList.includes(item)) {
+      list.push(item)
+      continue
+    }
+    if (rightList.includes(item)) {
+      if (list.pop() != matchList[item]) {
+        return false
+      }
+    }
+  }
+  return !list.length
 };
-console.log(isValid('{[()[ ] {}]}'))
+console.log(isValid('{['))
