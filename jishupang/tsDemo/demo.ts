@@ -274,4 +274,186 @@
 // const childPerson1 = new ChildPerson('childPerson1')
 // console.log(childPerson1)
 
-// 类的 Getter、Setter 和 static
+// 类里的只读属性 readonly
+// class Person {
+//   // public readonly _name: string
+//   constructor(readonly name: string) {}
+// }
+// const person1 = new Person('xiaoli')
+// console.log(person1)
+// // person1.name = 'ming'
+
+// tsconfig.json
+// function test(str: string) {
+//   console.log(str)
+// }
+// test('1')
+
+// export const name = "xiaoli";
+
+/**
+ * 联合类型展示
+ */
+// interface Waiter {
+//   anjiao: boolean;
+//   say: () => {};
+// }
+
+// interface Teacher {
+//   anjiao: boolean;
+//   skill: () => {};
+// }
+
+// 类型保护-类型断言
+// function isSelect (type: Waiter | Teacher) {
+//   if (type.anjiao) {
+//     (type as Teacher).skill()
+//   } else {
+//     (type as Waiter).say()
+//   }
+// }
+// isSelect({anjiao: true, skill: () => {
+//   console.log('skill')
+//   return {}
+// }})
+
+// 类型保护-in 语法
+// function isSelect (type: Waiter | Teacher) {
+//   if ('say' in type) {
+//     type.say()
+//   } else {
+//     type.skill()
+//   }
+// }
+// isSelect({anjiao: true, skill: () => {
+//   console.log('skill')
+//   return {}
+// }, say: () => {
+//   console.log('say')
+//   return {}
+// }})
+
+// 类型保护-typeof 语法
+// function add(first: string | number, second: string | number) {
+//   if (typeof first === 'string' || typeof second === 'string') return first + '+' + second
+//   return first + second
+// }
+// // console.log(add('hello', 'world'))
+// console.log(add(1, '1'))
+
+// 类型保护-instanceof 语法
+// class NumberObj {
+//   count: number = 1;
+// }
+
+// function addObj(first: object | NumberObj, second: object | NumberObj) {
+//   if (first instanceof NumberObj && second instanceof NumberObj) {
+//     return first.count + second.count
+//   }
+//   return 0
+// }
+// console.log(addObj(new NumberObj(), new NumberObj()))
+
+// 枚举
+// enum Status {
+//   online,
+//   offLine,
+//   awaitOrder
+// }
+
+// enum Status {
+//   online = 1,
+//   offLine,
+//   awaitOrder
+// }
+// console.log(Status.offLine, Status[1])
+
+/**
+ * 
+ * 函数泛型 
+ */
+// 参数类型保持一致
+// function join(first: string | number, second: string | number) {
+//   return `${first}${second}`;
+// }
+// console.log(join("jspang", ".com"))
+
+// function join<String>(first: String, second: String) {
+//   return `${first}${second}`;
+// }
+// console.log(join<string>("jspang", ".com"))
+
+// 泛型中数组的使用
+// function myFun<ANY>(params: ANY[]) {
+//   return params;
+// }
+// console.log(myFun<string>(["123", "456"]))
+
+// function myFun<ANY>(params: Array<ANY>) {
+//   return params;
+// }
+// console.log(myFun<string>(["123", "456"]))
+
+// 多个泛型的定义
+// function join<S, N>(first: S, second: N) {
+//   return `${first}${second}`;
+// }
+// console.log(join<string, number>('hello', 2))
+
+// 泛型的类型推断
+// function join<T, P>(first: T, second: P) {
+//   return `${first}${second}`;
+// }
+// console.log(join(1, "2"))
+
+// 基本类
+// class SelectGirl {
+//   constructor(private girls: string[]) {}
+
+//   getGirl(index: number) {
+//     return this.girls[index]
+//   }
+// }
+// const girls: string[] = ['xiaohong', 'xiaolan']
+// const selectGirl1 = new SelectGirl(girls)
+// console.log(selectGirl1.getGirl(1))
+
+// 泛型改造基本类
+// class SelectGirl<T> {
+//   constructor(private girls: T[]) {}
+
+//   getGirl(index: number): T {
+//     return this.girls[index]
+//   }
+// }
+// const girls: string[] = ['xiaohong', 'xiaolan']
+// const selectGirl1 = new SelectGirl<string>(girls)
+// console.log(selectGirl1.getGirl(1))
+
+// 泛型约束 string || number
+// class SelectGirl<T extends string | number> {
+//   constructor(private girls: T[]) {}
+
+//   getGirl(index: number): T {
+//     return this.girls[index]
+//   }
+// }
+// const girls: number[] = [1, 2]
+// const selectGirl1 = new SelectGirl<number>(girls)
+// console.log(selectGirl1.getGirl(1))
+
+// 泛型中的继承
+// interface Girl {
+//   name: string
+// }
+// class SelectGirl<T extends Girl> {
+//   constructor(private girls: T[]) {}
+
+//   getGirl(index: number): string {
+//     return this.girls[index].name
+//   }
+// }
+// const girls = [{name: 'xiaohong'}, {name: 'xiaolan'}]
+// const selectGirl1 = new SelectGirl(girls)
+// console.log(selectGirl1.getGirl(0))
+
