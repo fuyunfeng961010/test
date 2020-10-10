@@ -9,6 +9,7 @@
     <div class="boxed">
       <div id="content-container">
         <div id="page-content">
+          <span>hello</span>
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
@@ -27,20 +28,27 @@
 </template>
 
 <script lang="ts">
-import Component, { Vue } from 'vue-class-component'
+// import Component, { Vue } from 'vue-class-component'
 import { defineAsyncComponent } from 'vue'
 
-@Component({
-  // Specify `components` option.
-  // See Vue.js docs for all available options:
-  // https://vuejs.org/v2/api/#Options-Data
+// @Component({
+//   // Specify `components` option.
+//   // See Vue.js docs for all available options:
+//   // https://vuejs.org/v2/api/#Options-Data
+//   components: {
+//     SysSliderNav: defineAsyncComponent(() => {
+//       return import('@/components/SysSliderNav.vue')
+//     })
+//   }
+// })
+export default {
+  name: 'Layout',
   components: {
     SysSliderNav: defineAsyncComponent(() => {
       return import('@/components/SysSliderNav.vue')
-    })
+    }),
   }
-})
-export default class Layout extends Vue {}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

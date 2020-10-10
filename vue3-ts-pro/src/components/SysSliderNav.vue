@@ -11,7 +11,7 @@
               <!--================================-->
               <div id="mainnav-profile" class="mainnav-profile margin-top-20">
                 <div class="profile-wrap">
-                  <div class="img-Sur">
+                  <div class="img-Sur" style="margin-top: 2000px">
                     <span class="label label-success pull-right">{{
                       'userinfo.userinfo.title'
                     }}</span>
@@ -39,11 +39,11 @@
               <div id="mainnav-shortcut">
                 <ul class="list-unstyled">
                   <li class="col-xs-3" data-content="我的面板">
-                    <router-link :to="{ name: 'home' }" tag="li">
+                    <!-- <router-link :to="{ name: 'home' }" tag="li">
                       <a class="shortcut-grid" href="#">
                         <i class="ti-home"></i>
                       </a>
-                    </router-link>
+                    </router-link> -->
                   </li>
                   <li
                     class="col-xs-3"
@@ -60,11 +60,11 @@
                     class="col-xs-3"
                     data-content="锁定屏幕"
                   >
-                    <router-link :to="{ name: 'lock' }">
+                    <!-- <router-link :to="{ name: 'lock' }">
                       <a class="shortcut-grid">
                         <i class="ti-lock"></i>
                       </a>
-                    </router-link>
+                    </router-link> -->
                   </li>
                   <li
                     class="col-xs-3"
@@ -91,15 +91,15 @@
                     class="no-margin"
                     id="mainnav-menu"
                   >
-                    <router-link
-                      :to="{ name: nav.api_name }"
+                    <!-- <router-link
+                      :to="{ name: 'nav.api_name' }"
                       tag="li"
                     >
                       <a href="">
-                        <!-- <i :class="nav.tubiao"></i> -->
+                        <i :class="nav.tubiao"></i>
                         <span class="menu-title">{{ 'nav.title' }}</span>
                       </a>
-                    </router-link>
+                    </router-link> -->
                     <li>
                       <a href="#">
                         <!-- <i :class="nav.tubiao"></i> -->
@@ -108,28 +108,28 @@
                       </a>
                       <ul class="collapse">
                         <div>
-                          <router-link
+                          <!-- <router-link
                             :to="{ name: 'subNav.api_name' }"
                             tag="li"
                           >
                             <a href="">
                               {{ 'subNav.title' }}
                             </a>
-                          </router-link>
+                          </router-link> -->
                           <li>
                             <a href="#">
                               <span class="menu-title">{{ 'subNav.title' }}</span>
                               <i class="arrow"></i>
                             </a>
                             <ul class="collapse">
-                              <router-link
+                              <!-- <router-link
                                 :to="{ name: 'sublineNav.api_name' }"
                                 tag="li"
                               >
                                 <a href="">
                                   {{ 'sublineNav.title' }}
                                 </a>
-                              </router-link>
+                              </router-link> -->
                             </ul>
                           </li>
                         </div>
@@ -148,8 +148,7 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'
-export default class SysSliderNav extends Vue {}
+export default {}
 </script>
 
 <style scoped lang="stylus">
