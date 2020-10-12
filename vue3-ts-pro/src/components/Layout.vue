@@ -2,9 +2,10 @@
   <div
     id="container"
     class="aside-float aside-bright effect navbar-fixed mainnav-fixed mainnav-lg footer-fixed"
+    :class="pageClass ? 'mainnav-sm' : 'mainnav-lg'"
   >
     <!-- 公共头部组件 -->
-    <SysHeader></SysHeader>
+    <SysHeader @btn-lg="setpageClass"></SysHeader>
 
     <!-- 内容区 -->
     <div class="boxed">
@@ -34,20 +35,26 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { defineAsyncComponent } from 'vue';
-import SysHeader from '@/components/SysHeader.vue'
 
 @Options({
   components: {
     SysSliderNav: defineAsyncComponent(() => {
       return import('@/components/SysSliderNav.vue')
     }),
-    SysHeader
+    SysHeader: defineAsyncComponent(() => {
+      return import('@/components/SysHeader.vue')
+    })
   }
 })
 export default class Layout extends Vue {
   count = 0
+  pageClass = false
   countAdd() {
     this.count++
+  }
+  //导航切换
+  setpageClass() {
+    this.pageClass = !this.pageClass
   }
 }
 </script>
