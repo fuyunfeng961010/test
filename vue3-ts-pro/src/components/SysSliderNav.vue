@@ -11,7 +11,7 @@
               <!--================================-->
               <div id="mainnav-profile" class="mainnav-profile margin-top-40">
                 <div class="profile-wrap">
-                  <div class="img-Sur" style="margin-top: 2000px">
+                  <div class="img-Sur">
                     <span class="label label-success pull-right">{{
                       'userinfo.userinfo.title'
                     }}</span>
