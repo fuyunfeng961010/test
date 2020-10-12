@@ -9,7 +9,7 @@
             <div class="nano-content">
               <!--Profile Widget-->
               <!--================================-->
-              <div id="mainnav-profile" class="mainnav-profile margin-top-20">
+              <div id="mainnav-profile" class="mainnav-profile margin-top-40">
                 <div class="profile-wrap">
                   <div class="img-Sur" style="margin-top: 2000px">
                     <span class="label label-success pull-right">{{

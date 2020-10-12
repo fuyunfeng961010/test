@@ -6,7 +6,7 @@
       <div class="navbar-header">
         <router-link :to="{ name: '' }" class="navbar-brand">
           <!-- <img
-            src="../../assets/img/logo.png"
+            src="../assets/img/logo.png"
             alt="央视动画授权管理后台"
             class="brand-icon"
           /> -->
