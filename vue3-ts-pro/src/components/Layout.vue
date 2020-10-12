@@ -23,7 +23,7 @@
     </div>
 
     <!-- 左侧导航 -->
-    <SysSliderNav></SysSliderNav>
+    <SysSliderNav :pageClass="pageClass"></SysSliderNav>
 
     <!-- 返回顶部按钮 -->
     <button class="scroll-top btn">

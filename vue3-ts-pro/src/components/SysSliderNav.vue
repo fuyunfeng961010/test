@@ -9,7 +9,7 @@
             <div class="nano-content">
               <!--Profile Widget-->
               <!--================================-->
-              <div id="mainnav-profile" class="mainnav-profile margin-top-40">
+              <div id="mainnav-profile" class="mainnav-profile" :class="pageClass ? 'margin-top-40' : 'margin-top-20'">
                 <div class="profile-wrap">
                   <div class="img-Sur">
                     <span class="label label-success pull-right">{{
@@ -148,7 +148,18 @@
   </div>
 </template>
 <script lang="ts">
-export default {}
+import { Options, Vue } from 'vue-class-component'
+@Options({
+  props: {
+    pageClass: {
+      type: Boolean,
+      default: false
+    }
+  }
+})
+export default class SysSliderNav extends Vue{
+
+}
 </script>
 
 <style scoped lang="stylus">
