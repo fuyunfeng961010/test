@@ -7,11 +7,13 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { defineAsyncComponent } from 'vue'
 
 @Options({
   components: {
-    HelloWorld,
+    HelloWorld: defineAsyncComponent(() => {
+      return import('@/components/HelloWorld.vue')
+    })
   },
 })
 export default class Home extends Vue {}

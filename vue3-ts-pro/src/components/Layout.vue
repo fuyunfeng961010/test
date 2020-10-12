@@ -4,21 +4,25 @@
     class="aside-float aside-bright effect navbar-fixed mainnav-fixed mainnav-lg footer-fixed"
   >
     <!-- 公共头部组件 -->
-    <!-- <SysHeader></SysHeader> -->
+    <SysHeader></SysHeader>
 
+    <!-- 内容区 -->
     <div class="boxed">
       <div id="content-container">
         <div id="page-content">
-          <span>hello</span>
+          <span>hello {{ count }}</span>
+          <p @click="countAdd">add</p>
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
         </div>
       </div>
 
-      <!-- 左侧导航 -->
-      <SysSliderNav></SysSliderNav>
+      
     </div>
+
+    <!-- 左侧导航 -->
+    <SysSliderNav></SysSliderNav>
 
     <!-- 返回顶部按钮 -->
     <button class="scroll-top btn">
@@ -28,25 +32,22 @@
 </template>
 
 <script lang="ts">
-// import Component, { Vue } from 'vue-class-component'
-import { defineAsyncComponent } from 'vue'
+import { Options, Vue } from 'vue-class-component';
+import { defineAsyncComponent } from 'vue';
+import SysHeader from '@/components/SysHeader.vue'
 
-// @Component({
-//   // Specify `components` option.
-//   // See Vue.js docs for all available options:
-//   // https://vuejs.org/v2/api/#Options-Data
-//   components: {
-//     SysSliderNav: defineAsyncComponent(() => {
-//       return import('@/components/SysSliderNav.vue')
-//     })
-//   }
-// })
-export default {
-  name: 'Layout',
+@Options({
   components: {
     SysSliderNav: defineAsyncComponent(() => {
       return import('@/components/SysSliderNav.vue')
     }),
+    SysHeader
+  }
+})
+export default class Layout extends Vue {
+  count = 0
+  countAdd() {
+    this.count++
   }
 }
 </script>
