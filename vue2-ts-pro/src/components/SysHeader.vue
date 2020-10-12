@@ -22,7 +22,7 @@
       <div class="navbar-content clearfix">
         <ul class="nav navbar-top-links pull-left">
           <li class="tgl-menu-btn">
-            <a class="mainnav-toggle" href="javascript:;" @click="navToggle">
+            <a class="mainnav-toggle" href="javascript:;">
               <i class="ti-menu icon-lg"></i>
             </a>
           </li>
@@ -53,14 +53,7 @@
   </header>
 </template>
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-@Options({})
-export default class SysHeaders extends Vue {
-  // 左侧导航栏切换 自定义控制类
-  navToggle() {
-    console.log('navToggle')
-    this.$emit('btn-lg')
-  }
+export default {
 }
 </script>
 
