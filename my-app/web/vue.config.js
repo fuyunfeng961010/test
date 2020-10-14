@@ -7,19 +7,24 @@ function resolve(dir) {
 module.exports = {
   publicPath: '',
   outputDir: '../www',
-  productionSourceMap: false,
+  productionSourceMap: true,
   lintOnSave: false,
 
-  chainWebpack: config => {
-    config.resolve.alias
-      .set('@', resolve('src'))
-      .set('assets', resolve('src/assets'))
-      .set('api', resolve('src/api'))
-      .set('components', resolve('src/components'));
+  // chainWebpack: config => {
+  //   // config.devtool = 'inline-source-map'
+  //   config.resolve.alias
+  //     .set('@', resolve('src'))
+  //     .set('assets', resolve('src/assets'))
+  //     .set('api', resolve('src/api'))
+  //     .set('components', resolve('src/components'));
+  // },
+
+  configureWebpack: config => {
+    config.devtool = 'source-map'
   },
 
   // css: {
-  //   sourceMap: true,
+  //   // sourceMap: true,
   //   loaderOptions: {
   //     postcss: {
   //       plugins: [
