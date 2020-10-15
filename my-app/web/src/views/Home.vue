@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <van-cell center title="是否开启">
+    <van-cell center title="是否开启1">
       <template #right-icon>
         <van-switch v-model="checked" size="24" />
       </template>
