@@ -11,3 +11,10 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class Home extends Vue {}
 </script>
+
+<style lang="stylus" scoped>
+.layout {
+  height: calc(100% - 100px)
+  overflow auto
+}
+</style>

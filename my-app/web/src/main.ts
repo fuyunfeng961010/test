@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
-import { Popup, Cell, CellGroup, Switch, Dialog } from 'vant';
+import { Popup, Cell, CellGroup, Switch, Dialog, Tabbar, TabbarItem, NavBar, List } from 'vant';
 import Vconsole from 'vconsole'
 
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+import './assets/style/base.styl'
 
 import UpdateManager from './plugins/cordova/UpdateManager'
 
@@ -35,6 +37,10 @@ app.use(Cell)
 app.use(CellGroup)
 app.use(Switch)
 app.use(Dialog)
+app.use(Tabbar)
+app.use(TabbarItem)
+app.use(NavBar)
+app.use(List)
 
 app.use(vConsole)
 app.use(store)
