@@ -8,6 +8,5 @@ webpack(prodConfig, (err, stats) => {
     console.log("stats:", stats);
   }
   // 处理完成
-  console.log("处理完成");
-  console.log('stats');
+  console.log("打包完成");
 });

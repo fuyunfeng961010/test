@@ -2,6 +2,7 @@ import React from "react";
 import smallImage from "./image/small.jpg";
 class App extends React.Component {
   render() {
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV)
     const goAbout = () => {
       console.log('click')
       this.props.history.push('/About')
