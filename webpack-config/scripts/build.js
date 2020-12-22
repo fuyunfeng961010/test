@@ -9,4 +9,5 @@ webpack(prodConfig, (err, stats) => {
   }
   // 处理完成
   console.log("处理完成");
+  console.log('stats');
 });

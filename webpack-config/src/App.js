@@ -1,6 +1,5 @@
 import React from "react";
 import smallImage from "./image/small.jpg";
-import {withRouter } from 'react-router';
 class App extends React.Component {
   render() {
     const goAbout = () => {
@@ -17,4 +16,4 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App)
+export default App
