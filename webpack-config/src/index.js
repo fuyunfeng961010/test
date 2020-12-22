@@ -29,7 +29,24 @@
 
 import React from "react";
 import ReactDom from "react-dom";
+import { Router, Route, HashRouter } from 'react-router-dom';
+import {createBrowserHistory} from 'history';
 import "./index.css";
 import App from "./App.js";
+import About from "./About.js";
 
-ReactDom.render(<App />, document.getElementById("root"));
+const history = createBrowserHistory()
+ReactDom.render(
+  <Router history={history}>
+    <HashRouter>
+      <div className='h100'>
+        <Route exact path="/" component={App} />
+        <Route exact path="/about" component={About} />
+        {/* <Route path="/about" component={About} />
+        <Route path="/ProductDetail" component={ProductDetail} />
+        <Route path="/login" component={Login} />
+        <Route path="/hall" component={Hall} />
+        <Route path="/room/:id" component={Room} /> */}
+      </div>
+    </HashRouter>
+  </Router>, document.getElementById("root"));

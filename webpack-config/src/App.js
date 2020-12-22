@@ -1,15 +1,20 @@
 import React from "react";
 import smallImage from "./image/small.jpg";
-import bigImage from "./image/big.jpg";
-export default class App extends React.Component {
+import {withRouter } from 'react-router';
+class App extends React.Component {
   render() {
+    const goAbout = () => {
+      console.log('click')
+      this.props.history.push('/About')
+    }
     return (
       <div>
         <div className="color">my-webpack-config</div>
-        <div className="color font">my-webpack-config</div>
+        <div className="color font" onClick={goAbout}>go to About</div>
         <img src={smallImage} alt=""></img>
-        <img src={bigImage} alt=""></img>
       </div>
     );
   }
 }
+
+export default withRouter(App)
