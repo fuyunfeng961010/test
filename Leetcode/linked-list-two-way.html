@@ -20,7 +20,7 @@
     class List {
       constructor() {
         this.head = new Node('head')
-        this.length = 0
+        this.length = 1
       }
 
       // 查询所有节点
@@ -45,29 +45,23 @@
       // 指定目标节点后插入当前新节点
       insert(node, targetElement) {
         let targetNode = this.find(targetElement)
+        if (targetNode.next != null) {
+          targetNode.next.previous = node
+        }
         node.next = targetNode.next
+        node.previous = targetNode
         targetNode.next = node
         this.length++
       }
 
-     // 查找待删除目标节点的前一个节点
-     findPrev(element) {
-        let node = this.head
-        while (node.next && node.next.element != element) {
-          node = node.next
-        }
-        return node
-     }
-
       // 删除目标节点
       remove(element) {
         if (element == 'head') return console.log('head 节点不允许删除')
-        let prevNode = this.findPrev(element)
-        if (prevNode.next != null) {
-          prevNode.next = prevNode.next.next
-        } else {
-          console.log('删除失败 未查询到目标节点')
-        }
+        let node = this.find(element)
+        console.log('node', node)
+        node.previous.next = node.next
+        node.next.previous = node.previous
+        this.length--
       }
     }
 
@@ -77,7 +71,7 @@
     linkedList.insert(new Node('three'), 'two')
     linkedList.insert(new Node('four'), 'one')
 
-    // linkedList.remove('two')
+    linkedList.remove('two')
 
     console.log('linkedList', linkedList)
     linkedList.display()

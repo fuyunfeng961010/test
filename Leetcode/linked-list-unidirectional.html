@@ -64,7 +64,7 @@
         let prevNode = this.findPrev(element)
         if (prevNode.next != null) {
           prevNode.next = prevNode.next.next
-          this.length --
+          this.length--
         } else {
           console.log('删除失败 未查询到目标节点')
         }
