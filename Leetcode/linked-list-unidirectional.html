@@ -19,7 +19,7 @@
     class List {
       constructor() {
         this.head = new Node('head')
-        this.length = 0
+        this.length = 1
       }
 
       // 查询所有节点
@@ -64,6 +64,7 @@
         let prevNode = this.findPrev(element)
         if (prevNode.next != null) {
           prevNode.next = prevNode.next.next
+          this.length --
         } else {
           console.log('删除失败 未查询到目标节点')
         }
@@ -76,7 +77,10 @@
     linkedList.insert(new Node('three'), 'two')
     linkedList.insert(new Node('four'), 'one')
 
-    // linkedList.remove('two')
+    linkedList.remove('two')
+    linkedList.remove('three')
+    linkedList.remove('four')
+    linkedList.remove('one')
 
     console.log('linkedList', linkedList)
     linkedList.display()
