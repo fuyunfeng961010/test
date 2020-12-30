@@ -49,3 +49,15 @@ ___粗斜体文本___
 
 [1]: http://www.google.com/
 [runoob]: http://www.runoob.com/
+
+## 代码高亮
+```bash
+console.log('hello world')
+```
+
+## 社交图标
+```bash
+social:
+  fab fa-github: https://github.com/xxxxx || Github
+  fas fa-envelope: mailto:xxxxxx@gmail.com || Email
+```

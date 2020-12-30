@@ -3,12 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
+# title: 淡心
 title: Hexo
+# subtitle: 'author-fuyf'
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
-language: en
+author: author-fuyf
+language: zh-TW
 timezone: ''
 
 # URL
