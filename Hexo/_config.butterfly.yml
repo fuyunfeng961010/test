@@ -94,14 +94,14 @@ favicon: /img/favicon.png
 
 # Avatar (頭像)
 avatar:
-  img:
+  img: http://i1.fuimg.com/731582/ec42c2f0aceacc05.jpg
   effect: false
 
 # The banner image of home page
-index_img:
+index_img: http://i1.fuimg.com/731582/22a17750033a1b24.jpg
 
 # If the banner of page not setting, it will show the top_img
-default_top_img:
+default_top_img: http://i1.fuimg.com/731582/22a17750033a1b24.jpg
 
 # The banner image of archive page
 archive_img:
@@ -174,7 +174,7 @@ wordcount:
 # 3: auto_excerpt (default)
 # false: do not show the article introduction
 index_post_content:
-  method: 3
+  method: 2
   length: 500 # if you set method to 2 or 3, the length need to config
 
 # Post
