@@ -4,8 +4,7 @@
 
 # Site
 title: Indifferent
-# subtitle: 'author-fuyf'
-subtitle: ''
+subtitle: 'author-fuyf'
 description: ''
 keywords:
 author: author-fuyf
@@ -107,3 +106,7 @@ deploy:
   type: git
   repo: https://github.com/author-fuyf/author-fuyf.github.io.git
   branch: master
+
+aplayer:
+  meting: true
+  asset_inject: false
