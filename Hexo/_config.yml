@@ -3,8 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-# title: 淡心
-title: Hexo
+title: Indifferent
 # subtitle: 'author-fuyf'
 subtitle: ''
 description: ''
@@ -15,7 +14,7 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://www.fuyunfeng.top
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:

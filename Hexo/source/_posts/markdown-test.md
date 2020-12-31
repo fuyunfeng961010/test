@@ -1,7 +1,10 @@
 ---
 title: markdown-test
 date:  2020-12-30 14:11:38
-tags:  tags
+tags:
+- markdown
+categories: 
+- 其他
 description: markdown 的一些语法测试
 top_img: https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg
 sticky: 3

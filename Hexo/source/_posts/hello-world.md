@@ -1,6 +1,9 @@
 ---
 title: Hello World
 tags:  
+- markdown
+categories: 
+- 其他
 top_img: orange
 sticky: 2
 ---
