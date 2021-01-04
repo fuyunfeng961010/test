@@ -107,6 +107,34 @@ deploy:
   repo: https://github.com/author-fuyf/author-fuyf.github.io.git
   branch: master
 
+# hexo-tag-aplayer
 aplayer:
   meting: true
   asset_inject: false
+
+# hexo-butterfly-douban
+douban:
+  user: 229704331
+  builtin: true
+  book:
+    title: 'This is my book title'
+    quote: 'This is my book quote'
+    meta: true
+    comments: true
+    top_img: https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg
+    aside: true
+  movie:
+    title: 'This is my movie title'
+    quote: 'This is my movie quote'
+    meta: true
+    comments: true
+    top_img: https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg
+    aside: true
+  game:
+    title: 'This is my game title'
+    quote: 'This is my game quote'
+    meta: true
+    comments: true
+    top_img: https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg
+    aside: true
+  timeout: 10000
