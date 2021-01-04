@@ -18,6 +18,7 @@ menu:
   # About: /about/ || fas fa-heart
 
   首页: / || fas fa-home
+  说说: /talkabout || fas fa-sms
   时间轴: /archives/ || fas fa-archive
   标籤: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
@@ -763,9 +764,11 @@ note:
 # Artitalk
 # see https://artitalk.js.org/
 artitalk:
-  appId:
-  appKey:
+  appId: zQXGXzXnyYFXMdLgP4FyXWaU-gzGzoHsz
+  appKey: cEFjuaw3Ari6uTcnzK3NOMRo
   option:
+    serverURL: https://zqxgxzxn.lc-cn-n1-shared.com
+    lang: zh
 
 # Pjax [Beta]
 # It may contain bugs and unstable, give feedback when you find the bugs.
