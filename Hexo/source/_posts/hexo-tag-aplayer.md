@@ -1,11 +1,10 @@
 ---
-title: hexo-tag-aplayer
+title: aplayer插件
 date: 2020-12-31 19:09:32
 tags:
-- hexo-plugin
+- aplayer
 categories: 
-- hexo
-sticky: 5
+- aplayer
 description: 基于hexo-tag-aplayer插件测试
 top_img: /img/hexo-tag-aplayer.png
 cover: /img/hexo-tag-aplayer.png

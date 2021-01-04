@@ -23,7 +23,7 @@ menu:
   分类: /categories/ || fas fa-folder-open
   清单||fa fa-heartbeat:
     - 音乐 || /music/ || fas fa-music
-    - 照片 || /Gallery/ || fas fa-images
+    - 照片 || /gallery/ || fas fa-images
     - 电影 || /movies/ || fas fa-video
     - 阅读 || /books/ || fas fa-book-reader
     - 游戏 || /games/ || fas fa-gamepad
