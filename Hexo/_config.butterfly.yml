@@ -843,6 +843,10 @@ css_prefix: true
 inject:
   head:
     # 引入自定义文件
+    # google 网站收录
+    - <meta name="google-site-verification" content="vxoBOvZ024SiN3itVG99Jr_Pe6DOH2OepxVuW1jDdjk" />
+    # baidu 网站收录
+    - <meta name="baidu-site-verification" content="code-BkD9RVmg3x" />
     - <link rel="stylesheet" href="/css/base.css">
   bottom:
     # - <script src="xxxx"></script>
