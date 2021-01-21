@@ -97,14 +97,14 @@ favicon: /img/favicon.png
 
 # Avatar (頭像)
 avatar:
-  img: http://i1.fuimg.com/731582/ec42c2f0aceacc05.jpg
+  img: /img/avatar.jpg
   effect: false
 
 # The banner image of home page
-index_img: http://i1.fuimg.com/731582/22a17750033a1b24.jpg
+index_img: /img/default-bg.jpg
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: http://i1.fuimg.com/731582/22a17750033a1b24.jpg
+default_top_img: /img/default-bg.jpg
 
 # The banner image of archive page
 archive_img:
