@@ -10,12 +10,18 @@
 
 <script>
 import { Tabbar, TabbarItem } from 'vant';
-import { ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 const app = {
   name: 'App',
   components: {
     [Tabbar.name]: Tabbar,
     [TabbarItem.name]: TabbarItem
+  },
+  mounted() {
+    const { $UpdateManager } = getCurrentInstance().appContext.config.globalProperties
+    setTimeout(() => {
+      $UpdateManager.start()
+    }, 1000)
   },
   setup() {
     const active = ref(0)

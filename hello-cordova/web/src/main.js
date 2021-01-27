@@ -3,4 +3,22 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-createApp(App).use(store).use(router).mount('#app')
+import UpdateManager from './cordova/UpdateManager'
+import Vconsole from './plugins/vconsole';
+
+document.addEventListener('deviceready', () => {
+  console.log('deviceready')
+})
+
+document.addEventListener('resume', () => {
+  setTimeout(() => {
+    UpdateManager.start();
+  }, 1000);
+});
+
+const app = createApp(App)
+app.config.globalProperties.$UpdateManager = UpdateManager
+app.config.globalProperties.$Vconsole = Vconsole
+
+app.use(store).use(router)
+app.mount('#app')
