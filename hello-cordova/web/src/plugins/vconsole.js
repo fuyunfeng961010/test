@@ -1,4 +1,4 @@
-import  { createApp } from 'vue'
+import { createApp } from 'vue'
 import Vconsole from 'vconsole'
 let timeOutEvent = null
 const touchStart = () => {

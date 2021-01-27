@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 import UpdateManager from './cordova/UpdateManager'
-import Vconsole from './plugins/vconsole';
+import Vconsole from './plugins/vconsole'
 
 document.addEventListener('deviceready', () => {
   console.log('deviceready')
@@ -12,9 +12,9 @@ document.addEventListener('deviceready', () => {
 
 document.addEventListener('resume', () => {
   setTimeout(() => {
-    UpdateManager.start();
-  }, 1000);
-});
+    UpdateManager.start()
+  }, 1000)
+})
 
 const app = createApp(App)
 app.config.globalProperties.$UpdateManager = UpdateManager

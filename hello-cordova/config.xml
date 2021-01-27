@@ -17,6 +17,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <allow-navigation href="http://192.168.1.116:8080" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -24,5 +25,6 @@
     </platform>
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
     <plugin name="cordova-plugin-device" spec="^2.0.3" />
-    <engine name="android" spec="^6.3.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^4.1.0" />
+    <engine name="android" spec="^9.0.0" />
 </widget>

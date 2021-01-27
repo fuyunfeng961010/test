@@ -20,15 +20,17 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-hot-code-push-plugin": {},
-      "cordova-plugin-device": {}
+      "cordova-plugin-device": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android"
     ]
   },
   "dependencies": {
-    "cordova-android": "^6.3.0",
+    "cordova-android": "^9.0.0",
     "cordova-hot-code-push-plugin": "^1.5.3",
-    "cordova-plugin-device": "^2.0.3"
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-inappbrowser": "^4.1.0"
   }
 }
