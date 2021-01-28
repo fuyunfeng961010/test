@@ -18,13 +18,21 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <allow-navigation href="http://192.168.1.116:8080" />
+        <allow-navigation href="https://portal.fuyunfeng.top/" />
+        <allow-navigation href="https://landlord.fuyunfeng.top/" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <chcp>
+        <config-file url="https://portal.fuyunfeng.top/hello-cordova/html-hot/chcp.json" />
+        <auto-download enabled="false" />
+        <auto-install enabled="false" />
+    </chcp>
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
     <plugin name="cordova-plugin-device" spec="^2.0.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="^4.1.0" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.2" />
     <engine name="android" spec="^9.0.0" />
 </widget>

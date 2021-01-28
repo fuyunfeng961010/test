@@ -26,8 +26,7 @@ const longPress = () => {
 }
 
 const vConsoleLog = () => {
-  let vConsole = new Vconsole()
-  createApp().use(vConsole)
+  createApp().use(new Vconsole())
 }
 
 vConsoleLog()

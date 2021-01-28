@@ -7,16 +7,18 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
+  globals: {
+    cordova: true
+  },
   rules: {
-    eqeqeq: 'off',
-    'no-console': 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    // 'space-before-function-paren': ['warn', 'never'],
-    'space-before-function-paren': 'off',
-    quotes: 'off',
-    camelcase: ['warn'],
+    eqeqeq: 0,
+    quotes: 1,
+    camelcase: 0,
     semi: 1,
-    'prefer-const': 'off',
-    'dot-notation': 'off'
+    'space-before-function-paren': 0,
+    'no-prototype-builtins': 0,
+    'quote-props': 0,
+    'no-undef': 1,
+    'no-unused-vars': 1
   }
 };

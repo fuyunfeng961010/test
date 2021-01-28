@@ -21,7 +21,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-hot-code-push-plugin": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-screen-orientation": {}
     },
     "platforms": [
       "android"
@@ -31,6 +32,8 @@
     "cordova-android": "^9.0.0",
     "cordova-hot-code-push-plugin": "^1.5.3",
     "cordova-plugin-device": "^2.0.3",
-    "cordova-plugin-inappbrowser": "^4.1.0"
+    "cordova-plugin-inappbrowser": "^4.1.0",
+    "cordova-plugin-screen-orientation": "^3.0.2",
+    "es6-promise-plugin": "^4.2.2"
   }
 }

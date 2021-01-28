@@ -15,7 +15,7 @@
 `得到最终的insp-app.apk`
 
 ## 安装指定的apk
-`adb install platforms/android/build/outputs/apk/android-debug.apk`
+`adb install platforms/android/app/build/outputs/apk/debug/app-debug.apk`
 
 ## 下载 Android 设备上的 SQLite 文件
 `adb shell "run-as gds.insp.pda chmod 666 /data/data/gds.insp.pda/databases/insp.db"`

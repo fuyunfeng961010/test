@@ -1,3 +1,6 @@
+/**
+ * cordova-hot-code-push-plugin
+ */
 import axios from 'axios'
 import { Dialog } from 'vant'
 
@@ -150,7 +153,8 @@ function updateByDialog(handler) {
  */
 function start(handler) {
   console.log('window.device', window.device)
-  if (!window.device) {
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+  if (!window.device || process.env.NODE_ENV === 'development') {
     return
   }
   checkUpdate().then(res => {

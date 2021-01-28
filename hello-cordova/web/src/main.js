@@ -4,10 +4,16 @@ import router from './router'
 import store from './store'
 
 import UpdateManager from './cordova/UpdateManager'
+import AppBrowser from './cordova/AppBrowser'
+import ScreenOrientation from './cordova/ScreenOrientation'
 import Vconsole from './plugins/vconsole'
 
 document.addEventListener('deviceready', () => {
   console.log('deviceready')
+  UpdateManager.start()
+  // AppBrowser.init()
+  ScreenOrientation.init()
+  ScreenOrientation.unlock()
 })
 
 document.addEventListener('resume', () => {
@@ -18,6 +24,8 @@ document.addEventListener('resume', () => {
 
 const app = createApp(App)
 app.config.globalProperties.$UpdateManager = UpdateManager
+app.config.globalProperties.$AppBrowser = AppBrowser
+app.config.globalProperties.$ScreenOrientation = ScreenOrientation
 app.config.globalProperties.$Vconsole = Vconsole
 
 app.use(store).use(router)
