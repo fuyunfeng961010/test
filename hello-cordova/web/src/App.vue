@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <router-view />
     <van-tabbar v-model="activeIndex" @change="activeChg">
       <van-tabbar-item>
@@ -113,5 +113,10 @@ export default app
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
+
+  .app-container {
+    height: 100%;
+  }
 }
 </style>

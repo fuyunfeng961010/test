@@ -8,6 +8,9 @@ import AppBrowser from './cordova/AppBrowser'
 import ScreenOrientation from './cordova/ScreenOrientation'
 import Vconsole from './plugins/vconsole'
 
+import 'lib-flexible/flexible.js'
+import './assets/style/base.styl'
+
 document.addEventListener('deviceready', () => {
   console.log('deviceready')
   UpdateManager.start()
