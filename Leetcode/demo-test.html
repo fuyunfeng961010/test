@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // // 穷举所有组合可能性
+    // let names = ["iPhone X", "iPhone XS", "iPhone XR"]
+
+    // let colors = ["黑色", "白色"]
+
+    // let storages = ["64g", "256g"]
+
+    // let combine = function (...chunks) {
+    //   let res = []
+
+    //   let helper = function (chunkIndex, prev) {
+    //     let chunk = chunks[chunkIndex]
+    //     let isLast = chunkIndex === chunks.length - 1
+    //     for (let val of chunk) {
+    //       let cur = prev.concat(val)
+    //       if (isLast) {
+    //         // 如果已经处理到数组的最后一项了 则把拼接的结果放入返回值中
+    //         res.push(cur)
+    //       } else {
+    //         helper(chunkIndex + 1, cur)
+    //       }
+    //     }
+    //   }
+
+    //   // 从属性数组下标为 0 开始处理
+    //   // 并且此时的 prev 是个空数组
+    //   helper(0, [])
+    //   return res
+    // }
+
+    // console.log(combine(names, colors, storages))
+
+
+    // 穷举所有组合可能性
+    let names = ["iPhone X", "iPhone XS", "iPhone XR"]
+
+    let colors = ["黑色", "白色"]
+
+    let storages = ["64g", "256g"]
+
+    const combine = (...list) => {
+      console.log('list', list)
+      let result = []
+      const helper = (index, pre) => {
+        const items = list[index]
+        const isLast = index === list.length - 1
+        for (let i of items) {
+          let cur = pre.concat(i)
+          if (isLast) {
+            result.push(cur)
+          } else {
+            helper(index + 1, cur)
+          }
+        }
+      }
+      helper(0, [])
+      return result
+    }
+    console.log(combine(names, colors, storages))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+.color {
+  color: rebeccapurple;
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: url("./font/Langar-Regular.ttf");
+}
+.font {
+  font-family: myFirstFont;
+}

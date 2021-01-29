@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>双向链表</title>
+</head>
+
+<body>
+  <script>
+    class Node {
+      constructor(element) {
+        this.element = element
+        this.next = null
+        this.previous = null
+      }
+    }
+
+    class List {
+      constructor() {
+        this.head = new Node('head')
+        this.length = 1
+      }
+
+      // 查询所有节点
+      display() {
+        let node = this.head
+        console.log('node => ', node.element)
+        while (node.next != null) {
+          node = node.next
+          console.log('node => ', node.element)
+        }
+      }
+
+      // 反向查询所有节点
+      dispReverse() {
+        let node = this.findLast()
+        console.log('nodeReverse => ', node.element)
+        while (node.element != 'head') {
+          node = node.previous
+          console.log('nodeReverse => ', node.element)
+        }
+      }
+
+      // 查询目标节点
+      find(element) {
+        let node = this.head
+        while (node.element != element && node.next != null) {
+          node = node.next
+        }
+        return node
+      }
+
+      // 查询当前最后一个节点
+      findLast() {
+        let node = this.head
+        while (node.next != null) {
+          node = node.next
+        }
+        return node
+      }
+
+      // 指定目标节点后插入当前新节点
+      insert(node, targetElement) {
+        let targetNode = this.find(targetElement)
+        if (targetNode.next != null) {
+          targetNode.next.previous = node
+        }
+        node.next = targetNode.next
+        node.previous = targetNode
+        targetNode.next = node
+        this.length++
+      }
+
+      // 删除目标节点
+      remove(element) {
+        if (element == 'head') return console.log('head 节点不允许删除')
+        let node = this.find(element)
+        if (node.next != null) {
+          node.previous.next = node.next
+          node.next.previous = node.previous
+        } else {
+          node.previous.next = node.next
+        }
+        this.length--
+      }
+    }
+
+    let linkedList = new List()
+    linkedList.insert(new Node('one'), 'head')
+    linkedList.insert(new Node('two'), 'one')
+    linkedList.insert(new Node('three'), 'two')
+    linkedList.insert(new Node('four'), 'one')
+
+    // linkedList.remove('four')
+
+    console.log('linkedList', linkedList)
+    linkedList.display()
+    console.log('findLast', linkedList.findLast())
+    linkedList.dispReverse()
+  </script>
+</body>
+
+</html>
