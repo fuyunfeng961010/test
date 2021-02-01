@@ -11,8 +11,8 @@
       </van-row>
       <p class="color-8F9CA2">使用重剑之前，先用木剑纵横江湖</p>
     </div>
-    <div class="swipe">
-      <van-swipe :loop="false" :width="350">
+    <div class="swipe" ref="swipeRef">
+      <van-swipe :loop="false" :width="swipeItemW" v-if="isShowSwipe">
         <van-swipe-item>
           <img style="width: 100%; height: 100%;" src="./img/swipe.jpg" alt="">
         </van-swipe-item>
@@ -34,7 +34,7 @@
 
 <script>
 import { Col, Row, Grid, GridItem, Swipe, SwipeItem } from 'vant'
-import { reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 const app = {
   name: 'Home',
   components: {
@@ -45,9 +45,18 @@ const app = {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem
   },
+  computed: {
+    swipeWidth() {
+      console.log('swipeRef', this.swipeRef)
+      return 360
+    }
+  },
   mounted() {
   },
   setup() {
+    const swipeRef = ref(null)
+    const swipeItemW = ref(null)
+    const isShowSwipe = ref(false)
     const gridList = reactive([
       {
         text: '插件',
@@ -66,8 +75,15 @@ const app = {
         icon: 'iconblog'
       }
     ])
+    onMounted(() => {
+      swipeItemW.value = swipeRef.value.clientWidth - swipeRef.value.clientWidth / 100 * 5
+      isShowSwipe.value = true
+    })
     return {
-      gridList
+      gridList,
+      swipeRef,
+      swipeItemW,
+      isShowSwipe
     }
   }
 
