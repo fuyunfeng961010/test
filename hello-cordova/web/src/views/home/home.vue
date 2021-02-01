@@ -23,7 +23,7 @@
     </div>
     <div class="grid offset-pr-mt-5">
       <van-grid :column-num="3">
-        <van-grid-item v-for="item in gridList" :key="item.text" :icon="item.icon" :text="item.text">
+        <van-grid-item v-for="item in gridList" :key="item.text" :icon="item.icon" :text="item.text" :to="item.path" :clickable="true">
           <i class="iconfont" :class="item.icon"></i>
           <span>{{item.text}}</span>
         </van-grid-item>
@@ -52,19 +52,23 @@ const app = {
     const gridList = reactive([
       {
         text: '插件',
-        icon: 'iconplugin'
+        icon: 'iconplugin',
+        path: '/plugin-list'
       },
       {
         text: 'blog',
-        icon: 'iconblog'
+        icon: 'iconblog',
+        path: '/empty'
       },
       {
         text: 'blog',
-        icon: 'iconblog'
+        icon: 'iconblog',
+        path: '/empty'
       },
       {
         text: 'blog',
-        icon: 'iconblog'
+        icon: 'iconblog',
+        path: '/empty'
       }
     ])
     onMounted(() => {
@@ -87,7 +91,6 @@ export default app
 .home-container
   height calc(100% - 50PX)
   padding 5%
-  background #F7F8FA
 
   .top
     .brand
