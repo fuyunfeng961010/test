@@ -1,21 +1,110 @@
 <template>
   <div class="home-container">
-    <span class="ml-10">home</span>
+    <div class="top">
+      <van-row type="flex" align="center">
+        <van-col span="3">
+          <img src="./img/brand.svg" class="brand" alt="">
+        </van-col>
+        <van-col span="3">
+          <span class="title">峰格</span>
+        </van-col>
+      </van-row>
+      <p class="color-8F9CA2">使用重剑之前，先用木剑纵横江湖</p>
+    </div>
+    <div class="swipe">
+      <van-swipe :loop="false" :width="350">
+        <van-swipe-item>
+          <img style="width: 100%; height: 100%;" src="./img/swipe.jpg" alt="">
+        </van-swipe-item>
+        <van-swipe-item>
+          <img style="width: 100%; height: 100%;" src="./img/swipe2.jpg" alt="">
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+    <div class="grid offset-pr-mt-5">
+      <van-grid :column-num="3">
+        <van-grid-item v-for="item in gridList" :key="item.text" :icon="item.icon" :text="item.text">
+          <i class="iconfont" :class="item.icon"></i>
+          <span>{{item.text}}</span>
+        </van-grid-item>
+      </van-grid>
+    </div>
   </div>
 </template>
 
 <script>
-
-export default {
+import { Col, Row, Grid, GridItem, Swipe, SwipeItem } from 'vant'
+import { reactive } from 'vue'
+const app = {
+  name: 'Home',
+  components: {
+    [Col.name]: Col,
+    [Row.name]: Row,
+    [Grid.name]: Grid,
+    [GridItem.name]: GridItem,
+    [Swipe.name]: Swipe,
+    [SwipeItem.name]: SwipeItem
+  },
+  mounted() {
+  },
+  setup() {
+    const gridList = reactive([
+      {
+        text: '插件',
+        icon: 'iconplugin'
+      },
+      {
+        text: 'blog',
+        icon: 'iconblog'
+      },
+      {
+        text: 'blog',
+        icon: 'iconblog'
+      },
+      {
+        text: 'blog',
+        icon: 'iconblog'
+      }
+    ])
+    return {
+      gridList
+    }
+  }
 
 }
+export default app
 </script>
 
 <style lang="stylus">
 .home-container
-  // height calc(100% - 30px)
-.ml-10
-  position absolute
-  right 10px
-  font-size 18px
+  height calc(100% - 50PX)
+  padding 5%
+  background #F7F8FA
+
+  .top
+    .brand
+      width 30PX
+      height 30PX
+
+    .title
+      font-size 16PX
+
+  .swipe
+    height 30%
+
+    .van-swipe, .van-swipe__track
+      height 100%
+
+    .van-swipe-item
+      color: #fff;
+      height: 100%;
+      display flex;
+      align-items center
+      justify-content center
+
+  .grid
+    height 30%
+
+    .van-grid
+      height 100%
 </style>

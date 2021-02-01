@@ -68,13 +68,9 @@ const app = {
         type: 'webview'
       },
       {
-        path: '/about',
+        path: '/empty',
         type: 'router'
       }
-      // {
-      //   path: 'https://cordova-mobile.fuyunfeng.top/',
-      //   type: 'external'
-      // }
     ]
     const activeChg = index => {
       console.log('index', index)
@@ -111,7 +107,6 @@ export default app
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   height: 100%;
 

@@ -2,6 +2,7 @@ module.exports = {
   publicPath: '',
   outputDir: '../www',
   productionSourceMap: true,
+  lintOnSave: false,
   css: {
     loaderOptions: {
       css: {},
