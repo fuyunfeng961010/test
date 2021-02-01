@@ -29,7 +29,7 @@ const vConsoleLog = () => {
   createApp().use(new Vconsole())
 }
 
-vConsoleLog()
+if (process.env.NODE_ENV === 'production') vConsoleLog()
 
 export default {
   touchStart,

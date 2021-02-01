@@ -35,7 +35,7 @@
 
 <script>
 import { Tabbar, TabbarItem } from 'vant'
-import { getCurrentInstance, ref } from 'vue'
+import { getCurrentInstance, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 const app = {
   name: 'App',
@@ -43,14 +43,15 @@ const app = {
     [Tabbar.name]: Tabbar,
     [TabbarItem.name]: TabbarItem
   },
-  mounted() {
-    const { $UpdateManager } = getCurrentInstance().appContext.config.globalProperties
-    setTimeout(() => {
-      $UpdateManager.start()
-    }, 1000)
-    console.log('device', window.device)
-  },
   setup() {
+    onMounted(() => {
+      const { $UpdateManager } = getCurrentInstance().appContext.config.globalProperties
+      setTimeout(() => {
+        $UpdateManager.start()
+      }, 1000)
+      console.log('device', window.device)
+    })
+
     const { $AppBrowser, $ScreenOrientation } = getCurrentInstance().appContext.config.globalProperties
     const router = useRouter()
     const activeIndex = ref(0)

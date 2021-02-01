@@ -45,14 +45,6 @@ const app = {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem
   },
-  computed: {
-    swipeWidth() {
-      console.log('swipeRef', this.swipeRef)
-      return 360
-    }
-  },
-  mounted() {
-  },
   setup() {
     const swipeRef = ref(null)
     const swipeItemW = ref(null)
