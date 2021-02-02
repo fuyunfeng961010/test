@@ -1,32 +1,32 @@
 <template>
   <div class="main-container">
     <router-view />
-    <van-tabbar v-model="activeIndex" @change="activeChg">
+    <van-tabbar active-color="red" inactive-color="#737373" v-model="activeIndex" @change="activeChg">
       <van-tabbar-item>
-        <span>首页</span>
+        <span class="tabbar-text">首页</span>
         <template #icon>
-          <i class="iconfont iconshouye"></i>
+          <i class="iconfont iconshouye tabbar-icon"></i>
         </template>
       </van-tabbar-item>
 
       <van-tabbar-item>
-        <span>blog</span>
+        <span class="tabbar-text">blog</span>
         <template #icon>
-          <i class="iconfont iconblog"></i>
+          <i class="iconfont iconblog tabbar-icon"></i>
         </template>
       </van-tabbar-item>
 
       <van-tabbar-item>
-        <span>landlord</span>
+        <span class="tabbar-text">landlord</span>
         <template #icon>
-          <i class="iconfont icondoudizhu"></i>
+          <i class="iconfont icondoudizhu tabbar-icon"></i>
         </template>
       </van-tabbar-item>
 
       <van-tabbar-item>
-        <span>我的</span>
+        <span class="tabbar-text">我的</span>
         <template #icon>
-          <i class="iconfont iconwode"></i>
+          <i class="iconfont iconwode tabbar-icon"></i>
         </template>
       </van-tabbar-item>
     </van-tabbar>
@@ -103,8 +103,14 @@ const app = {
 }
 export default app
 </script>
-<style lang="stylus">
- .main-container {
+<style lang="stylus" scoped>
+ .main-container
   height: 100%;
-}
+
+  .tabbar-text
+    font-size 14PX
+
+  .tabbar-icon
+    font-size 20PX
+
 </style>

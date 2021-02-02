@@ -21,7 +21,7 @@ const app = {
 }
 export default app
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 .me-container {
   height: 100%;
 }
