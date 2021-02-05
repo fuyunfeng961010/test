@@ -69,25 +69,25 @@ const app = {
       },
       {
         text: '博客',
-        icon: 'iconblog',
+        icon: 'iconblog1',
         path: 'https://portal.fuyunfeng.top/',
         type: 'webview'
       },
       {
         text: '游戏',
-        icon: 'icondoudizhu',
+        icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
         path: 'https://landlord.fuyunfeng.top/',
         type: 'webview'
       },
       {
         text: 'blog',
-        icon: 'iconblog',
+        icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
         path: '/empty',
         type: 'router'
       },
       {
         text: 'blog',
-        icon: 'iconblog',
+        icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
         path: '/empty',
         type: 'router'
       }
