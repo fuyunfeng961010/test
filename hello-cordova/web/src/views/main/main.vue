@@ -1,6 +1,10 @@
 <template>
   <div class="main-container">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
     <van-tabbar active-color="red" inactive-color="#737373" v-model="activeIndex" @change="activeChg">
       <van-tabbar-item v-for="item in navDict" :key="item.text">
         <span class="tabbar-text">{{ item.text }}</span>
@@ -14,7 +18,7 @@
 
 <script>
 import { Tabbar, TabbarItem } from 'vant'
-import { getCurrentInstance, ref, onMounted } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const app = {
   name: 'App',
@@ -23,14 +27,6 @@ const app = {
     [TabbarItem.name]: TabbarItem
   },
   setup() {
-    onMounted(() => {
-      const { $UpdateManager } = getCurrentInstance().appContext.config.globalProperties
-      setTimeout(() => {
-        $UpdateManager.start()
-      }, 1000)
-      console.log('device', window.device)
-    })
-
     const { $AppBrowser, $ScreenOrientation } = getCurrentInstance().appContext.config.globalProperties
     const router = useRouter()
     const activeIndex = ref(0)

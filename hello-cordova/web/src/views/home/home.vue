@@ -7,7 +7,7 @@
           <img src="./img/brand.svg" class="brand" alt="">
         </van-col>
         <van-col span="3">
-          <span class="title">峰格</span>
+          <span class="title" @click="addNum">峰格</span>
         </van-col>
       </van-row>
       <p class="color-8F9CA2">使用重剑之前，先用木剑纵横江湖</p>
@@ -35,7 +35,7 @@
 
 <script>
 import { Col, Row, Grid, GridItem, Swipe, SwipeItem } from 'vant'
-import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
+import { ref, reactive, onActivated, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router'
 const app = {
   name: 'Home',
@@ -55,7 +55,7 @@ const app = {
     const swipeItemW = ref(null)
     const isShowSwipe = ref(false)
 
-    onMounted(() => {
+    onActivated(() => {
       swipeItemW.value = swipeRef.value.clientWidth - swipeRef.value.clientWidth / 100 * 5
       isShowSwipe.value = true
     })
@@ -111,12 +111,19 @@ const app = {
         return $AppBrowser.open(gridItem.path, '_self', 'location=yes')
       }
     }
+
+    const num = ref(0)
+    const addNum = () => {
+      num.value++
+    }
     return {
       gridList,
       swipeRef,
       swipeItemW,
       isShowSwipe,
-      goItemPath
+      goItemPath,
+      num,
+      addNum
     }
   }
 

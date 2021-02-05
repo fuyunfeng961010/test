@@ -2,7 +2,9 @@
   <div id="app" class="app-container">
     <router-view v-slot="{ Component }">
         <transition :name="slideName" mode="out-in">
-          <component :is="Component" class="router-view" />
+          <keep-alive>
+            <component :is="Component" class="router-view" />
+          </keep-alive>
         </transition>
     </router-view>
   </div>

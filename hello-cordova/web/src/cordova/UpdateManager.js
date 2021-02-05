@@ -152,8 +152,8 @@ function updateByDialog(handler) {
  * 启动更新检查
  */
 function start(handler) {
-  console.log('window.device', window.device)
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+  // console.log('window.device', window.device)
+  // console.log('process.env.NODE_ENV', process.env.NODE_ENV)
   if (!window.device || process.env.NODE_ENV === 'development') {
     return
   }

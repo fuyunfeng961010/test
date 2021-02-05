@@ -18,7 +18,7 @@
 
 <script>
 import { Col, Row, NavBar } from 'vant'
-import { onMounted } from 'vue'
+import { onActivated } from 'vue'
 import { useRouter } from 'vue-router'
 const app = {
   name: 'PluginList',
@@ -28,7 +28,7 @@ const app = {
     [NavBar.name]: NavBar
   },
   setup() {
-    onMounted(() => {
+    onActivated(() => {
     })
     const router = useRouter()
     const goEmpty = () => {

@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import store from '../store/index'
-console.log('store', store)
 
 const routes = [
   {
