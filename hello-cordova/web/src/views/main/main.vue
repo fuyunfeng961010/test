@@ -2,7 +2,7 @@
   <div class="main-container">
     <router-view />
     <van-tabbar active-color="red" inactive-color="#737373" v-model="activeIndex" @change="activeChg">
-      <van-tabbar-item v-for="item in navDict" :key="navDict.text">
+      <van-tabbar-item v-for="item in navDict" :key="item.text">
         <span class="tabbar-text">{{ item.text }}</span>
         <template #icon>
           <i class="iconfont tabbar-icon" :class="item.icon"></i>

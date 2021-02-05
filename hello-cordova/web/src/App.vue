@@ -10,7 +10,7 @@
 
 <script>
 import { getCurrentInstance, onMounted, computed } from 'vue'
-import { useStore } from "vuex"
+import { useStore } from 'vuex'
 const app = {
   name: 'App',
   components: {
@@ -27,7 +27,7 @@ const app = {
     const store = useStore()
 
     return {
-      slideName: computed(() => store.getters['getSlideFlag'])
+      slideName: computed(() => store.getters.getSlideFlag)
     }
   }
 
