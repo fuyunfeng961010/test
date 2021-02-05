@@ -29,6 +29,11 @@ const routes = [
     path: '/plugin-list',
     name: 'PluginList',
     component: () => import(/* webpackChunkName: "about" */ '../views/plugin-page/plugin-list.vue')
+  },
+  {
+    path: '/plugin-component',
+    name: 'PluginComponent',
+    component: () => import(/* webpackChunkName: "about" */ '../views/plugin-page/plugin-component.vue')
   }
 ]
 

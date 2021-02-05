@@ -54,7 +54,7 @@ export default app
 <style lang="stylus" scoped>
 .nav-bar-container
   height $navbar-height
-  padding 0 5%
+  padding 0 2.5%
   background #fff
   box-shadow $navbar-shadow-bottom
 
