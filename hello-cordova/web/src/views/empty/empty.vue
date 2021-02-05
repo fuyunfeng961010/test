@@ -1,6 +1,12 @@
 <template>
   <div class="empty-container">
-    <van-empty description="建设中" />
+    <div class="header"></div>
+    <nav-bar>
+      <template  v-slot:default>404</template >
+    </nav-bar>
+    <div class="content">
+      <van-empty description="建设中" />
+    </div>
   </div>
 </template>
 
@@ -22,10 +28,17 @@ const app = {
 export default app
 </script>
 <style lang="stylus">
-.empty-container {
+.empty-container
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
+  .header
+    height $header-height
+
+  .content
+    height: 'calc(100%  - %s - %s)' % ($header-height $navbar-height)
+    overflow scroll
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 </style>

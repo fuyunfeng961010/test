@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from "../store/index"
+console.log('store', store)
 
 const routes = [
   {
@@ -34,6 +36,12 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  store.commit('setSlideFlag', store.state.isGoBack ? 'slide-out' : 'slide-in')
+  store.commit('setIsGoBack', false)
+  next()
 })
 
 export default router

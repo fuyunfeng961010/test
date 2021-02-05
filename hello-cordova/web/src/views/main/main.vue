@@ -2,31 +2,10 @@
   <div class="main-container">
     <router-view />
     <van-tabbar active-color="red" inactive-color="#737373" v-model="activeIndex" @change="activeChg">
-      <van-tabbar-item>
-        <span class="tabbar-text">首页</span>
+      <van-tabbar-item v-for="item in navDict" :key="navDict.text">
+        <span class="tabbar-text">{{ item.text }}</span>
         <template #icon>
-          <i class="iconfont iconshouye tabbar-icon"></i>
-        </template>
-      </van-tabbar-item>
-
-      <van-tabbar-item>
-        <span class="tabbar-text">blog</span>
-        <template #icon>
-          <i class="iconfont iconblog tabbar-icon"></i>
-        </template>
-      </van-tabbar-item>
-
-      <van-tabbar-item>
-        <span class="tabbar-text">landlord</span>
-        <template #icon>
-          <i class="iconfont icondoudizhu tabbar-icon"></i>
-        </template>
-      </van-tabbar-item>
-
-      <van-tabbar-item>
-        <span class="tabbar-text">我的</span>
-        <template #icon>
-          <i class="iconfont iconwode tabbar-icon"></i>
+          <i class="iconfont tabbar-icon" :class="item.icon"></i>
         </template>
       </van-tabbar-item>
     </van-tabbar>
@@ -57,20 +36,16 @@ const app = {
     const activeIndex = ref(0)
     const navDict = [
       {
+        text: '首页',
         path: '/',
-        type: 'router'
+        type: 'router',
+        icon: 'iconshouye'
       },
       {
-        path: 'https://portal.fuyunfeng.top/',
-        type: 'webview'
-      },
-      {
-        path: 'https://landlord.fuyunfeng.top/',
-        type: 'webview'
-      },
-      {
+        text: '我的',
         path: '/me',
-        type: 'router'
+        type: 'router',
+        icon: 'iconwode'
       }
     ]
     const activeChg = index => {
@@ -95,6 +70,7 @@ const app = {
     }
 
     return {
+      navDict,
       activeIndex,
       activeChg
     }

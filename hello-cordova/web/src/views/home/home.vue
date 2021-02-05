@@ -23,8 +23,8 @@
       </van-swipe>
     </div>
     <div class="grid offset-pr-mt-5">
-      <van-grid :column-num="4">
-        <van-grid-item v-for="item in gridList" :key="item.text" :icon="item.icon" :text="item.text" :to="item.path" :clickable="true">
+      <van-grid :column-num="4" :border="false" :square="true">
+        <van-grid-item v-for="item in gridList" :key="item.text" :icon="item.icon" :text="item.text" :clickable="true" @click="goItemPath(item)">
           <i class="iconfont grid-icon " :class="item.icon"></i>
           <span class="grid-text">{{item.text}}</span>
         </van-grid-item>
@@ -35,7 +35,8 @@
 
 <script>
 import { Col, Row, Grid, GridItem, Swipe, SwipeItem } from 'vant'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
+import { useRouter } from 'vue-router'
 const app = {
   name: 'Home',
   components: {
@@ -47,45 +48,75 @@ const app = {
     [SwipeItem.name]: SwipeItem
   },
   setup() {
+    const { $AppBrowser, $ScreenOrientation } = getCurrentInstance().appContext.config.globalProperties
+    const router = useRouter()
+
     const swipeRef = ref(null)
     const swipeItemW = ref(null)
     const isShowSwipe = ref(false)
-    const gridList = reactive([
-      {
-        text: '插件测试',
-        icon: 'iconplugin',
-        path: '/plugin-list'
-      },
-      {
-        text: 'blog',
-        icon: 'iconblog',
-        path: '/empty'
-      },
-      {
-        text: 'blog',
-        icon: 'iconblog',
-        path: '/empty'
-      },
-      {
-        text: 'blog',
-        icon: 'iconblog',
-        path: '/empty'
-      },
-      {
-        text: 'blog',
-        icon: 'iconblog',
-        path: '/empty'
-      }
-    ])
+
     onMounted(() => {
       swipeItemW.value = swipeRef.value.clientWidth - swipeRef.value.clientWidth / 100 * 5
       isShowSwipe.value = true
     })
+
+    const gridList = reactive([
+      {
+        text: '插件测试',
+        icon: 'iconplugin',
+        path: '/plugin-list',
+        type: 'router'
+      },
+      {
+        text: '博客',
+        icon: 'iconblog',
+        path: 'https://portal.fuyunfeng.top/',
+        type: 'webview'
+      },
+      {
+        text: '游戏',
+        icon: 'icondoudizhu',
+        path: 'https://landlord.fuyunfeng.top/',
+        type: 'webview'
+      },
+      {
+        text: 'blog',
+        icon: 'iconblog',
+        path: '/empty',
+        type: 'router'
+      },
+      {
+        text: 'blog',
+        icon: 'iconblog',
+        path: '/empty',
+        type: 'router'
+      }
+    ])
+
+    const goItemPath = (gridItem) => {
+      console.log('gridItem', gridItem.type)
+      if (gridItem.type === 'router') {
+        return router.push(gridItem.path)
+      }
+
+      if (gridItem.type === 'webview') {
+        if (gridItem.path.indexOf('landlord') !== -1) {
+          $ScreenOrientation.lock('landscape-primary')
+        }
+        window.location.href = gridItem.path
+        return
+      }
+
+      if (gridItem.type === 'external') {
+        return $AppBrowser.open(gridItem.path, '_self', 'location=yes')
+      }
+    }
     return {
       gridList,
       swipeRef,
       swipeItemW,
-      isShowSwipe
+      isShowSwipe,
+      goItemPath
     }
   }
 
@@ -96,7 +127,7 @@ export default app
 <style lang="stylus" scoped>
 .home-container
   height calc(100% - 50PX)
-  padding 0 5%
+  padding 0 2.5%
 
   .header
     height $header-height
@@ -129,7 +160,7 @@ export default app
       height 100%
 
     .grid-icon
-      font-size 20PX
+      font-size 25PX
       color red
 
     .grid-text

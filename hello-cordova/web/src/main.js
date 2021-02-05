@@ -19,11 +19,18 @@ document.addEventListener('deviceready', () => {
   ScreenOrientation.unlock()
 })
 
+// 后台唤醒
 document.addEventListener('resume', () => {
   setTimeout(() => {
     UpdateManager.start()
   }, 1000)
 })
+
+document.addEventListener('backbutton', function (ev) {
+  console.log('backbutton')
+  store.commit('setIsGoBack', true)
+  router.go(-1)
+}, false)
 
 const app = createApp(App)
 

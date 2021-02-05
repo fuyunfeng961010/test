@@ -23,6 +23,7 @@
 import { Col, Row, NavBar } from 'vant'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from "vuex"
 const app = {
   name: 'NavBar',
   components: {
@@ -35,7 +36,10 @@ const app = {
     })
 
     const router = useRouter()
+    const store = useStore()
+
     const goBack = () => {
+      store.commit('setIsGoBack', true)
       router.go(-1)
     }
     return {
