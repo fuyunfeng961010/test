@@ -2,7 +2,9 @@
   <div class="empty-container">
     <div class="header"></div>
     <nav-bar>
-      <template  v-slot:default>404</template >
+      <template  v-slot:default>
+        <span class="font-pr">404</span>
+      </template >
     </nav-bar>
     <div class="content">
       <van-empty description="建设中" />
@@ -33,6 +35,9 @@ export default app
 
   .header
     height $header-height
+
+  .font-pr
+    font-family 'Politica-Regular'
 
   .content
     height: 'calc(100%  - %s - %s)' % ($header-height $navbar-height)
