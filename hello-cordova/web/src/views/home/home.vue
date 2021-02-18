@@ -80,10 +80,10 @@ const app = {
         type: 'webview'
       },
       {
-        text: 'blog',
-        icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
-        path: '/empty',
-        type: 'router'
+        text: '峰格',
+        icon: 'iconfeng',
+        path: 'https://cordova-mobile.fuyunfeng.top/',
+        type: 'external'
       },
       {
         text: 'blog',
