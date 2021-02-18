@@ -63,6 +63,7 @@ export default app
 
     .plugin-component {
       margin-top 30PX
+      height: calc(100% - 30PX)
     }
   }
 }

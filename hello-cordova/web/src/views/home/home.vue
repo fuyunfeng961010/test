@@ -62,7 +62,7 @@ const app = {
 
     const gridList = reactive([
       {
-        text: '插件测试',
+        text: '插件',
         icon: 'iconplugin',
         path: '/plugin-list',
         type: 'router'

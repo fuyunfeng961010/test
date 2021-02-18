@@ -2,7 +2,7 @@
   <div class="plugin-list-container">
     <div class="header"></div>
     <nav-bar>
-      <template v-slot:default>插件测试</template>
+      <template v-slot:default>插件</template>
     </nav-bar>
     <div class="content">
       <div class="plugin-list">

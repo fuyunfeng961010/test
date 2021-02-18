@@ -8,7 +8,8 @@ module.exports = {
     parser: 'babel-eslint'
   },
   globals: {
-    cordova: true
+    cordova: true,
+    Toast: true
   },
   rules: {
     eqeqeq: 0,

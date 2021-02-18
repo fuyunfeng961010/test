@@ -27,15 +27,5 @@ export default app
   .header {
     height: $header-height;
   }
-
-  .content {
-    height: 'calc(100%  - %s - %s)' % ($header-height $navbar-height);
-    overflow: scroll;
-    padding: 0 2.5%;
-
-    .screen-orientation {
-      margin-top 30PX
-    }
-  }
 }
 </style>
