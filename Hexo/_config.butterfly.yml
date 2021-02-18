@@ -624,7 +624,7 @@ aside:
   position: right # left or right
   card_author:
     enable: true
-    description: 基于Hexo和Butterfly主题
+    description: 写程序时时刻记着 这个将来要维护你写的程序的人是一个有严重暴力倾向 并且知道你住在哪里的精神变态者。
     button:
       icon: fab fa-github
       text: Github
