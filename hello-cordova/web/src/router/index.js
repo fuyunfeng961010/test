@@ -34,6 +34,11 @@ const routes = [
     path: '/plugin-component',
     name: 'PluginComponent',
     component: () => import(/* webpackChunkName: "about" */ '../views/plugin-page/plugin-component.vue')
+  },
+  {
+    path: '/city-weather',
+    name: 'CityWeather',
+    component: () => import(/* webpackChunkName: "about" */ '../views/weather/city-weather.vue')
   }
 ]
 
