@@ -61,6 +61,7 @@
 <script>
 import { Sticky, Divider, Tab, Tabs } from 'vant'
 import { onActivated, reactive, ref } from 'vue'
+import { test } from '@/api/cityWeather.js'
 // import { useRouter } from 'vue-router'
 const app = {
   name: 'CityWeather',
@@ -72,6 +73,14 @@ const app = {
   },
   setup() {
     onActivated(() => {
+      console.log('test', test)
+      const params = {
+        url: '/test'
+      }
+      test(params)
+        .then(res => {
+          console.log('res', res)
+        })
     })
     // const router = useRouter()
 
