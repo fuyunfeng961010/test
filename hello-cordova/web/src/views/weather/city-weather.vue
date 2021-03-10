@@ -1,11 +1,10 @@
 <template>
   <div class="city-weather-container">
-    <div class="header" v-if="isFixed"></div>
-    <div class="content font-size-14">
+    <div class="content font-size-16">
       <div class="city-weather">
         <div class="city-info layout-flex-center">
           <div class="city-container">
-            <van-sticky @scroll="pageScroll">
+            <van-sticky>
               <p class="city-name layout-flex-center">
                 <span class="font-size-20">浦东新区</span>
                 <i class="iconfont icondidian font-size-22  offset-px-ml-5"></i>
@@ -15,20 +14,20 @@
               <span class="current-num">14</span>
               <span class="temperature font-size-26 offset-px-ml-10">℃</span>
             </p>
-            <p class="font-size-16">
+            <p class="font-size-14">
               <span class="">15℃ / </span>
               <span class="">4℃</span>
             </p>
             <p class="font-size-16">晴 空气良</p>
           </div>
         </div>
-        <div class="update-time van-hairline--bottom">
+        <div class="update-time van-hairline--bottom font-size-14">
           <p class="layout-flex-between">
             <span>中国气象</span>
             <span>上次更新时间：下午17::25</span>
           </p>
         </div>
-        <div class="time-stage layout-flex-between">
+        <div class="time-stage layout-flex-between font-size-14">
           <div class="stage-item" v-for="(item, index) in 12" :key="index">
             <p>傍晚5:00</p>
             <p>
@@ -44,41 +43,65 @@
             <span>15℃ / 8℃</span>
           </div>
         </div>
+        <div class="divider">
+          <van-divider style="color: white;">生活指数</van-divider>
+        </div>
+        <div class="life-index">
+          <van-tabs background="#768CA1" title-inactive-color="white" title-active-color="white" v-model:active="lifeIndex">
+            <van-tab v-for="({title}, index) in lifeList" :title="title" :key="index" title-style="font-size: 16px;">
+              内容 {{ index }}
+            </van-tab>
+          </van-tabs>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Sticky } from 'vant'
-import { onActivated, ref } from 'vue'
+import { Sticky, Divider, Tab, Tabs } from 'vant'
+import { onActivated, reactive, ref } from 'vue'
 // import { useRouter } from 'vue-router'
 const app = {
   name: 'CityWeather',
   components: {
-    [Sticky.name]: Sticky
+    [Sticky.name]: Sticky,
+    [Divider.name]: Divider,
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs
   },
   setup() {
     onActivated(() => {
     })
     // const router = useRouter()
 
-    const isFixed = ref(false)
-    const pageScroll = data => {
-      if (data.isFixed) {
-        if (!isFixed.value) {
-          isFixed.value = true
-        }
-        return
+    const lifeIndex = ref(3)
+    const lifeList = reactive([
+      {
+        title: '空调指数'
+      },
+      {
+        title: '运动指数'
+      },
+      {
+        title: '紫外线指数'
+      },
+      {
+        title: '感冒指数'
+      },
+      {
+        title: '洗车指数'
+      },
+      {
+        title: '空气指数'
+      },
+      {
+        title: '穿衣指数'
       }
-      if (isFixed.value) {
-        isFixed.value = false
-      }
-    }
-
+    ])
     return {
-      isFixed,
-      pageScroll
+      lifeIndex,
+      lifeList
     }
   }
 
@@ -89,33 +112,31 @@ export default app
 <style lang="stylus" scoped>
 .city-weather-container {
   height: 100%;
-  background-image: url('./img/weather-bg.jpeg');
+  // background-image: url('./img/weather-bg6.jpeg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-
-  .header {
-    height: 50PX
-  }
+  background linear-gradient(to bottom, #517E95 0%, #768CA1 80%)
 
   .content {
-    height: 100%;
+    height: calc(100% - 70PX);
+    margin-top 65PX;
     overflow: scroll;
     color: white;
 
     .city-weather {
-      height: 100%;
+      padding-bottom 30PX
 
       .city-info {
         height: 30%;
-        margin-top 20%
+        margin-top 10%
 
         .city-container {
           width 100%
           text-align center
 
           .city-name {
-            height 50PX
+            height 60PX
             margin 0;
           }
           .current-temperature {
@@ -158,6 +179,14 @@ export default app
             heiught 28PX
           }
         }
+      }
+
+      .divider {
+        padding 0 4%
+      }
+
+      .life-index {
+        padding 0 4%
       }
     }
   }
