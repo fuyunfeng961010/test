@@ -34,6 +34,7 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-inappbrowser": "^4.1.0",
     "cordova-plugin-screen-orientation": "^3.0.2",
-    "es6-promise-plugin": "^4.2.2"
+    "es6-promise-plugin": "^4.2.2",
+    "moment": "^2.29.1"
   }
 }

@@ -23,8 +23,8 @@ const request = payload => {
     timeout: payload.timeout || 6 * 300 * 1000,
     url: payload.url,
     method: payload.method || 'GET',
-    params: (payload.method && payload.method.toUpperCase() === 'GET') ? { ...payload.data } : null,
-    data: (payload.method && payload.method.toUpperCase() === 'POST') ? { ...payload.data } : null
+    params: payload.params || payload.data,
+    data: payload.params || payload.data
   })
 }
 

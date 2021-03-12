@@ -6,41 +6,41 @@
           <div class="city-container">
             <van-sticky>
               <p class="city-name layout-flex-center">
-                <span class="font-size-20">浦东新区</span>
+                <span class="font-size-20">{{weatherInfo.city}}</span>
                 <i class="iconfont icondidian font-size-22  offset-px-ml-5"></i>
               </p>
             </van-sticky>
             <p class="current-temperature">
-              <span class="current-num">14</span>
+              <span class="current-num">{{weatherInfo.temp}}</span>
               <span class="temperature font-size-26 offset-px-ml-10">℃</span>
             </p>
             <p class="font-size-14">
-              <span class="">15℃ / </span>
-              <span class="">4℃</span>
+              <span class="">{{weatherInfo.temphigh}}℃ / </span>
+              <span class="">{{weatherInfo.templow}}℃</span>
             </p>
-            <p class="font-size-16">晴 空气良</p>
+            <p class="font-size-16">{{weatherInfo.weather}} 空气{{weatherInfo.aqi?.quality}}</p>
           </div>
         </div>
         <div class="update-time van-hairline--bottom font-size-14">
           <p class="layout-flex-between">
             <span>中国气象</span>
-            <span>上次更新时间：下午17::25</span>
+            <span>上次更新时间：{{weatherInfo.updatetime}}</span>
           </p>
         </div>
         <div class="time-stage layout-flex-between font-size-14">
-          <div class="stage-item" v-for="(item, index) in 12" :key="index">
-            <p>傍晚5:00</p>
+          <div class="stage-item" v-for="(item, index) in weatherInfo.hourly" :key="index">
+            <p>{{item.time}}</p>
             <p>
-              <img src="https://portal.fuyunfeng.top/files/weather2/1.png" alt="">
+              <img :src="`https://portal.fuyunfeng.top/files/weather2/${item.img}.png`" alt="">
             </p>
-            <p>14℃</p>
+            <p>{{item.temp}}℃</p>
           </div>
         </div>
         <div class="week-list">
-          <div class="day-item layout-flex-between van-hairline--bottom" :class="{'van-hairline--top': index === 0}" v-for="(item, index) in 12" :key="index">
-            <span>3月5日星期五</span>
-            <img src="https://portal.fuyunfeng.top/files/weather2/1.png" alt="">
-            <span>15℃ / 8℃</span>
+          <div class="day-item layout-flex-between van-hairline--bottom" :class="{'van-hairline--top': index === 0}" v-for="(item, index) in weatherInfo.daily" :key="index">
+            <span>{{dateFormat(item.date, 'M月D日')}}{{item.week}}</span>
+            <img :src="`https://portal.fuyunfeng.top/files/weather2/${item.day.img}.png`" alt="">
+            <span>{{item.day.temphigh}}℃ / {{item.night.templow}}℃</span>
           </div>
         </div>
         <div class="divider">
@@ -48,8 +48,8 @@
         </div>
         <div class="life-index">
           <van-tabs background="#768CA1" title-inactive-color="white" title-active-color="white" v-model:active="lifeIndex">
-            <van-tab v-for="({title}, index) in lifeList" :title="title" :key="index" title-style="font-size: 16px;">
-              内容 {{ index }}
+            <van-tab v-for="(item, index) in weatherInfo.index" :title="item.iname" :key="index" title-style="font-size: 16px;">
+              <div class="offset-px-mt-10">{{item.ivalue}}, {{item.detail}}</div>
             </van-tab>
           </van-tabs>
         </div>
@@ -60,9 +60,9 @@
 
 <script>
 import { Sticky, Divider, Tab, Tabs } from 'vant'
-import { onActivated, reactive, ref } from 'vue'
-import { test } from '@/api/cityWeather.js'
-// import { useRouter } from 'vue-router'
+import { onActivated, reactive, ref, toRefs, getCurrentInstance } from 'vue'
+import { getCityWeather } from '@/api/cityWeather.js'
+import { useRoute } from 'vue-router'
 const app = {
   name: 'CityWeather',
   components: {
@@ -73,44 +73,38 @@ const app = {
   },
   setup() {
     onActivated(() => {
-      console.log('test', test)
-      const params = {
-        url: '/test'
-      }
-      test(params)
-        .then(res => {
-          console.log('res', res)
-        })
+      getWeatherInfo()
     })
-    // const router = useRouter()
+
+    const route = useRoute()
+    const { $Moment } = getCurrentInstance().appContext.config.globalProperties
+
+    const dateFormat = (date, format) => {
+      return new $Moment(date).format(format)
+    }
 
     const lifeIndex = ref(3)
-    const lifeList = reactive([
-      {
-        title: '空调指数'
-      },
-      {
-        title: '运动指数'
-      },
-      {
-        title: '紫外线指数'
-      },
-      {
-        title: '感冒指数'
-      },
-      {
-        title: '洗车指数'
-      },
-      {
-        title: '空气指数'
-      },
-      {
-        title: '穿衣指数'
+    const weatherData = reactive({
+      weatherInfo: {}
+    })
+    const getWeatherInfo = () => {
+      console.log('route', route.query.city)
+      const params = {
+        city: route.query.city
       }
-    ])
+      getCityWeather(params)
+        .then(res => {
+          if (res.data.result) {
+            weatherData.weatherInfo = res.data.data
+            console.log('weatherInfo', res.data.data)
+          }
+        })
+    }
+
     return {
       lifeIndex,
-      lifeList
+      ...toRefs(weatherData),
+      dateFormat
     }
   }
 

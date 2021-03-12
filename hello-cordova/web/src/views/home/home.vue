@@ -86,9 +86,9 @@ const app = {
         type: 'external'
       },
       {
-        text: 'blog',
+        text: '天气',
         icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
-        path: '/empty',
+        path: '/city-weather?city=浦东',
         type: 'router'
       }
     ])

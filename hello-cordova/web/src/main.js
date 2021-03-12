@@ -9,6 +9,7 @@ import UpdateManager from './cordova/UpdateManager'
 import AppBrowser from './cordova/AppBrowser'
 import ScreenOrientation from './cordova/ScreenOrientation'
 import Vconsole from './plugins/vconsole'
+import Moment from 'moment'
 
 import 'lib-flexible/flexible.js'
 import './assets/style/base.styl'
@@ -40,6 +41,7 @@ app.config.globalProperties.$UpdateManager = UpdateManager
 app.config.globalProperties.$AppBrowser = AppBrowser
 app.config.globalProperties.$ScreenOrientation = ScreenOrientation
 app.config.globalProperties.$Vconsole = Vconsole
+app.config.globalProperties.$Moment = Moment
 
 app.use(store).use(router)
 app.mount('#app')
