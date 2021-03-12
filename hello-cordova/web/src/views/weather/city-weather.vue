@@ -73,6 +73,7 @@ const app = {
   },
   setup() {
     onActivated(() => {
+      document.title = '天气'
       getWeatherInfo()
     })
 
