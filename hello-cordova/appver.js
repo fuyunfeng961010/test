@@ -58,9 +58,7 @@ function genver() {
   info.ios_identifier += cfg.version + '_' + timeFlag
   info.android_identifier += cfg.version + '_' + timeFlag
 
-  // update content_url
   if (cfg.url) {
-    // 开发
     if (version == 'prd') {
       info.content_url = 'https://portal.fuyunfeng.top/hello-cordova/html-hot/'
     }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app-container">
+  <div id="appContainer" class="app-container">
     <router-view v-slot="{ Component }">
       <transition :name="slideName">
         <keep-alive>
@@ -37,7 +37,7 @@ const app = {
 export default app
 </script>
 <style lang="stylus">
-#app {
+#appContainer {
   height: 100%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;

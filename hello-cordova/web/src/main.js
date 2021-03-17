@@ -42,6 +42,7 @@ app.config.globalProperties.$AppBrowser = AppBrowser
 app.config.globalProperties.$ScreenOrientation = ScreenOrientation
 app.config.globalProperties.$Vconsole = Vconsole
 app.config.globalProperties.$Moment = Moment
+app.config.globalProperties.$origin = process.env.VUE_APP_ORIGIN
 
 app.use(store).use(router)
 app.mount('#app')

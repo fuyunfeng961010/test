@@ -31,7 +31,7 @@
           <div class="stage-item" v-for="(item, index) in weatherInfo.hourly" :key="index">
             <p>{{item.time}}</p>
             <p>
-              <img :src="`https://portal.fuyunfeng.top/files/weather2/${item.img}.png`" alt="">
+              <img :src="`${origin}/files/weather2/${item.img}.png`" alt="">
             </p>
             <p>{{item.temp}}℃</p>
           </div>
@@ -39,7 +39,7 @@
         <div class="week-list">
           <div class="day-item layout-flex-between van-hairline--bottom" :class="{'van-hairline--top': index === 0}" v-for="(item, index) in weatherInfo.daily" :key="index">
             <span>{{dateFormat(item.date, 'M月D日')}}{{item.week}}</span>
-            <img :src="`https://portal.fuyunfeng.top/files/weather2/${item.day.img}.png`" alt="">
+            <img :src="`${origin}/files/weather2/${item.day.img}.png`" alt="">
             <span>{{item.day.temphigh}}℃ / {{item.night.templow}}℃</span>
           </div>
         </div>
@@ -61,7 +61,7 @@
 <script>
 import { Sticky, Divider, Tab, Tabs } from 'vant'
 import { onActivated, reactive, ref, toRefs, getCurrentInstance } from 'vue'
-import { getCityWeather } from '@/api/cityWeather.js'
+import { getCityWeather } from '@/api/aliy.js'
 import { useRoute } from 'vue-router'
 const app = {
   name: 'CityWeather',
@@ -78,7 +78,7 @@ const app = {
     })
 
     const route = useRoute()
-    const { $Moment } = getCurrentInstance().appContext.config.globalProperties
+    const { $Moment, $origin: origin } = getCurrentInstance().appContext.config.globalProperties
 
     const dateFormat = (date, format) => {
       return new $Moment(date).format(format)
@@ -105,7 +105,8 @@ const app = {
     return {
       lifeIndex,
       ...toRefs(weatherData),
-      dateFormat
+      dateFormat,
+      origin
     }
   }
 

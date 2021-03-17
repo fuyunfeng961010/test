@@ -6,7 +6,7 @@ const routes = [
     path: '/',
     name: 'Main',
     redirect: '/home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/main/main.vue'),
+    component: () => import(/* webpackChunkName: "main" */ '../views/main/main.vue'),
     children: [
       {
         path: '/home',
@@ -16,29 +16,34 @@ const routes = [
       {
         path: '/me',
         name: 'Me',
-        component: () => import(/* webpackChunkName: "about" */ '../views/me/me.vue')
+        component: () => import(/* webpackChunkName: "me" */ '../views/me/me.vue')
       }
     ]
   },
   {
     path: '/empty',
     name: 'Empty',
-    component: () => import(/* webpackChunkName: "about" */ '../views/empty/empty.vue')
+    component: () => import(/* webpackChunkName: "empty" */ '../views/empty/empty.vue')
   },
   {
     path: '/plugin-list',
     name: 'PluginList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/plugin-page/plugin-list.vue')
+    component: () => import(/* webpackChunkName: "pluginlist" */ '../views/plugin-page/plugin-list.vue')
   },
   {
     path: '/plugin-component',
     name: 'PluginComponent',
-    component: () => import(/* webpackChunkName: "about" */ '../views/plugin-page/plugin-component.vue')
+    component: () => import(/* webpackChunkName: "plugincomponent" */ '../views/plugin-page/plugin-component.vue')
   },
   {
     path: '/city-weather',
     name: 'CityWeather',
-    component: () => import(/* webpackChunkName: "about" */ '../views/weather/city-weather.vue')
+    component: () => import(/* webpackChunkName: "cityweather" */ '../views/weather/city-weather.vue')
+  },
+  {
+    path: '/constellation',
+    name: 'Constellation',
+    component: () => import(/* webpackChunkName: "constellation" */ '../views/constellation/constellation.vue')
   }
 ]
 
