@@ -6,7 +6,8 @@ tags:
 categories: 
 - markdown
 description: markdown 的一些语法测试
-top_img: https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo.jpg
+# top_img: /img/markdown.jpg
+# top_img: LightSeaGreen
 cover: /img/markdown.jpg
 ---
 
