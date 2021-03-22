@@ -48,7 +48,7 @@ code_word_wrap: false
 copy:
   enable: true
   copyright:
-    enable: true
+    enable: false
     limit_count: 20
 
 # social settings (社交圖標設置)
