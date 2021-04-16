@@ -1,15 +1,19 @@
+#!/usr/bin/env node
 var program = require('commander')
 var inquirer = require('inquirer')
+// require('./enter')
 
 program
   .version('0.0.1')
-  .command('enter [app-name]')
+  .command('create [app-name]')
   .option('-r, --registry <registry>', 'use custom registry')
   .option('-d, --dist-url <disturl>', 'use custom dist url')
   .option('-l, --log-level <loglevel>', 'use custom log level')
-  .action((name) => {
-    if (name) {
-      console.log(`your enter app-name is ${name}`)
+  .action((cmd, opt) => {
+    console.log('cmd', cmd)
+    console.log('opt', opt)
+    if (cmd) {
+      console.log(`your enter app-name is ${cmd}`)
     }
     // inquirer.prompt([
     //   {
@@ -99,5 +103,12 @@ program
     select(step)
 
   });
+
+program.on('--help', function () {
+  console.log('')
+  console.log('Examples:');
+  console.log('  $ fuyf-cli create app-name');
+  console.log('  $ fuyf-cli create -h');
+});
 
 program.parse(process.argv)

@@ -1,4 +1,4 @@
-// import replace from 'rollup-plugin-replace';
+import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 
@@ -11,10 +11,10 @@ export default {
   },
   plugins: [
     resolve(),
-    // replace({
-    //   delimiters: ['', ''],
-    //   '#!/usr/bin/env node': ''
-    // }),
+    replace({
+      delimiters: ['', ''],
+      '#!/usr/bin/env node': ''
+    }),
     babel({
       // babelrc: false,
       exclude: 'node_modules/**' // only transpile our source code

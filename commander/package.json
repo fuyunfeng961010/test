@@ -1,6 +1,6 @@
 {
-  "name": "@fuyf/commander",
-  "version": "1.7.0",
+  "name": "@fuyf/cli",
+  "version": "1.8.0",
   "description": "",
   "main": "./bin/index.js",
   "dependencies": {
@@ -8,7 +8,8 @@
     "inquirer": "^8.0.0"
   },
   "bin": {
-    "fuyf-commander": "./bin/index.js"
+    "fuyf-cli": "./bin/index.js",
+    "fuyf-test": "./test.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
