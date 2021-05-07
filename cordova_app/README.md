@@ -1,5 +1,5 @@
-## hello-cordova
-`hello-cordova app`
+## cordova_app
+`cordova_app app`
 
 ## release包 数字签名加密 外壳更新
 `更改 config.xml中的 version && version-time时间`

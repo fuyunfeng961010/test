@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "hot-prd": "vue-cli-service build --mode prd && cd ../ && node appver.js --version prd",
+    "debug": "npm run hot-prd && cordova run android",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

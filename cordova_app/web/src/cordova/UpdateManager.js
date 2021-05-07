@@ -73,7 +73,7 @@ function checkUpdate() {
         //   '/html-hot/chcp.json?t=' +
         //   new Date().getTime()
         // console.log('getServerVersion: ' + l)
-        const l = `${process.env.VUE_APP_ORIGIN}/hello-cordova/html-hot/chcp.json?t=${new Date().getTime()}`
+        const l = `${process.env.VUE_APP_ORIGIN}/cordova_app/html-hot/chcp.json?t=${new Date().getTime()}`
         console.log('l', l)
         return axios.get(l)
       })
@@ -164,7 +164,7 @@ function start(handler) {
       if (window.device.platform === 'Android' && res.androidUpdate) {
         updateByDialog(() => {
           // 安卓 更新跳转到下载页面
-          const dlUrl = `${process.env.VUE_APP_ORIGIN}/hello-cordova/download.html`
+          const dlUrl = `${process.env.VUE_APP_ORIGIN}/cordova_app/download.html`
           window.open(dlUrl, '_system')
         })
         return

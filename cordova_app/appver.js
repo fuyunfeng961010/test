@@ -60,7 +60,7 @@ function genver() {
 
   if (cfg.url) {
     if (version == 'prd') {
-      info.content_url = 'https://portal.fuyunfeng.top/hello-cordova/html-hot/'
+      info.content_url = 'https://portal.fuyunfeng.top/cordova_app/html-hot/'
     }
   }
 

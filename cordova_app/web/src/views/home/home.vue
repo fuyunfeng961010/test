@@ -70,25 +70,31 @@ const app = {
       {
         text: '博客',
         icon: 'iconblog1',
-        path: 'https://portal.fuyunfeng.top/',
+        path: 'https://portal.fuyunfeng.top',
         type: 'webview'
       },
       {
         text: '游戏',
         icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
-        path: 'https://landlord.fuyunfeng.top/',
+        path: 'https://portal.fuyunfeng.top/landlord/index.html',
         type: 'webview'
       },
       {
         text: '峰格',
         icon: 'iconfeng',
-        path: 'https://cordova-mobile.fuyunfeng.top/',
+        path: 'https://portal.fuyunfeng.top/fge/index.html',
         type: 'external'
       },
       {
         text: '天气',
         icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
         path: '/city-weather?city=浦东',
+        type: 'router'
+      },
+      {
+        text: '星座',
+        icon: 'iconyouxiyouxitingyouxijiyouxishoubingxianxing',
+        path: '/constellation?key=天秤',
         type: 'router'
       }
     ])
