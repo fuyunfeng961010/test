@@ -1,4 +1,4 @@
-# v-plugins
+# v2
 
 ## Project setup
 ```
