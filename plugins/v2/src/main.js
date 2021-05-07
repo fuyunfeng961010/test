@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import vplugin from './components/index.js';
+Vue.use(vplugin);
+
 Vue.config.productionTip = false;
 
 new Vue({

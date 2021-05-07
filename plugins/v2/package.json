@@ -1,11 +1,12 @@
 {
-  "name": "v2",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vplugin",
+  "version": "0.1.5",
+  "main": "./lib/vplugin.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:lib": "vue-cli-service build --target lib --name vplugin --dest lib  src/components/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -26,5 +27,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^2.2.1",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "files": [
+    "lib/vplugin.umd.min.js"
+  ]
 }
