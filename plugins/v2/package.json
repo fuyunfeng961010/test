@@ -1,5 +1,5 @@
 {
-  "name": "vplugin",
+  "name": "v2plugin",
   "version": "0.1.5",
   "main": "./lib/vplugin.umd.min.js",
   "scripts": {
