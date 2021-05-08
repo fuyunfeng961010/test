@@ -1,5 +1,5 @@
 <template>
-  <span :class="type" style="padding: 5px 10px; border-radius: 5px; background: #41B883; color: white;" :style="type === 'warning' ? 'color: yellow;' : ''">
+  <span :class="type" style="padding: 5px 10px; border-radius: 5px; background: #41B883; color: white;" :style="type === 'warning' ? 'color: yellow;' : ''" @click="click">
     <slot>{{ text }}</slot>
   </span>
 </template>
@@ -15,10 +15,14 @@ export default defineComponent({
       default: 'error'
     }
   },
-  setup() {
+  setup(props, context) {
     const text = ref('确定')
+    const click = () => {
+      context.emit('eclick')
+    }
     return {
-      text
+      text,
+      click
     }
   }
 })

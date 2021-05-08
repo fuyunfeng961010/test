@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" @click="handlerClick" />
+    <img alt="Vue logo" src="../assets/logo.png" />
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <v-button type="warning"></v-button>
+    <v-button type="warning" @eclick="handlerClick"></v-button>
   </div>
 </template>
 

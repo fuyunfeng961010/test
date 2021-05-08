@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <v-button type="test" @click="showToast">toast</v-button>
+    <v-button type="test" @eclick="showToast">toast</v-button>
   </div>
 </template>
 
