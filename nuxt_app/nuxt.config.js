@@ -43,16 +43,23 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
 
-  // nuxt_server
-  build: {
-    publicPath: './_nuxt'
-  },
-
   server: {
     port: 9003
   },
 
+  // nuxt_server
+  // build: {
+  //   publicPath: './_nuxt'
+  // },
+
+  // router: {
+  //   mode: 'hash'
+  // },
+
+  // spa
   router: {
-    mode: 'hash'
-  }
+    mode: 'hash',
+    base: '/nuxt_spa'
+  },
+  mode: 'spa'
 }
