@@ -13,6 +13,8 @@ $ npm run dev
 $ npm run build
 $ npm run start
 
+pm2 start npm --name nuxt_server -- run start
+
 # generate static project
 $ npm run generate
 ```

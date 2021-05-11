@@ -42,6 +42,17 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
+
+  // nuxt_server
   build: {
+    publicPath: './_nuxt'
+  },
+
+  server: {
+    port: 9003
+  },
+
+  router: {
+    mode: 'hash'
   }
 }

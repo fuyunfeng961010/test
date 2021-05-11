@@ -6,14 +6,15 @@
         nuxt_app
       </h1>
       <div class="links">
-        <a
+        <nuxt-link to="/news" class="button--green">News</nuxt-link>
+        <!-- <a
           href="https://nuxtjs.org/"
           target="_blank"
           rel="noopener noreferrer"
           class="button--green"
         >
           Documentation
-        </a>
+        </a> -->
         <a
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
