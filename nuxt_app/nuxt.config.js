@@ -47,19 +47,19 @@ export default {
     port: 9003
   },
 
-  // nuxt_server
-  // build: {
-  //   publicPath: './_nuxt'
-  // },
+  // nuxt_server || nuxt_static
+  build: {
+    publicPath: './_nuxt'
+  },
 
-  // router: {
-  //   mode: 'hash'
-  // },
+  router: {
+    mode: 'hash'
+  },
 
   // spa
-  router: {
-    mode: 'hash',
-    base: '/nuxt_spa'
-  },
-  mode: 'spa'
+  // router: {
+  //   mode: 'hash',
+  //   base: '/nuxt_spa'
+  // },
+  // mode: 'spa'
 }
