@@ -1,13 +1,15 @@
 <template>
   <div class="about">
     <div style="display: none">
-      <img ref="bgImgRef" src="./images/bg.jpg" />
+      
+      <img ref="bgImgRef" :src="imgUrl" v-if="imgUrl" />
+      <img ref="bgImgRef" src="./images/bg.jpg" v-else />
     </div>
     <v-button type="warning" @eclick="handlerClick">verify</v-button>
     <div class="dialog">
-      <div class="v_verify">
+      <div id="v_verify" :class="{'is-border': isBorder}">
         <div id="verify_containe">
-          <div id="carnvas_containe">
+          <div id="canvas_containe">
             <canvas id="bg_canvas"></canvas>
             <canvas id="block_canvas"></canvas>
           </div>
@@ -50,33 +52,42 @@ export default {
       verifyResult: '',
       terminal: 'pc',
       bgTilesW: null,
-      blkTilesW: null
+      blkTilesW: null,
+      bgWidth: null
     }
   },
   props: {
     width: {
-      type: Number,
-      default: 320
+      // type: Number,
+      default: 0
     },
     height: {
       type: Number,
       default: 200
+    },
+    isBorder: {
+      type: Boolean,
+      default: true
+    },
+    imgUrl: {
+      type: String,
+      default: ''
     }
   },
   components: {
     Popup
   },
   mounted() {
-    this.init()
+    this.initCanvas()
   },
   methods: {
     handlerClick() {
       console.log('handlerClick')
     },
     getContainer() {
-      return document.getElementById("carnvas_containe");
+      return document.getElementById("canvas_containe");
     },
-    init(reset = false) {
+    initCanvas(reset = false) {
       const bg_canvas = document.getElementById("bg_canvas")
       const bg_ctx = bg_canvas.getContext('2d')
 
@@ -88,13 +99,33 @@ export default {
       placehold.style.opacity = 1
 
       const img = this.$refs.bgImgRef
-      const width = this.width
+
+
+      /**
+       * 
+       * 未指定背景图高度时  默认父级宽度100%
+       * -20 为两边10px的padding
+       * -2  默认border线框时
+       * 
+       */
+      let width
+      if (this.width) {
+        width = this.width
+      } else {
+        // const v_verify_width = document.getElementById("v_verify").parentNode.clientWidth
+        const v_verify_width = document.getElementById("v_verify").parentNode.getBoundingClientRect().width
+        width = v_verify_width - 20
+        if (this.isBorder) {
+          width = width - 2
+        }
+      }
+
       const height = this.height
 
       const random = (max, min) => {
         return Math.floor(Math.random() * (max - min) + min)
       }
-      // 
+
       /**
        * 滑块随机受控图形区间内 x轴
        * 56 图块大致的宽度
@@ -102,6 +133,7 @@ export default {
        */
       const bgTilesW = random(width - 56, (width) / 2 + 28)
       const blkTilesW = random((width) / 2 - 28, 1)
+      this.bgWidth = width
       this.bgTilesW = bgTilesW
       this.blkTilesW = blkTilesW
 
@@ -113,6 +145,7 @@ export default {
       block_canvas.height = height
 
       img.onload = () => {
+        console.log('onload')
         bg_ctx.drawImage(img, 0, 0, width, height)
         // block_ctx.drawImage(img, 0, 0, width, height)
         this.drawBlock(bg_ctx, { x: bgTilesW, y: 70, r: 10 }, 'fill')
@@ -124,35 +157,6 @@ export default {
         this.drawBlock(bg_ctx, { x: bgTilesW, y: 70, r: 10 }, 'fill')
         this.drawBlock(block_ctx, { x: blkTilesW, y: 70, r: 10 }, 'clip')
       }
-    },
-    drawBlock(ctx, xy, type = 'fill') {
-      // console.log('drawBlock', xy)
-      const x = xy.x,
-        y = xy.y,
-        r = xy.r,
-        w = 40;
-      const PI = Math.PI;
-      ctx.beginPath();
-      //left
-      ctx.moveTo(x, y);
-      //top
-      ctx.arc(x + (w + 5) / 2, y, r, -PI, 0, true);
-      ctx.lineTo(x + w + 5, y);
-      //right
-      ctx.arc(x + w + 5, y + w / 2, r, 1.5 * PI, 0.5 * PI, false);
-      ctx.lineTo(x + w + 5, y + w);
-      //bottom
-      ctx.arc(x + (w + 5) / 2, y + w, r, 0, PI, false);
-      ctx.lineTo(x, y + w);
-      ctx.arc(x, y + w / 2, r, 0.5 * PI, 1.5 * PI, true);
-      ctx.lineTo(x, y);
-      //图块样式
-      ctx.lineWidth = 1;
-      ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
-      ctx.stroke();
-      ctx[type]();
-      ctx.globalCompositeOperation = "xor";
     },
     drag(event) {
       // console.log("clickE => ", event);
@@ -184,7 +188,7 @@ export default {
         if (x < 8) {
           placehold.style.opacity = 1
         }
-        if (x >= (this.width - 53 - this.blkTilesW) || x <= -this.blkTilesW) return false
+        if (x >= (this.bgWidth - 53 - this.blkTilesW) || x <= -this.blkTilesW) return false
         dom.style.left = x + this.blkTilesW + 'px';
         slider.style.left = x + "px";
         placehold.style.opacity = 0
@@ -210,10 +214,10 @@ export default {
           this.popupShow = false
         }, 500)
         slider.style.left = 0
-        this.init(true)
+        this.initCanvas(true)
 
         // setInterval(() => {
-        //   this.init(true)
+        //   this.initCanvas(true)
         // }, 500)
       };
 
@@ -224,6 +228,37 @@ export default {
         document.addEventListener("touchmove", move);
         document.addEventListener("touchend", up);
       }
+    },
+    drawBlock(ctx, xy, type = 'fill') {
+      // console.log('drawBlock', xy)
+      const x = xy.x,
+        y = xy.y,
+        r = xy.r,
+        w = 40;
+      const PI = Math.PI;
+      ctx.beginPath();
+      //left
+      ctx.moveTo(x, y);
+      //top
+      ctx.arc(x + (w + 5) / 2, y, r, -PI, 0, true);
+      ctx.lineTo(x + w + 5, y);
+      //right
+      ctx.arc(x + w + 5, y + w / 2, r, 1.5 * PI, 0.5 * PI, false);
+      ctx.lineTo(x + w + 5, y + w);
+      //bottom
+      ctx.arc(x + (w + 5) / 2, y + w, r, 0, PI, false);
+      ctx.lineTo(x, y + w);
+      ctx.arc(x, y + w / 2, r, 0.5 * PI, 1.5 * PI, true);
+      ctx.lineTo(x, y);
+      //图块样式
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
+      // ctx.globalCompositeOperation = "xor";
+      ctx.stroke();
+      // ctx[type]();
+      ctx.clip()
+      
     }
   }
 }
@@ -249,20 +284,23 @@ export default {
   background: #41B883;
 }
 
-.v_verify {
+.is-border {
+  border: 1px solid rgb(199, 198, 198);
+}
+
+#v_verify {
   width: auto;
   height: auto;
   display: inline-block;
   // margin: 20px auto 0;
   padding: 10px;
-  border: 1px solid rgb(199, 198, 198);
   border-radius: 5px;
   overflow: hidden;
 
   #verify_containe {
     position: relative;
 
-    #carnvas_containe {
+    #canvas_containe {
       position: relative;
       line-height: 0;
 
@@ -302,8 +340,10 @@ export default {
 }
 
 .dialog {
-  width 50%
-  text-align center
-  margin 0 auto
+  width 26%
+  // width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  // border 1px solid
 }
 </style>
