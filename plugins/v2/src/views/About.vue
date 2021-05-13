@@ -4,21 +4,39 @@
       <img ref="bgImgRef" src="./images/bg.jpg" />
     </div>
     <v-button type="warning" @eclick="handlerClick">verify</v-button>
-    <div class="v_verify">
-      <div id="verify_containe">
-        <div id="carnvas_containe">
-          <canvas id="bg_canvas"></canvas>
-          <canvas id="block_canvas"></canvas>
-        </div>
-        <div class="slide-box">
-          <div id="circle" @mousedown.prevent="drag"></div>
-          <span id="placehold">拖动滑块完成拼图</span>
+    <div class="dialog">
+      <div class="v_verify">
+        <div id="verify_containe">
+          <div id="carnvas_containe">
+            <canvas id="bg_canvas"></canvas>
+            <canvas id="block_canvas"></canvas>
+          </div>
+          <div class="slide-box">
+            <div
+              id="circle"
+              @mousedown.prevent="drag"
+              @touchstart="
+                (e) => {
+                  terminal = 'mobile'
+                  drag(e)
+                }
+              "
+            ></div>
+            <span id="placehold">拖动滑块完成拼图</span>
+          </div>
         </div>
       </div>
+      <popup
+        v-model="popupShow"
+        position="bottom"
+        :overlay="false"
+        :get-container="getContainer"
+        class="result-popup"
+        :class="{ 'popup-success': verifyResult }"
+      >
+        {{ verifyResult ? '验证通过' : '请正确拼合图像' }}
+      </popup>
     </div>
-    <popup v-model="show" position="bottom" :overlay="false" :get-container="getContainer" :style="{ height: '30px', lineHeight: '30px', color: 'white', background: '#41B883' }">
-      {{ verifyResult }}
-    </popup>
   </div>
 </template>
 <script>
@@ -28,8 +46,21 @@ export default {
   name: 'Vverify',
   data() {
     return {
-      show: false,
-      verifyResult: ''
+      popupShow: false,
+      verifyResult: '',
+      terminal: 'pc',
+      bgTilesW: null,
+      blkTilesW: null
+    }
+  },
+  props: {
+    width: {
+      type: Number,
+      default: 320
+    },
+    height: {
+      type: Number,
+      default: 200
     }
   },
   components: {
@@ -54,12 +85,27 @@ export default {
 
       const circle = document.getElementById("circle")
       const placehold = document.getElementById("placehold")
-      circle.style.left = '15px'
       placehold.style.opacity = 1
 
       const img = this.$refs.bgImgRef
-      const width = 320
-      const height = 200
+      const width = this.width
+      const height = this.height
+
+      const random = (max, min) => {
+        return Math.floor(Math.random() * (max - min) + min)
+      }
+      // 
+      /**
+       * 滑块随机受控图形区间内 x轴
+       * 56 图块大致的宽度
+       * 28 再减去自身一半 防止位置默认重叠
+       */
+      const bgTilesW = random(width - 56, (width) / 2 + 28)
+      const blkTilesW = random((width) / 2 - 28, 1)
+      this.bgTilesW = bgTilesW
+      this.blkTilesW = blkTilesW
+
+      circle.style.left = blkTilesW + 'px'
 
       bg_canvas.width = width
       bg_canvas.height = height
@@ -69,18 +115,18 @@ export default {
       img.onload = () => {
         bg_ctx.drawImage(img, 0, 0, width, height)
         // block_ctx.drawImage(img, 0, 0, width, height)
-        this.drawBlock(bg_ctx, { x: 255, y: 70, r: 10 }, 'fill')
-        this.drawBlock(block_ctx, { x: 15, y: 70, r: 10 }, 'clip')
+        this.drawBlock(bg_ctx, { x: bgTilesW, y: 70, r: 10 }, 'fill')
+        this.drawBlock(block_ctx, { x: blkTilesW, y: 70, r: 10 }, 'clip')
       }
 
       if (reset) {
         bg_ctx.drawImage(img, 0, 0, width, height)
-        this.drawBlock(bg_ctx, { x: 255, y: 70, r: 10 }, 'fill')
-        this.drawBlock(block_ctx, { x: 15, y: 70, r: 10 }, 'clip')
+        this.drawBlock(bg_ctx, { x: bgTilesW, y: 70, r: 10 }, 'fill')
+        this.drawBlock(block_ctx, { x: blkTilesW, y: 70, r: 10 }, 'clip')
       }
     },
-    drawBlock(ctx, xy = { x: 255, y: 70, r: 10 }, type = 'fill') {
-      console.log('drawBlock', xy)
+    drawBlock(ctx, xy, type = 'fill') {
+      // console.log('drawBlock', xy)
       const x = xy.x,
         y = xy.y,
         r = xy.r,
@@ -109,27 +155,37 @@ export default {
       ctx.globalCompositeOperation = "xor";
     },
     drag(event) {
-      console.log("clickE => ", event);
+      // console.log("clickE => ", event);
       const dom = event.target;
       const slider = document.querySelector("#block_canvas");
       const placehold = document.querySelector("#placehold");
+      const terminal = this.terminal
+
+      // 图块契合度 左右5 偏差
+      const intervalMax = this.bgTilesW - this.blkTilesW + 5
+      const intervalMin = this.bgTilesW - this.blkTilesW - 5
 
       let x = 0;
       const move = moveEV => {
-        x = moveEV.x - event.x
-        console.log('x', x)
+        // console.log("moveE => ", moveEV);
+        if (terminal === 'pc') {
+          x = moveEV.x - event.x
+        } else {
+          x = moveEV.changedTouches[0].clientX - event.changedTouches[0].clientX
+        }
+        // console.log('x', x)
         /**
          * 滑块拖动限定
          * 53 图块大致的宽度
-         * 15 x 图块初始值
+         * blkTilesW x 图块初始值
+         * 8  提示文案显隐
          * 
          */
         if (x < 8) {
-          console.log('111')
           placehold.style.opacity = 1
         }
-        if (x >= (320 - 53 - 15) || x <= -15) return false
-        dom.style.left = x + 15 + 'px';
+        if (x >= (this.width - 53 - this.blkTilesW) || x <= -this.blkTilesW) return false
+        dom.style.left = x + this.blkTilesW + 'px';
         slider.style.left = x + "px";
         placehold.style.opacity = 0
       };
@@ -138,24 +194,36 @@ export default {
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
 
-        console.log('x', x)
-        // 当前 240 图块契合度 左右5 偏差
-        if (x >= 235 && x <= 245) {
-          this.verifyResult = '验证通过'
+        document.removeEventListener("touchmove", move);
+        document.removeEventListener("touchend", up);
+
+        // console.log('x', x)
+
+        if (x >= intervalMin && x <= intervalMax) {
+          this.verifyResult = true
         } else {
-          this.verifyResult = '请正确拼合图像'
+          this.verifyResult = false
         }
 
-        this.show = true
+        this.popupShow = true
         setTimeout(() => {
-          this.show = false
+          this.popupShow = false
         }, 500)
         slider.style.left = 0
         this.init(true)
+
+        // setInterval(() => {
+        //   this.init(true)
+        // }, 500)
       };
 
-      document.addEventListener("mousemove", move);
-      document.addEventListener("mouseup", up);
+      if (terminal === 'pc') {
+        document.addEventListener("mousemove", move);
+        document.addEventListener("mouseup", up);
+      } else {
+        document.addEventListener("touchmove", move);
+        document.addEventListener("touchend", up);
+      }
     }
   }
 }
@@ -164,27 +232,44 @@ export default {
 ::v-deep .van-overlay {
   position: absolute;
 }
+
 ::v-deep .van-popup {
   position: absolute;
 }
+
+.result-popup {
+  height: 30px;
+  line-height: 30px;
+  color: white;
+  background: #DE715B;
+  text-align: center;
+}
+
+.popup-success {
+  background: #41B883;
+}
+
 .v_verify {
-  width: 320px;
-  height: 320px;
-  margin: 20px auto 0;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  // margin: 20px auto 0;
   padding: 10px;
   border: 1px solid rgb(199, 198, 198);
   border-radius: 5px;
+  overflow: hidden;
 
   #verify_containe {
     position: relative;
 
     #carnvas_containe {
       position: relative;
-    }
+      line-height: 0;
 
-    #block_canvas {
-      position: absolute;
-      left: 0px;
+      #block_canvas {
+        position: absolute;
+        left: 0px;
+      }
     }
 
     .slide-box {
@@ -194,10 +279,10 @@ export default {
       border-radius: 20px;
       background: #DFE0E1;
       position: relative;
-      color #A3ABB3
-      display flex
-      align-items center
-      justify-content center
+      color: #A3ABB3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       #circle {
         width: 50px;
@@ -210,9 +295,15 @@ export default {
       }
 
       #placehold {
-        transition opacity .3s
+        transition: opacity 0.3s;
       }
     }
   }
+}
+
+.dialog {
+  width 50%
+  text-align center
+  margin 0 auto
 }
 </style>
