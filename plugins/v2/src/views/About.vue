@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div style="display: none">
-      <img ref="bgImgRef" :src="imgUrl" v-if="imgUrl" />
+      <img ref="bgImgRef" crossOrigin :src="imgUrl" v-if="imgUrl" />
       <img ref="bgImgRef" src="./images/bg.jpg" v-else />
     </div>
     <v-button type="warning" @eclick="handlerClick">verify</v-button>
@@ -44,7 +44,7 @@
         class="result-popup"
         :class="{ 'popup-success': verifyResult }"
       >
-        {{ verifyResult ? '验证通过' : '请正确拼合图像' }}
+        {{ verifyResult ? sText : eText }}
       </popup>
     </div>
   </div>
@@ -73,11 +73,11 @@ export default {
   props: {
     width: {
       // type: Number,
-      default: 300
+      default: 0
     },
     height: {
       type: Number,
-      default: 200
+      default: 160
     },
     isBorder: {
       type: Boolean,
@@ -85,8 +85,17 @@ export default {
     },
     imgUrl: {
       type: String,
+      // default: 'https://portal.fuyunfeng.top/files/images/hexo-default-bg.jpg'
       default: ''
-    }
+    },
+    sText: {
+      type: String,
+      default: '验证通过'
+    },
+    eText: {
+      type: String,
+      default: '请正确拼合图像'
+    },
   },
   components: {
     Popup
@@ -185,7 +194,7 @@ export default {
       }
     },
     drag(event, linkageId) {
-      console.log("clickE => ", event);
+      // console.log("clickE => ", event);
       const dom = event.target;
       const linkageDom = document.querySelector(`#${linkageId}`);
       const placehold = document.querySelector("#placehold");
@@ -199,7 +208,7 @@ export default {
         } else {
           x = moveEV.changedTouches[0].clientX - event.changedTouches[0].clientX
         }
-        console.log('x', x)
+        // console.log('x', x)
         /**
          * 滑块拖动限定
          * 
@@ -320,7 +329,7 @@ export default {
     .slide-box {
       width: 100%;
       height: 40px;
-      margin-top: 10px;
+      margin-top: 20px;
       border-radius: 20px;
       background: #DFE0E1;
       position: relative;
@@ -349,7 +358,7 @@ export default {
 }
 
 .dialog {
-  width: 26%;
+  width: 22%;
   // width: 400px;
   text-align: center;
   margin: 0 auto;
