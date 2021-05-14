@@ -1,6 +1,6 @@
 import toast from './Toast/index';
 import Button from './Button/index.vue';
-// import '../icon/iconfont.css';
+import SliderVerify from './SliderVerify/index.vue';
 
 // 准备好 install 方法 给 Vue.use() 使用
 const install = function (Vue) {
@@ -12,6 +12,7 @@ const install = function (Vue) {
   Vue.prototype.$test = 'tets';
 
   Vue.component(Button.name, Button)
+  Vue.component(SliderVerify.name, SliderVerify)
 }
 
 // 默认导出 install
