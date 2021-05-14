@@ -6,17 +6,17 @@
     </div>
     <v-button type="warning" @eclick="handlerClick">verify</v-button>
     <div class="dialog">
-      <div id="v_verify" :class="{ 'is-border': isBorder }">
+      <div id="v_verify" :class="{ 'is-border': isBorder }" v-if="isShowSelf">
         <div id="verify_containe">
           <div id="canvas_containe">
             <canvas id="bg_canvas"></canvas>
             <canvas
               id="block_canvas"
-              @mousedown.prevent="(e) => drag(e, 'circle')"
+              @mousedown.prevent="(e) => drag(e, 'block_canvas', 'circle')"
               @touchstart="
                 (e) => {
                   terminal = 'mobile'
-                  drag(e, 'circle')
+                  drag(e, 'block_canvas', 'circle')
                 }
               "
             ></canvas>
@@ -24,15 +24,30 @@
           <div class="slide-box">
             <div
               id="circle"
-              @mousedown.prevent="(e) => drag(e, 'block_canvas')"
+              @mousedown.prevent="(e) => drag(e, 'circle', 'block_canvas')"
               @touchstart="
                 (e) => {
                   terminal = 'mobile'
-                  drag(e, 'block_canvas')
+                  drag(e, 'circle', 'block_canvas')
                 }
               "
-            ></div>
+            >
+              <div class="verticals" v-show="!isTouch">
+                <img src="./images/vertical_line.png" alt="">
+                <img src="./images/vertical_line.png" alt="">
+                <img src="./images/vertical_line.png" alt="">
+              </div>
+              <div class="arrow" v-show="isTouch">
+                <img src="./images/arrow_left.png" alt="">
+                <img src="./images/arrow_right.png" alt="">
+              </div>
+            </div>
             <span id="placehold">拖动滑块完成拼图</span>
+          </div>
+
+          <div class="operational">
+            <img src="./images/close.png" alt="" @click="close" v-if="isClose">
+            <img src="./images/reload.png" alt="" @click="initCanvas(true)" v-if="isReload">
           </div>
         </div>
       </div>
@@ -67,17 +82,26 @@ export default {
       verifyResult: '',
       terminal: 'pc',
       blkTilesW: null,
-      bgWidth: null
+      bgWidth: null,
+      isTouch: false
     }
   },
+  model: {
+    prop: 'isShowSelf',
+    event: 'change'
+  },
   props: {
+    isShowSelf: {
+      type: Boolean,
+      default: true
+    },
     width: {
       // type: Number,
       default: 0
     },
     height: {
       type: Number,
-      default: 160
+      default: 180
     },
     isBorder: {
       type: Boolean,
@@ -85,8 +109,7 @@ export default {
     },
     imgUrl: {
       type: String,
-      // default: 'https://portal.fuyunfeng.top/files/images/hexo-default-bg.jpg'
-      default: ''
+      default: 'https://lh3.googleusercontent.com/proxy/QYTq0IKuQ_BySo8JJdt3-005Y9hYrpurLF_9V0YD7KuN8XABgIOpBK1rif8sT1pkYoAQqe6vjvFkanjLt7_pDK7GI0sT19ilJptvWq9vLPovrTRt8MjgjThD7L2T1wN_5G_SCXVtFdSZbaccxK6-yRXxGLcTznWS0ogBvA'
     },
     sText: {
       type: String,
@@ -95,6 +118,14 @@ export default {
     eText: {
       type: String,
       default: '请正确拼合图像'
+    },
+    isClose: {
+      type: Boolean,
+      default: true
+    },
+    isReload: {
+      type: Boolean,
+      default: true
     },
   },
   components: {
@@ -106,6 +137,10 @@ export default {
   methods: {
     handlerClick() {
       console.log('handlerClick')
+    },
+    close() {
+      // this.isShowSelf = false
+      this.$emit('change', false)
     },
     getContainer() {
       return document.getElementById("canvas_containe");
@@ -193,9 +228,10 @@ export default {
         block_ctx.putImageData(ImageData, 0, y)
       }
     },
-    drag(event, linkageId) {
+    drag(event, targetId, linkageId) {
       // console.log("clickE => ", event);
-      const dom = event.target;
+      this.isTouch = true
+      const targetDom = document.querySelector(`#${targetId}`);
       const linkageDom = document.querySelector(`#${linkageId}`);
       const placehold = document.querySelector("#placehold");
       const terminal = this.terminal
@@ -217,12 +253,13 @@ export default {
           placehold.style.opacity = 1
         }
         if (x >= (this.bgWidth - L) || x <= -2) return false
-        dom.style.left = x + 'px';
+        targetDom.style.left = x + 'px';
         linkageDom.style.left = x + "px";
         placehold.style.opacity = 0
       };
 
       const up = () => {
+        this.isTouch = false
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
 
@@ -244,8 +281,8 @@ export default {
         setTimeout(() => {
           this.popupShow = false
         }, 500)
+        targetDom.style.left = 0
         linkageDom.style.left = 0
-        dom.style.left = 0
         this.initCanvas(true)
       };
 
@@ -314,6 +351,7 @@ export default {
 
   #verify_containe {
     position: relative;
+    padding-bottom 45px
 
     #canvas_containe {
       position: relative;
@@ -329,7 +367,7 @@ export default {
     .slide-box {
       width: 100%;
       height: 40px;
-      margin-top: 20px;
+      margin-top: 15px;
       border-radius: 20px;
       background: #DFE0E1;
       position: relative;
@@ -348,10 +386,55 @@ export default {
         background: white;
         border: 1px solid #D0D0D0;
         cursor: pointer;
+        display flex
+        justify-content center
+        align-items center
+
+        .verticals {
+          display flex
+          align-item center
+          img {
+            width 8px
+            height 16px
+          }
+        }
+
+        .arrow {
+          display flex
+          align-item center
+          img {
+            width 15px
+            height 18px
+          }
+        }
       }
 
       #placehold {
         transition: opacity 0.3s;
+        user-select: none;
+      }
+    }
+
+    .operational {
+      position absolute
+      width: 100%
+      height 32px
+      left -10px
+      bottom 0
+      border-top 1px solid #EAE8E8
+      padding 0 10px
+      display flex
+      align-items flex-end
+
+      img:first-child {
+        margin-left 0
+      }
+
+      img {
+        width 22px
+        height 22px
+        margin-left 10px
+        cursor: pointer;
       }
     }
   }
