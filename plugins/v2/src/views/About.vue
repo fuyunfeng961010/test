@@ -2,7 +2,7 @@
   <div class="about">
     <v-button type="warning" @eclick="handlerClick">verify</v-button>
     <div class="dialog">
-      <SliderVerify  :isShowSelf.sync="isVerifyShow"></SliderVerify>
+      <SliderVerify  :isShowSelf.sync="isVerifyShow" @reload="reload" @show="show" @hide="hide" @success="success" @fail="fail"></SliderVerify>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: 'About',
   data() {
     return {
-      isVerifyShow: false
+      isVerifyShow: true
     }
   },
   mounted() {
@@ -20,6 +20,21 @@ export default {
     handlerClick() {
       console.log('handlerClick')
       this.isVerifyShow = true
+    },
+    reload() {
+      console.log('SliderVerify => reload')
+    },
+    show() {
+      console.log('SliderVerify => show')
+    },
+    hide() {
+      console.log('SliderVerify => hide')
+    },
+    success() {
+      console.log('SliderVerify => success')
+    },
+    fail() {
+      console.log('SliderVerify => fail')
     }
   }
 }

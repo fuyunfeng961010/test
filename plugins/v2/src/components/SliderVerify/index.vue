@@ -1,9 +1,9 @@
 <template>
   <div id="plugin-slider-verify_containe">
-    <div style="display: none">
+    <!-- <div style="display: none">
       <img ref="bgImgRef" crossOrigin :src="imgUrl" v-if="imgUrl" />
-      <img ref="bgImgRef" src="./images/bg.jpg" v-else />
-    </div>
+      <img ref="bgImgRef" :src="require(`./images/bg${bgRandom}.jpg`)" v-else />
+    </div> -->
     <div
       id="slider-verify"
       :class="{ 'is-border': isBorder }"
@@ -11,8 +11,14 @@
     >
       <div id="verify_containe">
         <div id="canvas_containe">
-          <canvas id="bg_canvas"></canvas>
+          <div class="loading" :style="{'width': `${width}px`, 'height': `${height}px`}" v-if="loading">
+            <loading type="circular" vertical>
+              <span>加载中...</span>
+            </loading>
+          </div>
+          <canvas id="bg_canvas" v-show="!loading"></canvas>
           <canvas
+            v-show="!loading"
             id="block_canvas"
             @mousedown.prevent="(e) => drag(e, 'block_canvas', 'circle')"
             @touchstart="
@@ -41,6 +47,7 @@
             </div>
             <div class="arrow" v-show="isTouch">
               <img src="./images/arrow_left.png" alt="" />
+              <img src="./images/circle.png" class="circle" alt="" />
               <img src="./images/arrow_right.png" alt="" />
             </div>
           </div>
@@ -48,12 +55,12 @@
         </div>
 
         <div class="operational">
-          <img src="./images/close.png" alt="" @click="close" v-if="isClose" />
+          <img src="./images/close.png" alt="" @click="close" v-if="isCloseBtn" />
           <img
             src="./images/reload.png"
             alt=""
-            @click="initCanvas(true)"
-            v-if="isReload"
+            @click="initCanvas(); $emit('reload')"
+            v-if="isReloadBtn"
           />
         </div>
       </div>
@@ -71,7 +78,7 @@
   </div>
 </template>
 <script>
-import { Popup } from 'vant';
+import { Popup, Loading } from 'vant';
 
 const l = 42 // 滑块边长
 const r = 9 // 滑块圆半径
@@ -89,7 +96,9 @@ export default {
       terminal: 'pc',
       blkTilesW: null,
       bgWidth: null,
-      isTouch: false
+      isTouch: false,
+      bgRandom: 0,
+      loading: false
     }
   },
   props: {
@@ -100,7 +109,7 @@ export default {
     },
     width: {
       type: Number,
-      default: 280
+      default: 300
     },
     height: {
       type: Number,
@@ -112,7 +121,7 @@ export default {
     },
     imgUrl: {
       type: String,
-      default: 'https://lh3.googleusercontent.com/proxy/QYTq0IKuQ_BySo8JJdt3-005Y9hYrpurLF_9V0YD7KuN8XABgIOpBK1rif8sT1pkYoAQqe6vjvFkanjLt7_pDK7GI0sT19ilJptvWq9vLPovrTRt8MjgjThD7L2T1wN_5G_SCXVtFdSZbaccxK6-yRXxGLcTznWS0ogBvA'
+      default: ''
     },
     sText: {
       type: String,
@@ -122,11 +131,11 @@ export default {
       type: String,
       default: '请正确拼合图像'
     },
-    isClose: {
+    isCloseBtn: {
       type: Boolean,
       default: true
     },
-    isReload: {
+    isReloadBtn: {
       type: Boolean,
       default: true
     },
@@ -135,8 +144,17 @@ export default {
       default: false
     }
   },
+  watch: {
+    isShowSelf(newVal) {
+      if (newVal) {
+        return this.$emit('show')
+      }
+      this.$emit('hide')
+    }
+  },
   components: {
-    Popup
+    Popup,
+    Loading
   },
   mounted() {
     this.initCanvas()
@@ -147,11 +165,14 @@ export default {
     },
     close() {
       this.$emit('update:isShowSelf', false)
+      this.$emit('close')
     },
     getContainer() {
       return document.getElementById("canvas_containe");
     },
-    initCanvas(reset = false) {
+    initCanvas() {
+      this.loading = true
+
       const bg_canvas = document.getElementById("bg_canvas")
       const bg_ctx = bg_canvas.getContext('2d')
 
@@ -161,8 +182,18 @@ export default {
       const placehold = document.getElementById("placehold")
       placehold.style.opacity = 1
 
-      const img = this.$refs.bgImgRef
 
+      const random = (max, min) => {
+        // return Math.floor(Math.random() * (max - min) + min)
+        return Math.floor(Math.random() * (min - max) + max)
+      }
+
+      // const img = this.$refs.bgImgRef
+      // img.src = require(`./images/bg${bgRandom}.jpg`)
+      const bgRandom = random(3, 0)
+      const img = new Image()
+      img.crossOrigin = 'Anonymous'
+      img.src = this.imgUrl ? this.imgUrl : `https://portal.fuyunfeng.top/files/images/SliderVerify-${bgRandom}.jpg`
 
       /**
        * 默认width
@@ -185,14 +216,7 @@ export default {
         }
       }
 
-      console.log('width', width)
-
       const height = this.height
-
-      const random = (start, end) => {
-        // return Math.floor(Math.random() * (max - min) + min)
-        return Math.floor(Math.random() * (end - start) + start)
-      }
 
       /**
        * 滑块随机受控图形区间内 x轴
@@ -208,23 +232,9 @@ export default {
       block_canvas.height = height
 
       img.onload = () => {
+        this.loading = false
         // console.log('onload')
 
-        this.draw(bg_ctx, { x: blkTilesW, y: Y, r: r }, 'fill')
-        this.draw(block_ctx, { x: blkTilesW, y: Y, r: r }, 'clip')
-
-        bg_ctx.drawImage(img, 0, 0, width, height)
-        block_ctx.drawImage(img, 0, 0, width, height)
-
-        // 提取滑块放至左侧 并重置滑块画布宽度
-        const y = Y - r * 2 - 1
-        const ImageData = block_ctx.getImageData(blkTilesW - 3, y, L, L)
-        block_canvas.width = L
-        block_ctx.putImageData(ImageData, 0, y)
-      }
-
-      // 重置画布 
-      if (reset) {
         this.draw(bg_ctx, { x: blkTilesW, y: Y, r: r }, 'fill')
         this.draw(block_ctx, { x: blkTilesW, y: Y, r: r }, 'clip')
 
@@ -283,8 +293,10 @@ export default {
         const intervalMin = this.blkTilesW - 5
         if (x >= intervalMin && x <= intervalMax) {
           this.verifyResult = true
+          this.$emit('success')
         } else {
           this.verifyResult = false
+          this.$emit('fail')
         }
 
         this.popupShow = true
@@ -293,7 +305,7 @@ export default {
         }, 500)
         targetDom.style.left = 0
         linkageDom.style.left = 0
-        this.initCanvas(true)
+        this.initCanvas()
       };
 
       if (terminal === 'pc') {
@@ -315,7 +327,7 @@ export default {
       ctx.lineTo(x, y + l)
       ctx.arc(x + r - 2, y + l / 2, r + 0.4, 2.76 * PI, 1.24 * PI, true)
       ctx.lineTo(x, y)
-      ctx.lineWidth = 2
+      ctx.lineWidth = 1
       ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)'
       ctx.stroke()
@@ -372,6 +384,12 @@ export default {
         left: 0px;
         cursor: pointer;
       }
+
+      .loading {
+        display flex
+        justify-content center
+        align-items center
+      }
     }
 
     .slide-box {
@@ -412,11 +430,16 @@ export default {
 
         .arrow {
           display: flex;
-          align-item: center;
+          align-items: center;
 
           img {
-            width: 15px;
-            height: 18px;
+            width: 13px;
+            height: 16px;
+          }
+
+          img.circle {
+            width: 13px;
+            height: 13px;
           }
         }
       }
