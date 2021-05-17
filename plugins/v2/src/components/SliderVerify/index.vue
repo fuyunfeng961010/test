@@ -9,7 +9,7 @@
       :class="{ 'is-border': isBorder }"
       v-show="isShowSelf"
     >
-      <div id="verify_containe">
+      <div id="verify_containe" :class="{'is-opt': isCloseBtn || isReloadBtn}">
         <div id="canvas_containe">
           <div class="loading" :style="{'width': `${width}px`, 'height': `${height}px`}" v-if="loading">
             <loading type="circular" vertical>
@@ -54,7 +54,7 @@
           <span id="placehold">拖动滑块完成拼图</span>
         </div>
 
-        <div class="operational">
+        <div class="operational" v-if="isCloseBtn || isReloadBtn">
           <img src="./images/close.png" alt="" @click="close" v-if="isCloseBtn" />
           <img
             src="./images/reload.png"
@@ -150,7 +150,22 @@ export default {
         return this.$emit('show')
       }
       this.$emit('hide')
-    }
+    },
+    width() {
+      this.initCanvas()
+    },
+    height() {
+      this.initCanvas()
+    },
+    isBorder() {
+      this.initCanvas()
+    },
+    imgUrl() {
+      this.initCanvas()
+    },
+    isParentNode() {
+      this.initCanvas()
+    },
   },
   components: {
     Popup,
@@ -171,6 +186,7 @@ export default {
       return document.getElementById("canvas_containe");
     },
     initCanvas() {
+      console.log('initCanvas', this.width)
       this.loading = true
 
       const bg_canvas = document.getElementById("bg_canvas")
@@ -371,9 +387,12 @@ export default {
   border-radius: 5px;
   overflow: hidden;
 
+  .is-opt {
+    padding-bottom: 45px;
+  }
+
   #verify_containe {
     position: relative;
-    padding-bottom: 45px;
 
     #canvas_containe {
       position: relative;
