@@ -8,10 +8,10 @@ const install = function (Vue) {
   install.installed = true;
 
   // 将包装好的 toast 挂到Vue的原型上，作为 Vue 实例上的方法
-  Vue.prototype.$toast = toast;
-  Vue.prototype.$test = 'tets';
+  // Vue.prototype.$toast = toast;
+  // Vue.prototype.$test = 'tets';
 
-  Vue.component(Button.name, Button)
+  // Vue.component(Button.name, Button)
   Vue.component(SliderVerify.name, SliderVerify)
 }
 

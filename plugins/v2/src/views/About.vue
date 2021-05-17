@@ -1,6 +1,8 @@
 <template>
   <div class="about">
-    <v-button type="warning" @eclick="handlerClick">verify</v-button>
+    <div @click="handlerClick">
+      verify
+    </div>
     <div class="dialog">
       <SliderVerify  :isShowSelf.sync="isVerifyShow" @reload="reload" @show="show" @hide="hide" @success="success" @fail="fail"></SliderVerify>
     </div>
