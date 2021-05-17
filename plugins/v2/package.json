@@ -1,6 +1,6 @@
 {
   "name": "@fuyf/slider-verify-v2",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "./lib/vplugin.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -33,6 +33,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "files": [
-    "lib/vplugin.umd.min.js"
+    "lib/vplugin.umd.min.js",
+    "lib/vplugin.css"
   ]
 }
