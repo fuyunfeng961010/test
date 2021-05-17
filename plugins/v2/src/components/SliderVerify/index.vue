@@ -210,6 +210,10 @@ export default {
       const img = new Image()
       img.crossOrigin = 'Anonymous'
       img.src = this.imgUrl ? this.imgUrl : `https://portal.fuyunfeng.top/files/images/SliderVerify-${bgRandom}.jpg`
+      img.onerror = () => {
+        console.log('onerror')
+        img.src = 'https://portal.fuyunfeng.top/files/images/SliderVerify-error.png'
+      }
 
       /**
        * 默认width

@@ -1,13 +1,19 @@
 <template>
   <div class="slider-verify-example">
+    <div class="nav-header">
+      <a href="https://github.com/author-fuyf/recording/tree/feature/recording/plugins/v2" target="_blank">
+        <img src="./image/gitHub.png" alt="">
+      </a>
+    </div>
     <el-row>
       <el-col :span="12">
         <div class="left-config">
           <el-form ref="form" :model="sliderVConf" label-width="80px">
             <el-form-item label="图片链接">
               <el-input
-                v-model="sliderVConf.imgUrl"
+                v-model="imgUrl"
                 placeholder="完整绝对路径，如https://"
+                @blur="sliderVConf.imgUrl = imgUrl"
               ></el-input>
             </el-form-item>
 
@@ -101,6 +107,7 @@ export default {
   name: 'SliderVerifyExample',
   data() {
     return {
+      imgUrl: '',
       sliderVConf: {
         imgUrl: '',
         sText: '验证通过',
@@ -120,7 +127,18 @@ export default {
 
 <style scoped lang="stylus">
 .slider-verify-example {
-  margin-top: 90px;
+  // margin-top: 90px;
+
+  .nav-header {
+    padding: 20px 50px
+    text-align right
+
+    img {
+      width 30px
+      height 30px;
+      cursor: pointer;
+    }
+  }
 
   .left-config {
     width: 80%;

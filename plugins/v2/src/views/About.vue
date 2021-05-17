@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="opreation">
-      <span @click="imgUrl = 'https://portal.fuyunfeng.top/files/images/SliderVerify-3.jpg'">imgUrl</span>
+      <span @click="imgUrl = 'https://portal.fuyunfeng.top/files/images/SliderVerify-31.jpg'">imgUrl</span>
       <span @click="isShowSelf = !isShowSelf">isShowSelf</span>
       <span @click="width = 400">width 400</span>
       <span @click="height = 200">height 220</span>
