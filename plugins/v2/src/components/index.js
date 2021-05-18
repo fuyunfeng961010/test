@@ -15,6 +15,10 @@ const install = function (Vue) {
   Vue.component(SliderVerify.name, SliderVerify)
 }
 
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
+}
+
 // 默认导出 install
 export default {
   install,
