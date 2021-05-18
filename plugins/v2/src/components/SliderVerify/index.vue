@@ -78,7 +78,7 @@
   </div>
 </template>
 <script>
-import { Popup, Loading } from 'vant';
+import { Popup, Loading, Toast } from 'vant';
 
 const l = 42 // 滑块边长
 const r = 9 // 滑块圆半径
@@ -211,7 +211,10 @@ export default {
       img.crossOrigin = 'Anonymous'
       img.src = this.imgUrl ? this.imgUrl : `https://portal.fuyunfeng.top/files/images/SliderVerify-${bgRandom}.jpg`
       img.onerror = () => {
-        console.log('onerror')
+        Toast({
+          message: '图片加载失败',
+          position: 'top'
+        })
         img.src = 'https://portal.fuyunfeng.top/files/images/SliderVerify-error.png'
       }
 

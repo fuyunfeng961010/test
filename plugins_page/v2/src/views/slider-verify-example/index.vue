@@ -6,7 +6,7 @@
       </a>
     </div>
     <el-row>
-      <el-col :span="12">
+      <el-col :md="12" :sm="24">
         <div class="left-config">
           <el-form ref="form" :model="sliderVConf" label-width="80px">
             <el-form-item label="图片链接">
@@ -82,7 +82,7 @@
           </el-form>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :md="12" :sm="24">
         <div class="right-show-off">
           <SliderVerify
             :imgUrl="sliderVConf.imgUrl"
