@@ -6,8 +6,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-import SliderVerify from '@fuyf/slider-verify-v2';
-import '@fuyf/slider-verify-v2/lib/SliderVerify.css'
+import SliderVerify from 'slider-verify-v2';
+import 'slider-verify-v2/lib/SliderVerify.css'
 Vue.use(SliderVerify);
 
 Vue.config.productionTip = false

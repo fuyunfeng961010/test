@@ -1,7 +1,7 @@
 <template>
   <div class="slider-verify-example">
     <div class="nav-header">
-      <a href="https://github.com/author-fuyf/recording/tree/feature/recording/plugins/v2" target="_blank">
+      <a href="https://github.com/author-fuyf/slider-verify-v2" target="_blank">
         <img src="./image/gitHub.png" alt="">
       </a>
     </div>
