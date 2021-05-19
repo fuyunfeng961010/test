@@ -3,6 +3,7 @@
     <div class="nav-header">
       <a href="https://github.com/author-fuyf/slider-verify-v2" target="_blank">
         <img src="./image/gitHub.png" alt="">
+        <span class="github">GitHub</span>
       </a>
     </div>
     <el-row>
@@ -137,6 +138,11 @@ export default {
       width 30px
       height 30px;
       cursor: pointer;
+    }
+
+    .github {
+      margin-left 5px
+      vertical-align super
     }
   }
 
