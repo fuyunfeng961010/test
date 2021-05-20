@@ -1,7 +1,7 @@
 <template>
   <div class="slider-verify-example">
     <div class="nav-header">
-      <a href="https://github.com/author-fuyf/slider-verify-v2" target="_blank">
+      <a href="https://github.com/author-fuyf/slider-verify-v3" target="_blank">
         <img src="./image/gitHub.png" alt="">
         <span class="github">GitHub</span>
       </a>
@@ -89,7 +89,7 @@
             :imgUrl="sliderVConf.imgUrl"
             :sText="sliderVConf.sText"
             :eText="sliderVConf.eText"
-            :isShowSelf.sync="sliderVConf.isShowSelf"
+            v-model:isShowSelf="sliderVConf.isShowSelf"
             :isBorder="sliderVConf.isBorder"
             :isParentNode="sliderVConf.isParentNode"
             :isCloseBtn="sliderVConf.isCloseBtn"
@@ -109,11 +109,12 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from 'vue';
+export default defineComponent({
   name: 'SliderVerifyExample',
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       imgUrl: '',
       sliderVConf: {
         imgUrl: '',
@@ -126,15 +127,17 @@ export default {
         isReloadBtn: true,
         width: 300,
         height: 180,
-      },
-    }
-  },
-  methods: {
-    emitChange(type) {
+      }
+    })
+    const emitChange = (type: string) => {
       console.log(type)
     }
+    return {
+      ...toRefs(state),
+      emitChange
+    }
   }
-}
+})
 </script>
 
 <style scoped lang="stylus">
