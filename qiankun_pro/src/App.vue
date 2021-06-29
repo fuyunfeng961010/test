@@ -2,9 +2,14 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About1</router-link> |
+      <router-link to="/micro-app-vue">micro-app-vue</router-link> |
+      <router-link to="/micro-app-jquery">micro-app-jquery</router-link>
     </div>
-    <router-view/>
+    <router-view v-show="$route.name" />
+
+    <div id="VueMicroApp"></div>
+    <div id="JqueryMicroApp"></div>
   </div>
 </template>
 
