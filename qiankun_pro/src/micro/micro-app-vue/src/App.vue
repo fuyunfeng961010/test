@@ -40,9 +40,16 @@ export default {
       });
     },
     goMicroJquery() {
-      this.$actions.mainData.router.push({
-        path: '/micro-app-jquery'
-      })
+      // 主应用router
+      // this.$actions.mainData.router.push({
+      //   path: '/micro-app-jquery'
+      // })
+
+      // history.pushState
+      const state = { 'page_id': 1, 'user_id': 5 }
+      const title = 'pushState'
+      const url = 'micro-app-jquery'
+      history.pushState(state, title, url)
     }
   }
 }

@@ -52,9 +52,14 @@
     });
 
     $('#goMicroVue').click(() => {
-      $actions.mainData.router.push({
-        path: '/micro-app-vue'
-      })
+      // $actions.mainData.router.push({
+      //   path: '/micro-app-vue'
+      // })
+
+      const state = { 'page_id': 1, 'user_id': 5 }
+      const title = 'pushState'
+      const url = 'micro-app-vue'
+      history.pushState(state, title, url)
     });
   }
 

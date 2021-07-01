@@ -34,6 +34,10 @@ export default {
       console.log("qiankun主应用监听 => state 改变后的state值为 ", state);
       this.state = state
     }, true);
+
+    window.addEventListener('popstate', (event) => {
+      console.log("location: " + document.location +  ", state: " + JSON.stringify(event.state));
+    });
   },
   methods: {
     setState() {
