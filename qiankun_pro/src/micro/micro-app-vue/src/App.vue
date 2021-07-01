@@ -8,6 +8,9 @@
       <router-link to="/">Home child</router-link> |
       <router-link to="/about">About child</router-link>
     </div>
+    <div>
+      <button @click="goMicroJquery">gopath microJquery</button>
+    </div>
     <router-view />
   </div>
 </template>
@@ -34,6 +37,12 @@ export default {
     setState() {
       this.$actions.setGlobalState({ 
         operation: 'micro-app-vue'
+      });
+    },
+    goMicroJquery() {
+      this.$actions.setGlobalState({ 
+        operation: 'micro-app-vue',
+        goPath: '/micro-app-jquery'
       });
     }
   }

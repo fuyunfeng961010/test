@@ -1,7 +1,8 @@
 import { initGlobalState } from "qiankun";
 
 const initialState = {
-  operation: 'default'
+  operation: 'default',
+  goPath: ''
 };
 const actions = initGlobalState(initialState);
 

@@ -13,7 +13,7 @@
   <div style="margin-top: 10px;margin-bottom: 10px;" id="state">
   </div>
   <button style="margin-bottom: 10px;" id="setState">jquery子应用 setState('micro-app-jquery')</button>
-  <h6>jquery app</h6>
+  <button id="goMicroVue">gopath microVue</button>
 </body>
 <!-- 引入 jquery -->
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -46,9 +46,15 @@
     }, true);
 
     $('#setState').click(() => {
-      console.log('setState')
       $actions.setGlobalState({ 
         operation: 'micro-app-jquery'
+      });
+    });
+
+    $('#goMicroVue').click(() => {
+      $actions.setGlobalState({ 
+        operation: 'micro-app-jquery',
+        goPath: '/micro-app-vue'
       });
     });
   }
