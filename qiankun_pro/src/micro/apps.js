@@ -2,7 +2,7 @@
 //   //return location => location.pathname.startsWith(routerPrefix)
 //   return location => location.hash.startsWith('#' + routerPrefix)
 // }
-
+import router from '@/router'
 const apps = [
   {
     name: "VueMicroApp",
@@ -11,6 +11,11 @@ const apps = [
     container: "#VueMicroApp",
     activeRule: "/micro-app-qiankun/micro-app-vue",
     // activeRule: genActiveRule('/micro-app-vue'),
+    props: {
+      mainData: {
+        router
+      }
+    }
   },
   {
     name: "JqueryMicroApp",
@@ -18,6 +23,11 @@ const apps = [
     // entry: "https://portal.fuyunfeng.top/micro-app-jquery/index.html",
     container: "#JqueryMicroApp",
     activeRule: "/micro-app-qiankun/micro-app-jquery",
+    props: {
+      mainData: {
+        router
+      }
+    }
   }
 ];
 

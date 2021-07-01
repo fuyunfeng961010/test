@@ -40,10 +40,9 @@ export default {
       });
     },
     goMicroJquery() {
-      this.$actions.setGlobalState({ 
-        operation: 'micro-app-vue',
-        goPath: '/micro-app-jquery'
-      });
+      this.$actions.mainData.router.push({
+        path: '/micro-app-jquery'
+      })
     }
   }
 }

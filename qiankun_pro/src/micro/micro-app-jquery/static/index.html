@@ -52,10 +52,9 @@
     });
 
     $('#goMicroVue').click(() => {
-      $actions.setGlobalState({ 
-        operation: 'micro-app-jquery',
-        goPath: '/micro-app-vue'
-      });
+      $actions.mainData.router.push({
+        path: '/micro-app-vue'
+      })
     });
   }
 

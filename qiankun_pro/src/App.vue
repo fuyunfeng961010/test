@@ -33,14 +33,6 @@ export default {
       console.log("qiankun主应用监听 => state 改变前的state值为 ", prevState);
       console.log("qiankun主应用监听 => state 改变后的state值为 ", state);
       this.state = state
-
-      if (state.goPath) {
-        if (this.$route.path === state.goPath) return
-        console.log('goPath')
-        this.$router.push({
-          path: state.goPath
-        })
-      }
     }, true);
   },
   methods: {
