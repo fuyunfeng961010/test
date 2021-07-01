@@ -5,10 +5,14 @@ import {
   registerMicroApps,
   addGlobalUncaughtErrorHandler,
   start,
+  runAfterFirstMounted ,
+  // setDefaultMountApp
 } from "qiankun";
 
 // 微应用注册信息
 import apps from "./apps";
+
+// setDefaultMountApp('/micro-app-qiankun/micro-app-vue')
 
 /**
  * 注册微应用
@@ -43,6 +47,10 @@ addGlobalUncaughtErrorHandler((event) => {
     message.error("微应用加载失败，请检查应用是否可运行");
   }
 });
+
+runAfterFirstMounted(() => {
+  // console.log('第一个微应用 mount ')
+})
 
 // 导出 qiankun 的启动函数
 export default start;

@@ -10,14 +10,18 @@
 </head>
 
 <body>
+  <div style="margin-top: 10px;margin-bottom: 10px;" id="state">
+  </div>
+  <button style="margin-bottom: 10px;" id="setState">jquery子应用 setState('micro-app-jquery')</button>
   <h6>jquery app</h6>
-  <section id="jquery-app-container" style="padding: 20px; color: blue;">
-    <h6>jquery app</h6>
-  </section>
 </body>
 <!-- 引入 jquery -->
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
+  console.log('script')
+
+  let $actions = null
 
   /**
    * 渲染函数
@@ -32,6 +36,23 @@
     render($);
   }
 
+  const actionHandler = () => {
+    console.log('$actions =>', $actions)
+    $actions.onGlobalStateChange((state, prevState) => {
+      // state: 变更后的状态; prevState: 变更前的状态
+      console.log("jquery子应用监听 => state 改变前的state值为 ", prevState);
+      console.log("jquery子应用监听 => state 改变后的state值为 ", state);
+      $('#state').html(`state => ${JSON.stringify(state)}`)
+    }, true);
+
+    $('#setState').click(() => {
+      console.log('setState')
+      $actions.setGlobalState({ 
+        operation: 'micro-app-jquery'
+      });
+    });
+  }
+
   ((global) => {
     /**
      * 注册微应用生命周期钩子函数
@@ -43,21 +64,25 @@
        * 通常我们可以在这里做一些全局变量的初始化，比如不会在 unmount 阶段被销毁的应用级别的缓存等。
        */
       bootstrap: () => {
-        console.log("JqueryMicroApp bootstraped");
+        // console.log("JqueryMicroApp bootstraped");
         return Promise.resolve();
       },
       /**
        * 应用每次进入都会调用 mount 方法，通常我们在这里触发应用的渲染方法
        */
-      mount: () => {
-        console.log("JqueryMicroApp mount");
+      mount: (props) => {
+        // console.log("JqueryMicroApp mount", props);
+        if (props) { 
+          $actions = props
+          actionHandler()
+        }
         return render($);
       },
       /**
        * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例
        */
       unmount: () => {
-        console.log("JqueryMicroApp unmount");
+        // console.log("JqueryMicroApp unmount");
         return Promise.resolve();
       },
     };

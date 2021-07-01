@@ -23,6 +23,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: 'micro-app-qiankun',
+  // base: '',
   routes
 })
 
