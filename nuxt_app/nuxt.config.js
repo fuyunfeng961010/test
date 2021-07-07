@@ -44,7 +44,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
 
   server: {
-    port: 9003
+    host: '0.0.0.0',
+    port: 4877
   },
 
   // nuxt_server || nuxt_static
