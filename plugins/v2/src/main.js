@@ -4,7 +4,9 @@ import router from "./router";
 import store from "./store";
 
 import vplugin from './components/index.js';
-Vue.use(vplugin);
+Vue.use(vplugin, router);
+
+// console.log('Vue.$routerHistory', Vue.$routerHistory)
 
 Vue.config.productionTip = false;
 

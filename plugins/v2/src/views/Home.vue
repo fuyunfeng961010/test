@@ -16,6 +16,9 @@ export default {
   name: "Home",
   components: {
   },
+  mounted() {
+    // console.log('$routerHistory', this.$routerHistory.getters.routes())
+  },
   methods: {
     goList() {
       this.$router.push({

@@ -8,6 +8,17 @@
   </div>
 </template>
 
+<script>
+  export default {
+    name: 'App',
+    watch: {
+      '$route'(newVal) {
+        console.log('$routerHistory', this.$routerHistory.getters.routes())
+      }
+    }
+  }
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
