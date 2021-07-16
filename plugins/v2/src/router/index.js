@@ -52,6 +52,8 @@ const routes = [
   },
 ];
 
+// console.log('VueRouter', VueRouter)
+
 let routerTrigger = false
 class MyRouter extends VueRouter {
   push(location, onComplete, onAbort) {
@@ -77,9 +79,11 @@ class MyRouter extends VueRouter {
 
 
 const router = new MyRouter({
-  mode: 'history',
+  // mode: 'history',
   routes,
 });
+
+// console.log('router', router)
 
 window.addEventListener('hashchange', function (e) {
   console.log('hashchange => ', e)

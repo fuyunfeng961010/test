@@ -15,6 +15,7 @@ module.exports = {
     'no-console': 'off',
     'no-debugger': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    "no-unreachable": 'off'
+    "no-unreachable": 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 }
