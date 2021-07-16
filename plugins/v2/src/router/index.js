@@ -86,12 +86,12 @@ const router = new MyRouter({
 // console.log('router', router)
 
 window.addEventListener('hashchange', function (e) {
-  console.log('hashchange => ', e)
+  // console.log('hashchange => ', e)
 })
 
 window.addEventListener('popstate', function (e) {
-  console.log('popstate => ', e)
-  console.log('window.history => ', window.history)
+  // console.log('popstate => ', e)
+  // console.log('window.history => ', window.history)
 });
 
 router.afterEach((to, from) => {
@@ -106,5 +106,6 @@ router.afterEach((to, from) => {
   console.log('store routes=> ', JSON.parse(JSON.stringify( store.getters['history/routes'])))
   console.log('store index=> ', JSON.parse(JSON.stringify( store.state['history']['index'])))
   console.log('store direction=> ', JSON.parse(JSON.stringify( store.state['history']['direction'])))
+  console.log('store records=> ', JSON.parse(JSON.stringify( store.state['history']['records'])))
 })
 export default router;
