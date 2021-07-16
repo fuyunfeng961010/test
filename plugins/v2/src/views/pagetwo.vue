@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <h3>home</h3>
-    <div @click="goList">goList()</div>
+    <h3>pagetwo</h3>
+    <div @click="goPagethree">goPagethree()</div>
+    <div @click="go(-1)">go(-1)</div>
+    <div @click="go(-2)">go(-2)</div>
+    <div @click="go(-3)">go(-3)</div>
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <!-- <v-button type="warning" @eclick="handlerClick"></v-button> -->
@@ -13,14 +16,17 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "Home",
+  name: "Pageone",
   components: {
   },
   methods: {
-    goList() {
+    goPagethree() {
       this.$router.push({
-        name: 'List'
+        name: 'Pagethree'
       })
+    },
+    go(num) {
+      this.$router.go(num)
     }
   }
 };
@@ -28,5 +34,13 @@ export default {
 <style lang="stylus" scoped>
 .home {
   padding 20px 2.5% 0;
+}
+
+div:first-child {
+  margin-top 0
+}
+
+div {
+  margin-top 10px
 }
 </style>

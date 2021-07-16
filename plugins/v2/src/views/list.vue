@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <h3>home</h3>
-    <div @click="goList">goList()</div>
+    <h3>list</h3>
+    <div @click="goDetail">goDetail()</div>
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <!-- <v-button type="warning" @eclick="handlerClick"></v-button> -->
@@ -17,9 +17,9 @@ export default {
   components: {
   },
   methods: {
-    goList() {
+    goDetail() {
       this.$router.push({
-        name: 'List'
+        name: 'Detail'
       })
     }
   }

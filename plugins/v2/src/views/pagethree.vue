@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <h3>home</h3>
-    <div @click="goList">goList()</div>
+    <h3>pagethree</h3>
+    <div @click="goHome">goHome()</div>
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <!-- <v-button type="warning" @eclick="handlerClick"></v-button> -->
@@ -13,14 +13,15 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "Home",
+  name: "Pageone",
   components: {
   },
   methods: {
-    goList() {
+    goHome() {
       this.$router.push({
-        name: 'List'
+        name: 'Home'
       })
+      // this.$router.go(-1)
     }
   }
 };
