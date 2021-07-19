@@ -1,11 +1,17 @@
+/**
+ * 路由触发由程序api触发 还是导航栏前进后退触发
+ */
 let routerTrigger = false
+
+/**
+ * 扩展传入的router 
+ * 维护自定义得 路由栈 逻辑
+ * @param {router} router 
+ */
 const routerExpandRewrite = function (router) {
-  const {push, replace, go} = router
+  const { push, replace, go } = router
   router.push = function (location, onComplete, onAbort) {
     routerTrigger = true
-    // console.log('router.resolve(location)', router.resolve(location))
-    // console.log('router.resolve(location)', router.resolve(location).resolved)
-    // store.commit('history/PUSH_ROUTE', router.resolve(location).resolved)
     PUSH_ROUTE(router.resolve(location).resolved)
     push.call(this, location, onComplete, onAbort)
   }
@@ -17,17 +23,20 @@ const routerExpandRewrite = function (router) {
   router.go = function (delta) {
     if (delta !== 0) {
       routerTrigger = true
-      // store.commit('history/POP_ROUTE', { count: delta })
       POP_ROUTE({ count: delta })
       go.call(this, delta)
     } else {
       window.location.reload()
     }
   }
-
   routerAfterEach(router)
 }
 
+/**
+ * 路由变化 路由栈的维护
+ * 主要针对导航的前进返回处理
+ * @param {router} router 
+ */
 const routerAfterEach = (router) => {
   router.afterEach((to, from) => {
     if (to.matched.length > 0 && state.records.length === 0) {
@@ -45,17 +54,17 @@ const routerAfterEach = (router) => {
 }
 
 const state = {
-  records: [], //历史路由数组
-  index: 0, //当前路由索引
-  direction: '', //history变化方向, forward/backward
+  records: [], // 历史路由数组
+  index: 0, // 当前路由索引
+  direction: '', // history变化方向, forward/backward
 }
 
-const getters = {
+const getters = {   
   routes: () => {
     const { records, index } = state
     if (records.length > 0 && index < records.length) {
       return records.slice(0, index + 1)
-    }
+    } 
     return []
   }
 }
@@ -69,7 +78,7 @@ const formRecord = (vueRoute) => {
   }
 }
 
-const PUSH_ROUTE = function(vueRoute) {
+const PUSH_ROUTE = function (vueRoute) {
   const record = formRecord(vueRoute)
   let { records, index } = state
   if (index + 1 < records.length) {
@@ -80,8 +89,9 @@ const PUSH_ROUTE = function(vueRoute) {
   state.index = records.length - 1
   state.direction = 'forward'
 }
-//记录 router.replace
-const REPLACE_ROUTE = function(vueRoute) {
+
+// 记录 router.replace
+const REPLACE_ROUTE = function (vueRoute) {
   const record = formRecord(vueRoute)
   let { records, index } = state
   if (index + 1 < records.length) {
@@ -93,8 +103,9 @@ const REPLACE_ROUTE = function(vueRoute) {
   state.index = index
   state.direction = 'forward'
 }
-//记录 router.pop 前进/后退
-//count是跳跃的历史记录数, >0是前进, <0是回退，path是当前的location.href
+
+// 记录 router.pop 前进 / 后退
+// count是跳跃的历史记录数, >0是前进, <0是回退，path是当前的location.href
 const POP_ROUTE = function ({ count, path }) {
   let { records, index, direction } = state
 
@@ -119,7 +130,6 @@ const POP_ROUTE = function ({ count, path }) {
   state.index = index
   state.direction = direction
 }
-
 
 export default {
   routerExpandRewrite,
